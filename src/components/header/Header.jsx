@@ -7,9 +7,9 @@ import { STUDIO_NAME } from "../../constants";
 import context from "../../context/context";
 
 const navigation = [
+    { value: 'Favorite', href: '/favorite', auth: 'user' },
     { value: 'Gallery', href: '/gallery', auth: false },
     { value: 'Artists', href: '/artists', auth: false },
-    { value: 'Booking', href: '/booking', auth: 'user' },
     { value: 'Contact Us', href: '/contact', auth: false },
     { value: 'Login', href: '/users/login', auth: 'guest' },
     { value: 'Register', href: '/users/register', auth: 'guest' },
@@ -60,7 +60,7 @@ export default function Header() {
                 <nav className="hidden md:flex gap-6">
                     {navigation.map(renderNav)}
                 </nav>
-
+                {userSession && <em className='mr-2'>{userSession.email}</em>}
                 {/* Mobile Menu Button */}
                 <button className="md:hidden" onClick={setIsOpen.bind(null, !isOpen)}>
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
