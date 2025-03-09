@@ -12,7 +12,7 @@ export default function ArtistsSection() {
     }, [])
 
     return (
-        <section className="min-h-screen bg-gray-800 text-white py-16">
+        <section className="min-h-screen text-white py-16">
             <h2 className="text-4xl font-black gothic mb-12 drop-shadow-lg text-center pt-16">Our Tattoo Artists</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-6">
                 {artists.map((artist, index) => (
