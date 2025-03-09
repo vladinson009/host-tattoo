@@ -1,7 +1,9 @@
+import context from "../../context/context";
 import { STUDIO_NAME, STUDIO_WELCOMEMSG } from "../../constants";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 export default function Home() {
-
+    const { userSession } = useContext(context);
     const [images, setImages] = useState([]);
 
     // Could be GET or POST/PUT/PATCH/DELETE
@@ -27,12 +29,13 @@ export default function Home() {
             </p>
 
             {/* Call to Action */}
-            <a
-                href="#booking"
-                className="mt-6 px-6 py-3 bg-red-600 text-black text-xl font-bold uppercase rounded-lg shadow-lg hover:bg-red-800 transition"
-            >
-                Book Now
-            </a>
+            {userSession &&
+                <Link to={"/booking"}
+                    href="#booking"
+                    className="mt-6 px-6 py-3 bg-red-600 text-black text-xl font-bold uppercase rounded-lg shadow-lg hover:bg-red-800 transition"
+                >
+                    Book Now
+                </Link>}
             <div className="mt-16 w-full text-center">
                 <h2 className="text-3xl font-bold text-black mb-8">Recent Tattoos</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 ">
