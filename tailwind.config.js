@@ -1,12 +1,9 @@
-import { defineConfig } from 'tailwindcss';
-
-export default defineConfig({
+export default {
+  content: [
+    './src/**/*.{html,js,jsx,ts,tsx}', // Tailwind should process your JSX/TSX files
+  ],
   theme: {
-    extend: {
-      fontFamily: {
-        gothic: ["'Arthur Gothic'", 'serif'], // Add custom font
-      },
-    },
+    extend: {},
   },
   plugins: [],
-});
+};

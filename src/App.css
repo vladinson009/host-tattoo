@@ -1,2 +1,31 @@
 @import 'tailwindcss';
 @import 'font-awesome/css/font-awesome.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* index.css */
+
+/* Adjusted Slider Transition Classes for Up Direction */
+.slide-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.slide-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.slide-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Simplified Slide-in Transition for Up Direction */
