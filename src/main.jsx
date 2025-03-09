@@ -5,7 +5,7 @@ import App from './App.jsx'
 import './App.css'
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
-  <BrowserRouter>
+  <BrowserRouter basename="/host-tattoo">
     <App />
   </BrowserRouter>
   // {/* </StrictMode>, */}
