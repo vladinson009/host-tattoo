@@ -14,20 +14,21 @@ export default function GallerySection() {
     /* { status: 'ok', method: 'GET' } */
 
     return (
-        <section className="min-h-screen bg-gray-800 text-white py-16">
+        <section className="slide-enter-active min-h-screen text-white py-16">
             <div className="container mx-auto px-6">
                 <h2 className="text-4xl font-black gothic mb-12 drop-shadow-lg text-center pt-16">Tattoo Gallery</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-6">
                     {images.map((image, index) => (
-                        <div key={index} className="relative overflow-hidden rounded-lg shadow-lg group">
+                        <div key={index} className="relative group w-72 h-96 bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-red-800">
                             <img
                                 src={image.image}
-                                alt={`Tattoo ${index + 1}`}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                alt={image.name}
+                                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                <span className="text-white text-lg font-semibold">Tattoo {index + 1}</span>
+                            <div className="p-4 flex flex-col items-center">
+                                <h3 className="text-2xl font-bold gothic text-white">Name</h3>
+                                <p className="text-sm text-gray-300 text-center mt-2">Descripition</p>
                             </div>
                         </div>
                     ))}
