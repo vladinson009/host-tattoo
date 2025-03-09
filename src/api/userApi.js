@@ -14,15 +14,15 @@ function registerUser(userInput) {
   if (password !== rePass) {
     throw new Error('Passwords do not match!');
   }
-  return post('/users', 'users', { username, email, password });
+  return post('/users', { username, email, password });
 }
 function loginUser({ username, password }) {
-  return post('/login', 'users', { username, password });
+  return post('/login', { username, password });
 }
 async function logoutUser() {
   const getToken = await get('/classes/_Session', 'users');
   const objectId = getToken.results[0].objectId;
-  return del('/sessions/' + objectId, 'users');
+  return del('/sessions/' + objectId);
 }
 
 export default {

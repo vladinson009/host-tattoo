@@ -2,19 +2,16 @@ import { getUserSession } from '../utils/userSession';
 
 const host = 'https://parseapi.back4app.com';
 
-async function fetcher(url, collection, method, data) {
+async function fetcher(url, method, data) {
   const userSessioin = getUserSession();
   const options = {
     method,
-    headers: {},
+    headers: {
+      'X-Parse-Application-Id': 'L2SkOsmzDY96yik2SKZgPI95tqnwbgBqsUdUDDeR',
+      'X-Parse-REST-API-Key': 'zRh0jUoQmCUwIE6Ag0apVW6NWwHDcaHvyYSsIVNn',
+      'X-Parse-Revocable-Session': 1,
+    },
   };
-  if (collection == 'users') {
-    options.headers['X-Parse-Application-Id'] =
-      'L2SkOsmzDY96yik2SKZgPI95tqnwbgBqsUdUDDeR';
-    options.headers['X-Parse-REST-API-Key'] =
-      'zRh0jUoQmCUwIE6Ag0apVW6NWwHDcaHvyYSsIVNn';
-    options.headers['X-Parse-Revocable-Session'] = 1;
-  }
   if (data) {
     options.headers['Content-Type'] = 'application/json';
     options.body = JSON.stringify(data);
@@ -34,16 +31,16 @@ async function fetcher(url, collection, method, data) {
   return response.json();
 }
 
-function get(url, collection) {
-  return fetcher(url, collection, 'GET');
+function get(url) {
+  return fetcher(url, 'GET');
 }
-function post(url, collection, data) {
-  return fetcher(url, collection, 'POST', data);
+function post(url, data) {
+  return fetcher(url, 'POST', data);
 }
-function put(url, collection, data) {
-  return fetcher(url, collection, 'PUT', data);
+function put(url, data) {
+  return fetcher(url, 'PUT', data);
 }
-function del(url, collection) {
-  return fetcher(url, collection, 'DELETE');
+function del(url) {
+  return fetcher(url, 'DELETE');
 }
 export { get, post, put, del };

@@ -14,6 +14,7 @@ import GallerySection from "./components/gallery/GallerySection";
 import DetailsSection from "./components/gallery/DetailsSection";
 import ArtistsSection from "./components/artist/ArtistsSection";
 import Logout from "./components/user/Logout";
+import NewsFeed from "./components/home/NewsFeed";
 
 function App() {
   const location = useLocation();
