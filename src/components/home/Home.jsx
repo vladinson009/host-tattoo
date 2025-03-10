@@ -31,6 +31,7 @@ export default function Home() {
                     >
                         Book time
                     </Link>}
+
             </div>
             <div className="mt-16 w-full text-center">
                 {/* <h2 className="text-3xl font-bold text-black mb-8">News feed</h2> */}

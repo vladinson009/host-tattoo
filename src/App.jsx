@@ -1,6 +1,8 @@
 import { Suspense, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Route, Routes, useLocation } from "react-router";
+import { Analytics } from "@vercel/analytics/react"
+
 import ContextProvider from "./context/ContextProvider1";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -51,6 +53,7 @@ function App() {
         </TransitionGroup>
       </Suspense>
       <Footer />
+      <Analytics />
     </ContextProvider>
   );
 }
