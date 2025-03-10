@@ -14,10 +14,19 @@ function registerUser(userInput) {
   if (password !== rePass) {
     throw new Error('Passwords do not match!');
   }
-  return post('/users', { username, email, password });
+  const userData = {
+    username: username.trim().toLowerCase(),
+    email: email.trim().toLowerCase(),
+    password: password.trim(),
+  };
+  return post('/users', userData);
 }
 function loginUser({ username, password }) {
-  return post('/login', { username, password });
+  const userData = {
+    username: username.trim().toLowerCase(),
+    password: password.trim(),
+  };
+  return post('/login', userData);
 }
 async function logoutUser() {
   const getToken = await get('/classes/_Session', 'users');

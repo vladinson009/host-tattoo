@@ -1,7 +1,10 @@
 import { get, post } from './fetcher';
 
-function getGallery(limit, skip) {
-  return get(`/classes/Gallery?limit=${limit}&skip=${skip}&order=-createdAt`);
+async function getGallery(limit, skip) {
+  const gallery = await get(
+    `/classes/Gallery?limit=${limit}&skip=${skip}&order=-createdAt`
+  );
+  return gallery.results;
 }
 function createGalleryPost(data) {
   return post('/classes/Gallery', data);

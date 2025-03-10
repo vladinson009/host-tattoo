@@ -1,9 +1,10 @@
 import { get } from './fetcher';
 
-function getPosts(limit, skip) {
-  return get(
+async function getPosts(limit, skip) {
+  const posts = await get(
     `/classes/Post?include=ownerId&limit=${limit}&skip=${skip}&order=-createdAt`
   );
+  return posts.results;
 }
 
 export default {
