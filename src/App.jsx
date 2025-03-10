@@ -14,7 +14,7 @@ import GallerySection from "./components/gallery/GallerySection";
 import DetailsSection from "./components/gallery/DetailsSection";
 import ArtistsSection from "./components/artist/ArtistsSection";
 import Logout from "./components/user/Logout";
-import NewsFeed from "./components/home/NewsFeed";
+import CreatePost from "./components/gallery/CreatePost";
 
 function App() {
   const location = useLocation();
@@ -35,18 +35,16 @@ function App() {
             <Routes location={location}>
 
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginSection />} />
+              <Route path="/register" element={<RegisterSection />} />
+              <Route path="/logout" element={<Logout />} />
               <Route path="/contact" element={<ContactSectioin />} />
               <Route path="/artists" element={<ArtistsSection />} />
+              <Route path="/create-post" element={<CreatePost />} />
 
               <Route path="/gallery">
                 <Route path="" element={<GallerySection />} />
                 <Route path="details/:tattooId" element={<DetailsSection />} />
-              </Route>
-
-              <Route path="/users">
-                <Route path="login" element={<LoginSection />} />
-                <Route path="register" element={<RegisterSection />} />
-                <Route path="logout" element={<Logout />} />
               </Route>
 
             </Routes>
