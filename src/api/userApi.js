@@ -24,9 +24,46 @@ async function logoutUser() {
   const objectId = getToken.results[0].objectId;
   return del('/sessions/' + objectId);
 }
+function retrieveUser() {
+  return get('/users/me');
+}
+// ! checkUserRole RETURNS OBJECT, with key 'results' - array with Objects
+//  results[0].name - is the role name
 
+function checkUserRoles(userId) {
+  return get(
+    `/classes/_Role?where=${encodeURIComponent(
+      JSON.stringify({
+        users: {
+          __type: 'Pointer',
+          className: '_User',
+          objectId: userId,
+        },
+      })
+    )}`
+  );
+}
+// ! checkSpecificUserRole RETURNS OBJECT, with key 'results' - array with Objects
+//  results[0].name - is the role name
+function checkSpecificUserRole(userId, roleName) {
+  return get(
+    `/classes/_Role?where=${encodeURIComponent(
+      JSON.stringify({
+        name: roleName,
+        users: {
+          __type: 'Pointer',
+          className: '_User',
+          objectId: userId,
+        },
+      })
+    )}`
+  );
+}
 export default {
   registerUser,
   loginUser,
   logoutUser,
+  retrieveUser,
+  checkUserRoles,
+  checkSpecificUserRole,
 };
