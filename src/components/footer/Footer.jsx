@@ -1,4 +1,4 @@
-import { STUDIO_ADDRESS, STUDIO_NAME } from "../../constants";
+import { STUDIO_ADDRESS, STUDIO_INSTAGRAM, STUDIO_NAME } from "../../constants";
 
 export default function Footer() {
     return (
@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="container mx-auto flex flex-col items-center md:flex-row justify-between px-4">
                 <div className="flex justify-center gap-6 mt-0">
                     <a
-                        href="https://www.instagram.com" className="text-red-500 hover:text-red-700 mx-2" target="_blank" rel="noopener noreferrer">
+                        href={STUDIO_INSTAGRAM} className="text-red-500 hover:text-red-700 mx-2" target="_blank" rel="noopener noreferrer">
                         <i className="fa fa-instagram text-6xl"></i>
                     </a>
                     <a href="https://www.facebook.com" className="text-red-500 hover:text-red-700 mx-2" target="_blank" rel="noopener noreferrer">

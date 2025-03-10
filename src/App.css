@@ -1,9 +1,5 @@
 @import 'tailwindcss';
 @import 'font-awesome/css/font-awesome.min.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* index.css */
 
 /* Adjusted Slider Transition Classes for Up Direction */
 .slide-enter {

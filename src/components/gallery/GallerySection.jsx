@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
-import postApi from "../../api/postApi";
 import galleryApi from "../../api/galleryApi";
 
 export default function GallerySection() {
     const [posts, setPosts] = useState([]);
 
-    // Could be GET or POST/PUT/PATCH/DELETE
     useEffect(() => {
-        galleryApi.getGallery(10, 0).then((res) => {
-            setPosts(res.results);
-
-        })
+        galleryApi.getGallery(10, 0).then((setPosts))
     }, [])
 
-    /* { status: 'ok', method: 'GET' } */
 
     return (
         <section className="slide-enter-active min-h-screen  text-white py-16">
@@ -21,7 +15,7 @@ export default function GallerySection() {
                 <h2 className="text-4xl font-black gothic mb-12 drop-shadow-lg text-center pt-16">Our Gallery</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-6">
                     {posts.map((post) => (
-                        <div key={post.objectId} className="relative group w-72 h-96 bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-red-800">
+                        <div key={post.objectId} className="cursor-pointer relative group w-72 h-96 bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-red-800">
                             <img
                                 src={post.image.url}
                                 alt={post.title}

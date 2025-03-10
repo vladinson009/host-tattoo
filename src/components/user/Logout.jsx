@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router"
 import userApi from "../../api/userApi"
 import context from "../../context/context"
 import { useContext, useEffect } from "react"

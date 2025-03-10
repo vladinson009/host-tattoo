@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 // eslint-disable-next-line no-unused-vars
@@ -13,7 +13,7 @@ const navigation = [
     { value: 'Create Post', href: '/create-post', auth: 'user' },
     { value: 'Gallery', href: '/gallery', auth: false },
     { value: 'Artists', href: '/artists', auth: false },
-    { value: 'Contact Us', href: '/contact', auth: false },
+    { value: 'Contact Us', href: '/contact', auth: 'user' },
     { value: 'Login', href: '/login', auth: 'guest' },
     { value: 'Register', href: '/register', auth: 'guest' },
     { value: 'Logout', href: '/logout', auth: 'user' },
@@ -62,7 +62,7 @@ export default function Header() {
         return false;
     });
     return (
-        <header className="bg-black text-red-600 shadow-lg fixed w-full z-50">
+        <header className="bg-black text-red-600 shadow-lg fixed w-full z-50 delicious-handrawn-regular">
             <div className="container mx-auto flex justify-between items-center p-4">
                 {/* Logo */}
                 <h1 className="text-3xl font-black tracking-widest gothic"><NavLink

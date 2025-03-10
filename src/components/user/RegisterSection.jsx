@@ -1,7 +1,7 @@
 import { useActionState, useContext } from "react"
 import userApi from "../../api/userApi";
 import { setUserData } from "../../utils/userSession";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import context from "../../context/context";
 
 export default function RegisterSection() {

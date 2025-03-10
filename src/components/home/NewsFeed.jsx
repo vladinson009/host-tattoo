@@ -8,14 +8,10 @@ import postApi from "../../api/postApi";
 export default function NewsFeed() {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        postApi.getPosts(10, 0).then((res) => {
-            setPosts(res.results);
-            // console.log(res.results);
-
-        })
+        postApi.getPosts(10, 0).then((setPosts))
     }, [])
     return (
-        <div className="opacity-80 max-w-2xl mx-auto py-8 space-y-6">
+        <div className=" max-w-2xl mx-auto py-8 space-y-6">
             {posts.map((post) => (
                 <motion.div
                     key={post.objectId}
@@ -46,7 +42,7 @@ export default function NewsFeed() {
                     {/* //TODO Comments: */}
                     <p className="text-white mt-2">Posted by: <span className="text-red-600 text-2xl">{post.owner}</span></p>
                     <div className="mt-4 text-gray-300">
-                        <p>{post.description}</p>
+                        <p className="leading-7">{post.description}</p>
                     </div>
                     <div className="flex space-x-4 items-center justify-evenly mt-4">
                         <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 hover:text-red-500">
