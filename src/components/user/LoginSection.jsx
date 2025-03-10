@@ -20,7 +20,15 @@ export default function LoginSection() {
                 _id: user.objectId,
                 _token: user.sessionToken,
             };
-
+            const { results } = await userApi.checkUserRoles(userData._id);
+            if (results.length > 0) {
+                userData.role = []
+                results.forEach((role) => {
+                    userData.role.push(role.name);
+                });
+            }
+            // ! checkUserRole RETURNS OBJECT, with key 'results' - array with Objects
+            //  results[0].name - is the role name
             setUserData(userData);
             setUserSession(userData)
             navigate('/');
