@@ -1,11 +1,17 @@
 import context from "../../context/context";
 import { STUDIO_NAME, STUDIO_WELCOMEMSG } from "../../constants";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NewsFeed from "./NewsFeed";
+import userApi from "../../api/userApi";
 export default function Home() {
     const { userSession } = useContext(context);
-
+    // useEffect(() => {
+    //     userApi.checkUserRoles(userSession?._id, 'Artist').then((user) => {
+    //         // console.log(user);
+    //     }
+    //     );
+    // }, []);
     return (
         <section
             id="home"
