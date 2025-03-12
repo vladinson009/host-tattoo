@@ -19,6 +19,7 @@ export default function LoginSection() {
                 email: user.email,
                 _id: user.objectId,
                 _token: user.sessionToken,
+                photo: user.photo.url
             };
             const { results } = await userApi.checkUserRoles(userData._id);
             if (results.length > 0) {

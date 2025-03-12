@@ -1,4 +1,4 @@
-import { get, del, post } from './fetcher';
+import { get, del, post, put } from './fetcher';
 
 function registerUser(userInput) {
   const { username, email, password, rePass } = userInput;
@@ -15,8 +15,8 @@ function registerUser(userInput) {
     throw new Error('Passwords do not match!');
   }
   const userData = {
-    username: username.trim().toLowerCase(),
-    email: email.trim().toLowerCase(),
+    username: username.trim(),
+    email: email.trim(),
     password: password.trim(),
   };
   return post('/users', userData);
@@ -68,6 +68,21 @@ function checkSpecificUserRole(userId, roleName) {
     )}`
   );
 }
+function addNewArtist(userId) {
+  return put(`/classes/_Role/bvD454fsf0`, {
+    users: {
+      __op: 'AddRelation',
+      objects: [{ __type: 'Pointer', className: '_User', objectId: 'BJu6irGSvt' }],
+    },
+  });
+}
+async function getArtists() {
+  const result = await get(
+    `/classes/_User?where={"$relatedTo":{"object":{"__type":"Pointer","className":"_Role","objectId":"bvD454fsf0"},"key":"users"}}`
+  );
+  return result.results;
+}
+
 export default {
   registerUser,
   loginUser,
@@ -75,4 +90,6 @@ export default {
   retrieveUser,
   checkUserRoles,
   checkSpecificUserRole,
+  addNewArtist,
+  getArtists,
 };

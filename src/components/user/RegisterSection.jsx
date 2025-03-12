@@ -18,6 +18,7 @@ export default function RegisterSection() {
                 email: userInput.email,
                 _id: user.objectId,
                 _token: user.sessionToken,
+                photo: user.photo.url
             };
 
             setUserData(userData);

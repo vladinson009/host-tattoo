@@ -25,3 +25,24 @@
 }
 
 /* Simplified Slide-in Transition for Up Direction */
+.bounce-enter {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.bounce-enter-active {
+  opacity: 1;
+  transform: rotate(0);
+  transition: opacity 300ms, transform 300ms ease-in-out;
+}
+
+.bounce-exit {
+  opacity: 1;
+  transform: rotate(0);
+}
+
+.bounce-exit-active {
+  opacity: 0;
+  transform: rotate(90deg);
+  transition: opacity 300ms, transform 300ms ease-in-out;
+}

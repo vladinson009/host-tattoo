@@ -25,3 +25,12 @@
 ## On sale Section (Not done yet) tattoo ideas:
 
 !
+
+- change black font color with dark gray
+- make distance between reading rows
+
+## arist must have:
+
+- name
+- info
+- image

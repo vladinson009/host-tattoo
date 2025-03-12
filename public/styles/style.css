@@ -1,21 +1,19 @@
-.tattoo-studio-bg {
-  background-image: url('../img/bg-3.webp');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}
 .delicious-handrawn-regular {
   font-family: 'Delicious Handrawn', cursive;
   font-weight: 400;
   font-style: normal;
 }
+.tattoo-studio-bg {
+  background-image: url('/img/bg-4.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
 
 @media (max-width: 768px) {
   .tattoo-studio-bg {
-    background-attachment: scroll; /* Disable fixed attachment on mobile */
     transform: translateZ(0); /* Enable hardware acceleration */
-    position: fixed; /* Fix background position */
     top: 0;
     left: 0;
     width: 100%;

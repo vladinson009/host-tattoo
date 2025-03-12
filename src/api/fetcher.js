@@ -1,4 +1,4 @@
-import { getUserSession } from '../utils/userSession';
+import { clearUserData, getUserSession } from '../utils/userSession';
 
 const host = 'https://parseapi.back4app.com';
 const xParseApplication = 'L2SkOsmzDY96yik2SKZgPI95tqnwbgBqsUdUDDeR';
@@ -26,6 +26,7 @@ async function fetcher(url, method, data) {
 
   if (response.ok == false) {
     const error = await response.json();
+    error.code === 209 && clearUserData();
     throw new Error(error.error);
   }
   if (response.status === 202) {

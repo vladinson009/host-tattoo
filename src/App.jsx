@@ -15,6 +15,7 @@ import DetailsSection from "./components/gallery/DetailsSection";
 import ArtistsSection from "./components/artist/ArtistsSection";
 import Logout from "./components/user/Logout";
 import CreatePost from "./components/gallery/CreatePost";
+import NewsFeed from "./components/news-feed/NewsFeed";
 
 function App() {
   const location = useLocation();
@@ -28,7 +29,7 @@ function App() {
           <CSSTransition
             key={location.pathname}
             timeout={300}
-            classNames="slide"
+            classNames="bounce"
             unmountOnExit
             nodeRef={nodeRef}
           >
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/contact" element={<ContactSectioin />} />
                 <Route path="/artists" element={<ArtistsSection />} />
                 <Route path="/create-post" element={<CreatePost />} />
+                <Route path="/news-feed" element={<NewsFeed />} />
 
                 <Route path="/gallery">
                   <Route path="" element={<GallerySection />} />
