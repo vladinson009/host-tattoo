@@ -29,7 +29,6 @@ export default function ArtistsSection() {
         })
     }
     function onUnlike() {
-        console.log('unlike');
         // TODO: Implement unlike functionality
     }
 
