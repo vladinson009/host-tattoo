@@ -2,15 +2,9 @@ import context from "../../context/context";
 import { STUDIO_NAME, STUDIO_WELCOMEMSG } from "../../constants";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router";
-import userApi from "../../api/userApi";
 export default function Home() {
     const { userSession } = useContext(context);
-    useEffect(() => {
-        // userApi.retrieveUser().then(user => {
-        //     console.log(user);
 
-        // })
-    }, []);
     return (
         <section
             id="home"
