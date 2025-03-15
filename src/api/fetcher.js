@@ -5,7 +5,7 @@ const xParseApplication = 'L2SkOsmzDY96yik2SKZgPI95tqnwbgBqsUdUDDeR';
 const xParseRestApiKey = 'zRh0jUoQmCUwIE6Ag0apVW6NWwHDcaHvyYSsIVNn';
 const xParseRevocableSession = 1;
 
-async function fetcher(url, method, data) {
+async function fetcher(url, method, data, signal) {
   const userSessioin = getUserSession();
   const options = {
     method,
@@ -14,10 +14,15 @@ async function fetcher(url, method, data) {
       'X-Parse-REST-API-Key': xParseRestApiKey,
       'X-Parse-Revocable-Session': xParseRevocableSession,
     },
+    signal,
   };
   if (data) {
     options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(data);
+    if (data instanceof File) {
+      options.body = data;
+    } else {
+      options.body = JSON.stringify(data);
+    }
   }
   if (userSessioin) {
     options.headers['X-Parse-Session-Token'] = userSessioin._token;
@@ -26,7 +31,12 @@ async function fetcher(url, method, data) {
 
   if (response.ok == false) {
     const error = await response.json();
-    error.code === 209 && clearUserData();
+    if (error.code === 209) {
+      clearUserData();
+      alert(error.error);
+      window.location = '/';
+      return;
+    }
     throw new Error(error.error);
   }
   if (response.status === 202) {
@@ -36,16 +46,16 @@ async function fetcher(url, method, data) {
   return response.json();
 }
 
-function get(url) {
-  return fetcher(url, 'GET');
+function get(url, signal) {
+  return fetcher(url, 'GET', null, signal);
 }
-function post(url, data) {
-  return fetcher(url, 'POST', data);
+function post(url, data, signal) {
+  return fetcher(url, 'POST', data, signal);
 }
-function put(url, data) {
-  return fetcher(url, 'PUT', data);
+function put(url, data, signal) {
+  return fetcher(url, 'PUT', data, signal);
 }
-function del(url) {
-  return fetcher(url, 'DELETE');
+function del(url, signal) {
+  return fetcher(url, 'DELETE', null, signal);
 }
 export { get, post, put, del };
