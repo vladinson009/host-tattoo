@@ -64,7 +64,7 @@ export default function Header() {
         <header className="bg-[rgba(31,41,55,0.98)] text-red-600 shadow-lg fixed w-full z-50">
             <div className="container mx-auto flex justify-between items-center p-4">
                 {/* Logo */}
-                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"><NavLink
+                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"><NavLink
                     style={isActive}
                     onClick={setIsOpen.bind(null, false)} to="/" >{STUDIO_NAME}</NavLink></h1>
 
@@ -78,7 +78,7 @@ export default function Header() {
                     <img
                         src={userSession.photo || '/public/img/profile.jpg'}
                         alt="profile picture"
-                        className="w-10 h-10 sm:w-10 sm:h-10 md:w-1 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-red-600"
+                        className="w-10 h-10 sm:w-10 sm:h-10 md:w-1 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-red-600 "
                     />
                     {/* User Email */}
                 </div>}

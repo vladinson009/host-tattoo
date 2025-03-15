@@ -10,15 +10,24 @@ import context from "../../context/context";
 export default function NewsFeed() {
     const { userSession } = useContext(context)
     const [posts, setPosts] = useState([]);
+
     useEffect(() => {
-        postApi.getPosts(10, 0).then((setPosts))
+        const controller = new AbortController()
+        postApi.getPosts(10, 0, controller.signal).then((setPosts)).catch(err => {
+            if (err.name != 'AbortError') {
+                console.log(err);
+            }
+        })
+        return () => {
+            return controller.abort()
+        }
     }, [])
     return (
-        <div className=" w-full text-center">
-            {/* <h2 className="text-3xl font-bold text-black mb-8">News feed</h2> */}
+        <div className="opacity-75 min-h-[calc(100vh-4rem-4rem)] flex flex-col items-center justify-center text-red-600 text-center p-6">
 
 
             <div className="max-w-2xl mx-auto py-8 space-y-6 pt-20">
+                {/* <h2 className="text-3xl font-bold text-black mb-8">News feed</h2> */}
                 {posts.map((post) => (
                     <motion.div
                         key={post.objectId}
@@ -48,7 +57,7 @@ export default function NewsFeed() {
                         </div>
                         {userSession && <div className="flex space-x-4 items-center justify-evenly mt-4">
                             <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
-                                {post.liked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
+                                {post.liked ? <FaHeart className="text-red-600" /> : <FaRegHeart />}
                             </button>
                             <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-blue-200">
                                 <FaComment />
