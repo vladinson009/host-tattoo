@@ -7,13 +7,11 @@ export default function useCreateForm(apiCall) {
 
     async function onAction(prevValue, formData) {
         const userInput = Object.fromEntries(formData)
-        const controller = new AbortController()
         try {
-            await apiCall(formData, controller.signal);
+            await apiCall(formData);
             navigate('/news-feed');
             return userInput
         } catch (error) {
-            controller.abort();
             return { error: error.message, userInput }
         }
     }
