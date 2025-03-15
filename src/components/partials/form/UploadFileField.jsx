@@ -19,7 +19,7 @@ export default function UploadFileField({ isPending, labelName, name }) {
                 animate={isPending ? { scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] } : {}}
                 transition={{ duration: 0.2 }}
                 htmlFor="image"
-                className="text-1xl md:text-2xl cursor-pointer flex items-center gap-2 bg-black text-white py-2 px-4 rounded-lg hover:bg-red-600  hover:text-black transition w-max">
+                className="text-1xl md:text-2xl cursor-pointer flex items-center gap-2 bg-black text-white py-2 px-4 rounded-lg hover:bg-red-800  hover:text-black transition w-max">
                 <FaUpload className="text-xl" />
                 <span>{labelName}</span>
             </motion.label>

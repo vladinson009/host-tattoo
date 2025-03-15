@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useState, useEffect } from "react";
 
 export default function DetailsSection() {
@@ -6,6 +6,7 @@ export default function DetailsSection() {
     const [tattoo, setTattoo] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         fetch('https://dummyjson.com/recipes/' + tattooId)
             .then(res => res.json())
             .then(result => {
@@ -18,7 +19,7 @@ export default function DetailsSection() {
     }
 
     return (
-        <section className="min-h-screen flex flex-col items-center justify-center text-white bg-black p-6">
+        <section className="min-h-[calc(100vh-4rem-4rem)] text-white pt-25">
             <div className="container mx-auto px-6">
                 <h2 className="text-4xl font-bold text-center mb-6">Tattoo Details</h2>
 
@@ -34,17 +35,17 @@ export default function DetailsSection() {
                     <div className="w-full sm:w-1/2 sm:pl-8">
                         <h3 className="text-2xl font-semibold mb-4">Tattoo DummyNumber</h3>
                         <p className="text-lg mb-4">Artist: DummyArtist</p>
-                        <p className="text-lg mb-4">DummyDescription</p>
+                        <p className="text-lg mb-4">DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription DummyDescription </p>
                     </div>
                 </div>
 
-                <div className="mt-12">
-                    <a
-                        href="/gallery"
-                        className="bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300"
+                <div className="mt-12 mb-15">
+                    <Link
+                        to="/gallery"
+                        className="bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-800 transition duration-300"
                     >
-                        Back to Gallery
-                    </a>
+                        &lt; Back to Gallery
+                    </Link>
                 </div>
             </div>
         </section>

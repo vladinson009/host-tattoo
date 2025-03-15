@@ -16,7 +16,7 @@ export default function SubmitFormButton({ isPending, textContent }) {
                 whileTap={{ scale: 0.9 }}
                 animate={isPending ? { scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] } : {}}
                 transition={{ duration: 0.2 }}
-                className="text-1xl sm:text-2xl bg-red-700 text-white hover:bg-red-600 hover:text-black py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out cursor-pointer text-white hover:bg-red-600 py-3 px-6 rounded-lg">
+                className="text-1xl sm:text-2xl bg-red-600 text-white hover:bg-red-800 hover:text-black py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out cursor-pointer text-white hover:bg-red-800 py-3 px-6 rounded-lg">
                 {textContent}
             </motion.button>
         </div>

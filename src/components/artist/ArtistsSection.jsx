@@ -9,15 +9,17 @@ export default function ArtistsSection() {
     const { userSession } = useContext(context)
 
     useEffect(() => {
+        const controller = new AbortController();
         try {
             (async () => {
-                await fetchArtists(setArtist, userSession?._id);
+                await fetchArtists(setArtist, userSession?._id, controller.signal);
             }
             )();
         } catch (error) {
             //TODO Error handling
             console.log(error);
         }
+        return () => controller.abort();
     }, [userSession?._id]);
 
     return (
