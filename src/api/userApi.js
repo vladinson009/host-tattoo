@@ -30,7 +30,6 @@ function loginUser({ username, password }, signal) {
 }
 async function logoutUser(signal) {
   const getToken = await get('/classes/_Session', signal);
-  console.log(getToken);
   const objectId = getToken.results[0].objectId;
   return del('/sessions/' + objectId);
 }
