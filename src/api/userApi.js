@@ -1,6 +1,6 @@
 import { get, del, post, put } from './fetcher';
 
-function registerUser(userInput) {
+function registerUser(userInput, signal) {
   const { username, email, password, rePass } = userInput;
   if (username.length < 3) {
     throw new Error('Username must be at least 3 characters long!');
@@ -19,27 +19,28 @@ function registerUser(userInput) {
     email: email.trim(),
     password: password.trim(),
   };
-  return post('/users', userData);
+  return post('/users', userData, signal);
 }
-function loginUser({ username, password }) {
+function loginUser({ username, password }, signal) {
   const userData = {
     username: username.trim().toLowerCase(),
     password: password.trim(),
   };
-  return post('/login', userData);
+  return post('/login', userData, signal);
 }
-async function logoutUser() {
-  const getToken = await get('/classes/_Session', 'users');
+async function logoutUser(signal) {
+  const getToken = await get('/classes/_Session', signal);
+  console.log(getToken);
   const objectId = getToken.results[0].objectId;
   return del('/sessions/' + objectId);
 }
-function retrieveUser() {
-  return get('/users/me');
+function retrieveUser(signal) {
+  return get('/users/me', signal);
 }
 // ! checkUserRole RETURNS OBJECT, with key 'results' - array with Objects
 //  results[0].name - is the role name
 
-function checkUserRoles(userId) {
+function checkUserRoles(userId, signal) {
   return get(
     `/classes/_Role?where=${encodeURIComponent(
       JSON.stringify({
@@ -49,12 +50,13 @@ function checkUserRoles(userId) {
           objectId: userId,
         },
       })
-    )}`
+    )}`,
+    signal
   );
 }
 // ! checkSpecificUserRole RETURNS OBJECT, with key 'results' - array with Objects
 //  results[0].name - is the role name
-function checkSpecificUserRole(userId, roleName) {
+function checkSpecificUserRole(userId, roleName, signal) {
   return get(
     `/classes/_Role?where=${encodeURIComponent(
       JSON.stringify({
@@ -65,31 +67,33 @@ function checkSpecificUserRole(userId, roleName) {
           objectId: userId,
         },
       })
-    )}`
+    )}`,
+    signal
   );
 }
-function addNewArtist(userId) {
-  return put(`/classes/_Role/bvD454fsf0`, {
-    users: {
-      __op: 'AddRelation',
-      objects: [{ __type: 'Pointer', className: '_User', objectId: 'BJu6irGSvt' }],
+function addNewArtist(userId, signal) {
+  return put(
+    `/classes/_Role/bvD454fsf0`,
+    {
+      users: {
+        __op: 'AddRelation',
+        objects: [{ __type: 'Pointer', className: '_User', objectId: userId }],
+      },
     },
-  });
-}
-async function getArtists() {
-  const result = await get(
-    `/classes/_User?where={"$relatedTo":{"object":{"__type":"Pointer","className":"_Role","objectId":"bvD454fsf0"},"key":"users"}}`
+    signal
   );
-  return result.results;
 }
-
 export default {
+  //authentications
   registerUser,
   loginUser,
   logoutUser,
+  //get current user
   retrieveUser,
+  //check user for roles
   checkUserRoles,
   checkSpecificUserRole,
+
+  // add new user in artist role
   addNewArtist,
-  getArtists,
 };
