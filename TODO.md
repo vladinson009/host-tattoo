@@ -2,8 +2,9 @@
 
 ## Implement Artist Section
 
-- Make profile cards with dynamic pages on each
+- [x] Make profile cards with dynamic pages on each
 - Each profile includes his own art
+- Make Profile page including artist jobs
 
 ## Save images direct in database
 
