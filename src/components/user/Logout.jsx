@@ -7,10 +7,12 @@ export default function Logout() {
     const { setUserSession } = useContext(context)
 
     useEffect(() => {
-        userApi.logoutUser().then(() => {
+        const controller = new AbortController();
+        userApi.logoutUser(controller.signal).then(() => {
             clearUserData();
             setUserSession(null);
         })
+        return () => controller.abort()
     }, [setUserSession])
     return (
         <Navigate to={'/'} />
