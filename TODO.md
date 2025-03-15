@@ -3,10 +3,10 @@
 ## Implement Artist Section
 
 - [x] Make profile cards with dynamic pages on each
-- Each profile includes his own art
-- Make Profile page including artist jobs
+- [x] Each profile includes his own art
+- [x] Make Profile page including artist jobs
 
-## Save images direct in database
+## [x] Save images direct in database
 
 ## Details page for tattoo in gallery
 
@@ -14,7 +14,7 @@
 
 - Open comments in new section(modal?)
 
-## Implement our Gallery class including:
+## [x] Implement our Gallery class including:
 
 - title
 - description
@@ -30,7 +30,7 @@
 - change black font color with dark gray
 - make distance between reading rows
 
-## arist must have:
+## [x] arist must have:
 
 - name
 - info
