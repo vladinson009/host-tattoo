@@ -1,8 +1,8 @@
 import userApi from '../../api/userApi';
 import artistApi from '../../api/artistApi';
 
-export async function fetchArtists(setArtist, _id) {
-  const fetchArists = await artistApi.getAllArtists();
+export async function fetchArtists(setArtist, _id, signal) {
+  const fetchArists = await artistApi.getAllArtists(signal);
   const updatedArtists = fetchArists.map((artist) => {
     return { ...artist, isLiked: artist?.likes?.includes(_id) };
   });
