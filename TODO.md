@@ -35,3 +35,5 @@
 - name
 - info
 - image
+
+## Implement Details Page for each tattoo dynamicly(Find better design if possible)
