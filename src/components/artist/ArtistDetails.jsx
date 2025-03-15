@@ -1,25 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { onLike, onUnlike } from "./artistUtils";
 import artistApi from "../../api/artistApi";
-import context from "../../context/context";
 import galleryApi from "../../api/galleryApi";
-import TattooCard from "../partials/TattooCard";
+import TattooCard from "../gallery/TattooCard";
 
 export default function ArtistDetails() {
-    const { userSession } = useContext(context);
     const { artistId } = useParams();
     const [artist, setArtist] = useState(null);
     const [tattoo, setTattoo] = useState([]);
     useEffect(() => {
+        const controller = new AbortController();
         (async function fetchArtist() {
-            const data = await artistApi.getArtistById(artistId)
+            const data = await artistApi.getArtistById(artistId, controller.signal)
             const fetchTattoo = await galleryApi.getTattoosByArtistId(artistId);
-
             setArtist(data);
             setTattoo(fetchTattoo);
         })()
+        return () => controller.abort();
     }, [artistId]);
 
     if (!artist) return <div className="text-white text-center mt-20">Loading...</div>;
