@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import artistApi from "../../api/artistApi";
-import galleryApi from "../../api/galleryApi";
+import artistService from "../../services/artistService";
+import galleryService from "../../services/galleryService";
 import TattooCard from "../gallery/TattooCard";
 
 export default function ArtistDetails() {
@@ -11,8 +11,8 @@ export default function ArtistDetails() {
     useEffect(() => {
         const controller = new AbortController();
         (async function fetchArtist() {
-            const data = await artistApi.getArtistById(artistId, controller.signal)
-            const fetchTattoo = await galleryApi.getTattoosByArtistId(artistId);
+            const data = await artistService.getArtistById(artistId, controller.signal)
+            const fetchTattoo = await galleryService.getTattoosByArtistId(artistId);
             setArtist(data);
             setTattoo(fetchTattoo);
         })()
@@ -40,7 +40,7 @@ export default function ArtistDetails() {
             <div className="mt-10">
                 <h2 className="text-white text-3xl font-bold mb-5">Tattoo Portfolio</h2>
                 {tattoo.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]  place-items-center gap-20 md:gap-25 lg:gap-30 px-6">
                         {tattoo.map(t => <TattooCard key={t.objectId} post={t} />)}
                     </div>
                 ) : (
