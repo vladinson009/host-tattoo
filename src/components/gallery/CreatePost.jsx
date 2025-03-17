@@ -1,4 +1,4 @@
-import postApi from '../../api/postApi';
+import postService from '../../services/postService';
 
 import useCreateForm from '../../hooks/useCreateForm';
 
@@ -7,10 +7,11 @@ import InputFormField from '../partials/form/InputFormField';
 import TextareaFormField from '../partials/form/textareaFormField';
 import UploadFileField from '../partials/form/uploadFileField';
 import SubmitFormButton from '../partials/form/SubmitFormButton';
+import Spinner from '../partials/Spinner';
 
 const CreatePost = () => {
-    const { formAction, isPending, error, userInput } = useCreateForm(postApi.createPost)
-
+    const { formAction, isPending, error, userInput } = useCreateForm(postService.createPost)
+    if (isPending) return <Spinner />
     return (
         <Form name="Create a New Post" error={error} action={formAction}>
             <InputFormField labelName="Title" type="text" name="title" value={userInput?.title} />
