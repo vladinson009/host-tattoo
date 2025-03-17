@@ -1,8 +1,8 @@
-import userApi from '../../api/userApi';
-import artistApi from '../../api/artistApi';
+import userService from '../../services/userService';
+import artistService from '../../services/artistService';
 
 export async function fetchArtists(setArtist, _id, signal) {
-  const fetchArists = await artistApi.getAllArtists(signal);
+  const fetchArists = await artistService.getAllArtists(signal);
   const updatedArtists = fetchArists.map((artist) => {
     return { ...artist, isLiked: artist?.likes?.includes(_id) };
   });
@@ -19,15 +19,18 @@ export function refreshArtists(prevValue, likes, artistId) {
 }
 export async function onLike(setArtist) {
   const artistId = this.objectId;
-  const { objectId: currentUserId } = await userApi.retrieveUser();
-  const { likes } = await artistApi.addLikeToArtist(artistId, currentUserId);
+  const { objectId: currentUserId } = await userService.retrieveUser();
+  const { likes } = await artistService.addLikeToArtist(artistId, currentUserId);
 
   setArtist((prevValue) => refreshArtists(prevValue, likes, artistId));
 }
 export async function onUnlike(setArtist) {
   const artistId = this.objectId;
-  const { objectId: currentUserId } = await userApi.retrieveUser();
-  const { likes } = await artistApi.removeLikeFromArtist(artistId, currentUserId);
+  const { objectId: currentUserId } = await userService.retrieveUser();
+  const { likes } = await artistService.removeLikeFromArtist(
+    artistId,
+    currentUserId
+  );
   setArtist((prevValue) => refreshArtists(prevValue, likes, artistId));
 }
 export async function onUserLikes() {
