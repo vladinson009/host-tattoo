@@ -1,20 +1,28 @@
-import { Navigate } from "react-router"
-import userApi from "../../api/userApi"
-import context from "../../context/context"
 import { useContext, useEffect } from "react"
+import { useNavigate } from "react-router"
+
+import userService from "../../services/userService"
+
+import context from "../../context/context"
 import { clearUserData } from "../../utils/userSession"
+import Spinner from "../partials/Spinner"
+
 export default function Logout() {
     const { setUserSession } = useContext(context)
-
+    const navigate = useNavigate();
     useEffect(() => {
-        const controller = new AbortController();
-        userApi.logoutUser(controller.signal).then(() => {
-            clearUserData();
-            setUserSession(null);
-        })
-        return () => controller.abort()
+        (async () => {
+            try {
+                await userService.logoutUser()
+                setUserSession(null);
+                clearUserData();
+                navigate('/')
+            } catch (error) {
+                console.log(error);
+            }
+        })()
     }, [setUserSession])
     return (
-        <Navigate to={'/'} />
+        <Spinner />
     )
 }
