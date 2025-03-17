@@ -18,7 +18,7 @@ export default function ArtistCard({ artist, userSession, setArtist }) {
                 <h3 className="text-white text-5xl sm:text-2xl md:text-4xl font-bold ">
                     {artist.name}
                 </h3>
-                <p className="text-gray-400 text-3xl sm:text-2xl md:text-3xl text-center mt-2">This is just a demo description for tattoo artist who just started to work in our tattoo studio</p>
+                <p className="text-gray-400 text-3xl sm:text-2xl md:text-3xl text-center mt-2">{artist.description}</p>
             </div>
             <div className="flex space-x-4 items-center justify-evenly mt-4 mb-4">
                 {userSession && (
