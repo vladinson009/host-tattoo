@@ -1,6 +1,6 @@
 import context from "../../context/context";
 import { STUDIO_NAME, STUDIO_WELCOMEMSG } from "../../constants";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router";
 export default function Home() {
     const { userSession } = useContext(context);
@@ -8,7 +8,7 @@ export default function Home() {
     return (
         <section
             id="home"
-            className="opacity-75 md:min-h-[calc(100vh-4rem-4rem)] flex flex-col items-center justify-center text-red-600 text-center p-6"
+            className="md:min-h-[calc(100vh-4rem-4rem)] flex flex-col items-center justify-center text-red-600 text-center p-6 py-20"
         >
             {/* Hero Title */}
             < div className="relative bg-[rgba(31,41,55,0.8)] py-12 px-6 rounded-lg" >
