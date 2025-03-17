@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion"
 
-export default function SubmitFormButton({ isPending, textContent }) {
+export default function SubmitFormButton({ isPending, textContent, clickHandler }) {
 
     return (
         <div className="my-6">
             <motion.button
+                onClick={clickHandler}
                 disabled={isPending}
                 type="submit"
                 whileHover={{
@@ -19,6 +20,7 @@ export default function SubmitFormButton({ isPending, textContent }) {
                 className="text-1xl sm:text-2xl bg-red-600 text-white hover:bg-red-800 hover:text-black py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out cursor-pointer text-white hover:bg-red-800 py-3 px-6 rounded-lg">
                 {textContent}
             </motion.button>
+
         </div>
     )
 }
