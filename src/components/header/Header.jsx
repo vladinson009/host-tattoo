@@ -5,15 +5,15 @@ import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { STUDIO_NAME } from "../../constants";
 import context from "../../context/context";
-import { FaHeart } from "react-icons/fa";
+import { GiEvilLove } from "react-icons/gi";
 
 const navigation = [
-    { value: <FaHeart />, href: '/favorite', auth: 'user' },
     { value: 'News feed', href: '/news-feed', auth: false },
-    { value: 'Create Tattoo', href: '/create-tattoo', auth: 'Artist' },
-    { value: 'Create Post', href: '/create-post', auth: 'user' },
     { value: 'Gallery', href: '/gallery', auth: false },
     { value: 'Artists', href: '/artists', auth: false },
+    { value: <span className="flex items-center">Wishlist<GiEvilLove className="text-red-600 inline" /></span>, href: '/wishlist', auth: 'user' },
+    { value: 'Create Tattoo', href: '/create-tattoo', auth: 'Artist' },
+    { value: 'Create Post', href: '/create-post', auth: 'user' },
     { value: 'Contact Us', href: '/contact', auth: 'user' },
     { value: 'Login', href: '/login', auth: 'guest' },
     { value: 'Register', href: '/register', auth: 'guest' },
@@ -28,26 +28,28 @@ export default function Header() {
         return { color: isActive && "rgb(252, 211, 77)" }
     }
     function renderNav(nav) {
-        if (userSession && nav.auth != 'guest') {
-            return <NavLink style={isActive}
-                onClick={setIsOpen.bind(null, false)}
-                key={nav.value}
-                to={nav.href}
-                className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
-            >
-                {nav.value}
-            </NavLink >
-        } else if (!userSession && nav.auth != 'user') {
-            return <NavLink
-                style={isActive}
-                onClick={setIsOpen.bind(null, false)}
-                key={nav.value}
-                to={nav.href}
-                className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
-            >
-                {nav.value}
-            </NavLink>
-        }
+        // if (userSession && nav.auth != 'guest') {
+        return <NavLink style={isActive}
+            onClick={setIsOpen.bind(null, false)}
+            key={nav.value}
+            to={nav.href}
+            className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
+        >
+            {nav.value}
+        </NavLink >
+        // }
+        // else if (!userSession && nav.auth != 'user') {
+        //     return <NavLink
+        //         style={isActive}
+        //         onClick={setIsOpen.bind(null, false)}
+        //         key={nav.value}
+        //         to={nav.href}
+        //         className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
+        //     >
+        //         {nav.value}
+        //     </NavLink>
+
+        // }
     }
 
     const filteredNavigation = navigation.filter((item) => {
