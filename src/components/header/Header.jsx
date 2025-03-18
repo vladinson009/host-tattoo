@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 // eslint-disable-next-line no-unused-vars
@@ -33,23 +33,10 @@ export default function Header() {
             onClick={setIsOpen.bind(null, false)}
             key={nav.value}
             to={nav.href}
-            className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
+            className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 text-white"
         >
             {nav.value}
         </NavLink >
-        // }
-        // else if (!userSession && nav.auth != 'user') {
-        //     return <NavLink
-        //         style={isActive}
-        //         onClick={setIsOpen.bind(null, false)}
-        //         key={nav.value}
-        //         to={nav.href}
-        //         className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"
-        //     >
-        //         {nav.value}
-        //     </NavLink>
-
-        // }
     }
 
     const filteredNavigation = navigation.filter((item) => {
@@ -66,7 +53,7 @@ export default function Header() {
         <header className="bg-[rgba(31,41,55,0.98)] text-red-600 shadow-lg fixed w-full z-50">
             <div className="container mx-auto flex justify-between items-center p-4">
                 {/* Logo */}
-                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text hover:text-red-400 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text"><NavLink
+                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest transition duration-300 text-white hover:text-red-400"><NavLink
                     style={isActive}
                     onClick={setIsOpen.bind(null, false)} to="/" >{STUDIO_NAME}</NavLink></h1>
 
@@ -74,16 +61,19 @@ export default function Header() {
                 <nav className="hidden md:flex gap-6 items-center">
                     {filteredNavigation.map(renderNav)}
                 </nav>
-                {userSession && <div className="flex items-center space-x-4">
+                {userSession && <NavLink style={isActive} to="/profile"> <div className="flex items-center space-x-4">
                     {/* Profile Image */}
-                    <em className="text-white text-md sm:text-sm md:text-md lg:text-2xl">{userSession.email}</em>
+
+                    <em className="text-white text-md sm:text-sm md:text-md lg:text-2xl transition duration-300 hover:text-red-400">{userSession.username}</em>
                     <img
                         src={userSession.photo || '/public/img/profile.jpg'}
                         alt="profile picture"
                         className="w-10 h-10 sm:w-10 sm:h-10 md:w-1 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-red-600 "
                     />
                     {/* User Email */}
-                </div>}
+                </div>
+                </NavLink>
+                }
                 {/* Mobile Menu Button */}
                 <button className="md:hidden" onClick={setIsOpen.bind(null, !isOpen)}>
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
