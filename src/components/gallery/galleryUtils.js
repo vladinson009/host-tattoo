@@ -25,8 +25,10 @@ export function refreshGallery(prevValue, tattooId) {
 }
 export async function onWishlist(setTattoos) {
   const tattooId = this.objectId;
+  const artistId = this.artistId.objectId;
+
   const { objectId: currentUserId } = await userService.retrieveUser();
-  await galleryService.AddToWishlist(currentUserId, tattooId);
+  await galleryService.AddToWishlist(currentUserId, tattooId, artistId);
 
   setTattoos((prevValue) => refreshGallery(prevValue, tattooId));
 }
