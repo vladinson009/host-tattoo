@@ -10,7 +10,7 @@ async function getGallery(limit, skip, signal) {
 function createGalleryPost(data, signal) {
   return post('/classes/Gallery', data, signal);
 }
-function deleteGalleryPost(tattooId, signal) {
+function deleteGalleryPost(tattooId) {
   return del(`/classes/Gallery/${tattooId}`);
 }
 async function getTattoosByArtistId(artistId, signal) {
@@ -23,13 +23,13 @@ async function getTattoosByArtistId(artistId, signal) {
           objectId: artistId,
         },
       })
-    )}&order=-createdAt`,
+    )}&include=artistId&order=-createdAt`,
     signal
   );
   return results;
 }
 async function getTattooById(tattooId, signal) {
-  return get(`/classes/Gallery/${tattooId}`, signal);
+  return get(`/classes/Gallery/${tattooId}?include=artistId`, signal);
 }
 async function retrieveWishlist(ownerId, signal) {
   const { results } = await get(
@@ -41,12 +41,13 @@ async function retrieveWishlist(ownerId, signal) {
           objectId: ownerId,
         },
       })
-    )}&include=tattooId`,
+    )}&include=tattooId,artistId`,
     signal
   );
+
   return results;
 }
-function AddToWishlist(ownerId, tattooId, signal) {
+function AddToWishlist(ownerId, tattooId, artistId, signal) {
   const data = {
     ownerId: {
       __type: 'Pointer',
@@ -57,6 +58,11 @@ function AddToWishlist(ownerId, tattooId, signal) {
       __type: 'Pointer',
       className: 'Gallery',
       objectId: tattooId,
+    },
+    artistId: {
+      __type: 'Pointer',
+      className: 'Artist',
+      objectId: artistId,
     },
   };
   return post('/classes/Wishlist', data, signal);

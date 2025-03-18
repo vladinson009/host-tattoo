@@ -8,6 +8,23 @@ async function getPosts(limit, skip, signal) {
   );
   return posts.results;
 }
+async function getOwnPosts(limit, skip, signal) {
+  const { objectId } = await userService.retrieveUser();
+
+  const posts = await get(
+    `/classes/Post?where=${encodeURIComponent(
+      JSON.stringify({
+        ownerId: {
+          __type: 'Pointer',
+          className: '_User',
+          objectId: objectId,
+        },
+      })
+    )}&limit=${limit}&skip=${skip}&order=-createdAt`,
+    signal
+  );
+  return posts.results;
+}
 async function createPost(formData, signal) {
   const title = formData.get('title');
   const image = formData.get('image');
@@ -78,6 +95,7 @@ async function createComment(postId, comment, signal) {
       objectId: me.objectId, // Assuming artistId is the objectId of the artist
     },
     comment,
+    ownerName: me.username,
   };
   return post(`/classes/comments/`, body, signal);
 }
@@ -88,12 +106,14 @@ async function retrieveComments(postId, signal) {
         postId: {
           __type: 'Pointer',
           className: 'Post',
-          objectId: postId, // Assuming artistId is the objectId of the artist
+          objectId: postId,
         },
       })
-    )}&include=ownerId`,
+    )}`,
     signal
   );
+  console.log(results);
+
   return results;
 }
 
@@ -104,4 +124,5 @@ export default {
   removeLikeFromPost,
   createComment,
   retrieveComments,
+  getOwnPosts,
 };
