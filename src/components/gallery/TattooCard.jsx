@@ -9,7 +9,6 @@ export default function TattooCard({ tattoo, setTattoos }) {
 
 
 
-
     return (
         <div className="relative group w-90 h-full bg-[rgba(31,41,55,0.8)] rounded-2xl overflow-hidden shadow-xl border border-red-800 flex flex-col ">
             {/* Image Section */}
@@ -31,25 +30,34 @@ export default function TattooCard({ tattoo, setTattoos }) {
             </div>
 
             {/* Artist Info */}
-            {tattoo.artistId.name && <p className="text-white font-medium m-4 bottom">
+            <p className="text-white font-medium m-4 bottom">
                 Posted by:
                 <Link to={`/artists/${tattoo.artistId.objectId}`}>
                     <span className="text-red-600 font-bold text-3xl sm:text-3xl md:text-4xl cursor-pointer hover:text-yellow-500 hover:scale-110 hover:shadow-lg transition-all duration-300"> {tattoo.artistId.name}</span>
                 </Link>
-            </p>}
+            </p>
 
-            {userSession && <div className="mt-auto mb-4 text-center">
-                {tattoo.isWishlist
-                    ? <button onClick={onUnwishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-red-600 cursor-pointer hover:text-gray-400 transition duration-300">
-                        Remove favorite
-                        < GiEvilLove />
-                    </button>
-                    : <button onClick={onWishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-gray-400 cursor-pointer hover:text-red-600 transition duration-300">
-                        Add favorite
-                        < GiEvilLove />
-                    </button>
-                }
-            </div>}
+            {userSession && tattoo.artistId.artistId !== userSession._id ?
+                <div className="mt-auto mb-4 text-center">
+                    {tattoo.isWishlist
+                        ? <button onClick={onUnwishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-red-600 cursor-pointer hover:text-gray-400 transition duration-300">
+                            Remove from wishlist
+                            < GiEvilLove />
+                        </button>
+                        : <button onClick={onWishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-gray-400 cursor-pointer hover:text-red-600 transition duration-300">
+                            Add to wishlist
+                            < GiEvilLove />
+                        </button>
+                    }  </div> : userSession && tattoo.artistId.artistId == userSession._id ? <div className="mt-auto mb-4 text-center" >
+                        <button onClick={onWishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-gray-400 cursor-pointer hover:text-red-600 transition duration-300">
+                            Delete
+                            < GiEvilLove />
+                        </button>
+                        <button onClick={onWishlist.bind(tattoo, setTattoos)} className="inline-flex items-center ml-2  text-2xl sm:text-2xl md:text-3xl text-gray-400 cursor-pointer hover:text-red-600 transition duration-300">
+                            Edit
+                            < GiEvilLove />
+                        </button>
+                    </div> : null}
         </div>
     )
 }
