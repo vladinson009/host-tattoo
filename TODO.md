@@ -37,3 +37,7 @@
 - image
 
 ## Implement Details Page for each tattoo dynamicly(Find better design if possible)
+
+## TODO: Private favorite part for logged in users only
+
+## TODO: Delete and Edit tattoo ALL CRUD OPERATIONS
