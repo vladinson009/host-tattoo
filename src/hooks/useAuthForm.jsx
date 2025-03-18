@@ -13,12 +13,13 @@ export default function useAuthForm(apiCall, checkUserRole) {
         try {
             const user = await apiCall(userInput);
             const userData = {
-                username: user.username,
+                username: userInput.username,
                 email: user.email,
                 _id: user.objectId,
                 _token: user.sessionToken,
                 photo: user.photo.url
             };
+
             if (checkUserRole) {
                 const { results } = await checkUserRole(user.objectId);
                 if (results.length > 0) {
@@ -34,7 +35,7 @@ export default function useAuthForm(apiCall, checkUserRole) {
             setUserData(userData);
             setUserSession(userData)
             navigate('/');
-            return user
+            return userInput
         } catch (error) {
             return { error: error.message, userInput }
         }
