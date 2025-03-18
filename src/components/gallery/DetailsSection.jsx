@@ -10,6 +10,8 @@ export default function DetailsSection() {
         const controller = new AbortController();
         (async () => {
             const data = await galleryService.getTattooById(tattooId, controller.signal)
+
+
             setTattoo(data)
         })()
         return () => controller.abort();
@@ -34,9 +36,9 @@ export default function DetailsSection() {
 
                     <div className="w-full sm:w-1/2 sm:pl-8">
                         <h3 className="text-2xl font-semibold mb-4">{tattoo?.title}</h3>
-                        <p className="text-lg mb-4">Artist: {tattoo?.artistId?.objectId}</p>
+                        <p className="text-lg mb-4">Artist: {tattoo?.artistId?.name}</p>
                         <p className="text-lg mb-4">{tattoo?.description}</p>
-                        <p className="text-lg mb-4">   {formatDistanceToNow(new Date(tattoo?.createdAt || 2))} ago</p>
+                        <p className="text-lg mb-4">{formatDistanceToNow(new Date(tattoo?.createdAt || 2))} ago</p>
                     </div>
                 </div>
 
