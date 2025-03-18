@@ -1,26 +1,38 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import artistService from "../../services/artistService";
 import galleryService from "../../services/galleryService";
 import TattooCard from "../gallery/TattooCard";
+import context from "../../context/context";
+import Spinner from "../partials/Spinner";
 
 export default function ArtistDetails() {
+    const { userSession } = useContext(context);
     const { artistId } = useParams();
     const [artist, setArtist] = useState(null);
     const [tattoo, setTattoo] = useState([]);
     useEffect(() => {
         const controller = new AbortController();
         (async function fetchArtist() {
-            const data = await artistService.getArtistById(artistId, controller.signal)
-            const fetchTattoo = await galleryService.getTattoosByArtistId(artistId);
+
+            const [data, fetchTattoo, wishlist] = await Promise.all([
+                artistService.getArtistById(artistId, controller.signal),
+                galleryService.getTattoosByArtistId(artistId),
+                galleryService.retrieveWishlist(userSession?._id, controller.signal)
+            ])
+            const updatedGallery = fetchTattoo.map((tattoo) => {
+                return {
+                    ...tattoo,
+                    isWishlist: wishlist?.some((el) => el.tattooId.objectId == tattoo.objectId),
+                };
+            });
             setArtist(data);
-            setTattoo(fetchTattoo);
+            setTattoo(updatedGallery);
         })()
         return () => controller.abort();
     }, [artistId]);
 
-    if (!artist) return <div className="text-white text-center mt-20">Loading...</div>;
-
+    if (!artist) return <Spinner />;
     return (
         <div className="max-w-6xl mx-auto px-4 py-22 ">
             {/* Artist Info */}
@@ -41,7 +53,7 @@ export default function ArtistDetails() {
                 <h2 className="text-white text-3xl font-bold mb-5">Tattoo Portfolio</h2>
                 {tattoo.length > 0 ? (
                     <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]  place-items-center gap-20 md:gap-25 lg:gap-30 px-6">
-                        {tattoo.map(t => <TattooCard key={t.objectId} post={t} />)}
+                        {tattoo.map(t => <TattooCard key={t.objectId} tattoo={t} setTattoos={setTattoo} />)}
                     </div>
                 ) : (
                     <p className="text-gray-400 text-lg mt-5">No tattoos uploaded yet.</p>
