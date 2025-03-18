@@ -63,16 +63,6 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     }
     useEffect(() => {
         if (isOpen) {
-            // Get the window dimensions
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-
-            // Calculate center position
-            const centerX = (screenWidth / 2) - (modalRef.current?.offsetWidth / 2 || 0);
-            const centerY = (screenHeight / 2) - (modalRef.current?.offsetHeight / 2 || 0);
-
-            // Set modal position to the center
-            setPosition({ x: centerX, y: centerY });
             document.body.classList.add("overflow-hidden");
         } else {
             document.body.classList.remove("overflow-hidden");
