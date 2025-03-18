@@ -7,7 +7,7 @@ import ContextProvider from "./context/ContextProvider";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
-import NewsFeed from "./components/news-feed/NewsFeed";
+import NewsFeed from "./components/post/NewsFeed";
 import LoginSection from "./components/user/LoginSection";
 import RegisterSection from "./components/user/RegisterSection";
 import Logout from "./components/user/Logout";
@@ -20,6 +20,8 @@ import ContactSectioin from "./components/contact/ContactSection";
 import Spinner from "./components/partials/Spinner";
 import PublicGuard from "./components/guards/PublicGuard";
 import PrivateGuard from "./components/guards/PrivateGuard";
+import ProfileSection from "./components/profile/ProfileSection";
+import WishlistSection from "./components/wishlist/WishlistSection";
 
 function App() {
   const location = useLocation();
@@ -48,8 +50,9 @@ function App() {
                 <Route element={<PrivateGuard />}>
                   <Route path="/logout" element={<Logout />} />
                   <Route path="/create-post" element={<CreatePost />} />
-                  <Route path="/wishlist" element={<Home />} />
+                  <Route path="/wishlist" element={<WishlistSection />} />
                   <Route path="/contact" element={<ContactSectioin />} />
+                  <Route path="/profile" element={<ProfileSection />} />
                 </Route>
 
                 <Route path="/" element={<Home />} />
