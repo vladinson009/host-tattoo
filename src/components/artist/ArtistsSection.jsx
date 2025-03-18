@@ -3,11 +3,13 @@ import { fetchArtists } from "./artistUtils";
 import ArtistCard from "./ArtistCard";
 import useFetchData from "../../hooks/useFetchData";
 import Spinner from "../partials/Spinner";
+import { useContext, useState } from "react";
+import context from "../../context/context";
 
 export default function ArtistsSection() {
-    const [artists, isLoading, userSession, me, setArtist] = useFetchData(fetchArtists, "_id")
-
-
+    const { userSession } = useContext(context)
+    const [artists, setArtists] = useState([])
+    const [_, isLoading] = useFetchData(fetchArtists, setArtists, userSession?._id)
     if (isLoading) { return <Spinner /> }
     return (
         <section className="min-h-[calc(100vh-4rem-4rem)] text-white py-16">
@@ -18,7 +20,7 @@ export default function ArtistsSection() {
                     key={artist.objectId}
                     artist={artist}
                     userSession={userSession}
-                    setArtist={setArtist} />)
+                    setArtist={setArtists} />)
                 )}
             </div>
         </section>
