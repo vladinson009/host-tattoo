@@ -4,7 +4,7 @@ import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 import { onLike, onUnlike, onPostLikes } from './postUtils'
 import { useState } from "react";
-import CommentModal from "./commentModal";
+import CommentModal from "./CommentModal";
 export default function PostCard({ post, setPost, userSession }) {
     const [commentsCount, setCommentsCount] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false);
