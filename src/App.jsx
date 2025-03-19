@@ -16,7 +16,6 @@ import DetailsSection from "./components/gallery/DetailsSection";
 import CreatePost from "./components/post/CreatePost";
 import ArtistsSection from "./components/artist/ArtistsSection";
 import ArtistDetails from "./components/artist/ArtistDetails";
-import ContactSectioin from "./components/contact/ContactSection";
 import Spinner from "./components/partials/Spinner";
 import PublicGuard from "./components/guards/PublicGuard";
 import PrivateGuard from "./components/guards/PrivateGuard";
@@ -24,6 +23,8 @@ import MyPosts from "./components/profile/MyPosts";
 import WishlistSection from "./components/wishlist/WishlistSection";
 import MyPortfolio from "./components/profile/MyPortfolio";
 import MyMessages from "./components/profile/MyMessages";
+import CreateTattoo from "./components/gallery/CreateTattoo";
+import BookingSection from "./components/booking/BookingSection";
 
 function App() {
   const location = useLocation();
@@ -53,10 +54,11 @@ function App() {
                   <Route path="/logout" element={<Logout />} />
                   <Route path="/create-post" element={<CreatePost />} />
                   <Route path="/wishlist" element={<WishlistSection />} />
-                  <Route path="/contact" element={<ContactSectioin />} />
+                  <Route path="/booking" element={<BookingSection />} />
                   <Route path="/my-posts" element={<MyPosts />} />
                   <Route path="/my-portfolio" element={<MyPortfolio />} />
                   <Route path="/my-messages" element={<MyMessages />} />
+                  <Route path="/create-tattoo" element={<CreateTattoo />} />
                 </Route>
 
                 <Route path="/" element={<Home />} />
