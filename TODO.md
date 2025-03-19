@@ -41,3 +41,13 @@
 ## TODO: Private favorite part for logged in users only
 
 ## TODO: Delete and Edit tattoo ALL CRUD OPERATIONS
+
+## Pagination
+
+## My Messages
+
+## Add more parameters / pure components
+
+## Create Tattoo
+
+## Toaster for error messages

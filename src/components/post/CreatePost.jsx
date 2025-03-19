@@ -4,7 +4,7 @@ import useCreateForm from '../../hooks/useCreateForm';
 
 import Form from '../partials/form/Form';
 import InputFormField from '../partials/form/InputFormField';
-import TextareaFormField from '../partials/form/textareaFormField';
+import TextareaFormField from '../partials/form/TextareaFormField';
 import UploadFileField from '../partials/form/uploadFileField';
 import SubmitFormButton from '../partials/form/SubmitFormButton';
 import Spinner from '../partials/Spinner';

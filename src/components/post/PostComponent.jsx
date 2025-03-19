@@ -4,7 +4,8 @@ import useFetchData from "../../hooks/useFetchData";
 import Spinner from "../partials/Spinner";
 import PostCard from "./postCard";
 import context from "../../context/context";
-import NoPosts from "./NoPosts";
+import NoContent from "../partials/NoContent";
+
 
 export default function PostComponent({ fetchPosts, title }) {
     const { userSession } = useContext(context);
@@ -13,7 +14,7 @@ export default function PostComponent({ fetchPosts, title }) {
     const observerRef = useRef(null);
 
     if (isLoading) { return <Spinner /> };
-    if (posts.length < 1) { return (<NoPosts />) };
+    if (posts.length < 1) { return (<NoContent content="No posts yet..." />) };
     return (
         <div className="min-h-[calc(100vh-4rem-4rem)] flex flex-col items-center justify-center text-red-600 text-center p-6">
             <div className="max-w-2xl mx-auto py-8 space-y-6 pt-20">

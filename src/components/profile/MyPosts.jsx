@@ -9,6 +9,6 @@ async function fetchOwnPosts(setPost, _id, signal) {
     });
     setPost(updatedPosts);
 }
-export default function ProfileSection() {
+export default function MyPosts() {
     return <PostComponent fetchPosts={fetchOwnPosts} title="My posts" />
 }

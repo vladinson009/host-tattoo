@@ -17,18 +17,21 @@ const navigation = [
     { value: 'Contact Us', href: '/contact', auth: 'user' },
     { value: 'Login', href: '/login', auth: 'guest' },
     { value: 'Register', href: '/register', auth: 'guest' },
-    { value: 'Logout', href: '/logout', auth: 'user' },
+
 ]
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const { userSession } = useContext(context);
-
+    const isArtist = userSession?.role?.includes('Artist')
+    const toggleUserMenu = () => {
+        setIsUserMenuOpen(prev => !prev);
+    };
     function isActive({ isActive }) {
         return { color: isActive && "rgb(252, 211, 77)" }
     }
     function renderNav(nav) {
-        // if (userSession && nav.auth != 'guest') {
         return <NavLink style={isActive}
             onClick={setIsOpen.bind(null, false)}
             key={nav.value}
@@ -38,9 +41,8 @@ export default function Header() {
             {nav.value}
         </NavLink >
     }
-
     const filteredNavigation = navigation.filter((item) => {
-        if (userSession?.role?.includes('Artist')) {
+        if (isArtist) {
             return item.auth === "Artist" || item.auth === "user" || item.auth === false;
         } else if (userSession) {
             return item.auth === "user" || item.auth === false;
@@ -61,18 +63,60 @@ export default function Header() {
                 <nav className="hidden md:flex gap-6 items-center">
                     {filteredNavigation.map(renderNav)}
                 </nav>
-                {userSession && <NavLink style={isActive} to="/profile"> <div className="flex items-center space-x-4">
-                    {/* Profile Image */}
+                {userSession &&
+                    <div>
 
-                    <em className="text-white text-md sm:text-sm md:text-md lg:text-2xl transition duration-300 hover:text-red-400">{userSession.username}</em>
-                    <img
-                        src={userSession.photo || '/public/img/profile.jpg'}
-                        alt="profile picture"
-                        className="w-10 h-10 sm:w-10 sm:h-10 md:w-1 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-red-600 "
-                    />
-                    {/* User Email */}
-                </div>
-                </NavLink>
+                        <div onClick={toggleUserMenu} className="cursor-pointer flex items-center space-x-4">
+                            {/* Profile Image */}
+
+                            <em className="text-white text-md sm:text-sm md:text-md lg:text-2xl transition duration-300 hover:text-red-400">{userSession.username}</em>
+                            <img
+                                src={userSession.photo || '/public/img/profile.jpg'}
+                                alt="profile picture"
+                                className="w-10 h-10 sm:w-10 sm:h-10 md:w-1 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-red-600 "
+                            />
+                            <svg
+
+                                className={`transition-transform duration-300 transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
+                                width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 7L10 12L15 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                        {isUserMenuOpen && (
+                            <div className="absolute top-16 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg">
+                                <div className="flex flex-col space-y-4">
+                                    <NavLink
+                                        to="/my-posts"
+                                        className="hover:text-red-400 transition duration-300"
+                                        onClick={() => toggleUserMenu(false)}
+                                    >
+                                        My Posts
+                                    </NavLink>
+                                    <NavLink
+                                        to="/my-portfolio"
+                                        className="hover:text-red-400 transition duration-300"
+                                        onClick={() => toggleUserMenu(false)}
+                                    >
+                                        My Portfolio
+                                    </NavLink>
+                                    <NavLink
+                                        to="/my-messages"
+                                        className="hover:text-red-400 transition duration-300"
+                                        onClick={() => toggleUserMenu(false)}
+                                    >
+                                        My Messages
+                                    </NavLink>
+                                    <NavLink
+                                        to="/logout"
+                                        className="hover:text-red-400 transition duration-300"
+                                        onClick={() => toggleUserMenu(false)}
+                                    >
+                                        Logout
+                                    </NavLink>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 }
                 {/* Mobile Menu Button */}
                 <button className="md:hidden" onClick={setIsOpen.bind(null, !isOpen)}>

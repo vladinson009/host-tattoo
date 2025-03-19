@@ -4,21 +4,21 @@
 
 can:
 
-## Home page by clicking on studio name(HØST TATTOO)
+- Home page by clicking on studio name(HØST TATTOO)
 
-## Check news feed without functionality
+- Check news feed without functionality
 
-## Check Gallery
+- Check Gallery
 
-## Check Tattoo details by clicking on the tattoo image(or Artist Details by click on artist name)
+- Check Tattoo details by clicking on the tattoo image(or Artist Details by click on artist name)
 
-## Check Artists
+- Check Artists
 
-## Check Artist details by clicking on [info] button
+- Check Artist details by clicking on [info] button
 
-## Login
+- Login
 
-## Register
+- Register
 
 # Authenticated users:
 
@@ -26,10 +26,12 @@ can:
 
 in additional to guest can:
 
-- ## Private part (Wishlist in Navigation)
-- ## Create post
-- ## Like and comment posts
-- ## Add tattoo to wishlist collection(tattoo is accesable from Gallery or Artist Details and appear in Wishlsit after adding to collection)
+- Private part (Wishlist in Navigation)
+- Create post
+- Check comments(Drag-and-Drop modal)
+- Like and comment posts
+- Add tattoo to wishlist collection(tattoo is accesable from Gallery or Artist Details and appear in Wishlsit after adding to collection)
+- Contact Us form sending message to to targeted Artist
 
 # "Artist" role users:
 
@@ -38,5 +40,6 @@ in additional to guest can:
 
 in additional to Authenticated can:
 
-- ### Create tattoo
-- ### Access own tattoo collection with functionallity
+- Create tattoo
+- Access own tattoo collection with functionallity
+- Access Contact Us messages from Authenticated Users sent to them

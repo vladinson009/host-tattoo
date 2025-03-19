@@ -33,7 +33,7 @@ export default function PostCard({ post, setPost, userSession }) {
 
             <div className="flex items-center justify-between mt-4"></div>
             {/* //TODO Comments: */}
-            <p className="text-white mt-2">Posted by: <span className="text-red-600 text-3xl sm:text-4xl md:text-5xl">{post.owner}</span></p>
+            <p className="text-white mt-2">Posted by: <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl">{post.owner}</span></p>
             <div className="mt-4 text-gray-300">
                 <p className="leading-8 sm:leading-9 md:leading-10 text-1xl sm:text-1xl md:text-2xl">{post.description}</p>
             </div>
