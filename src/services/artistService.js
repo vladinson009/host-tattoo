@@ -7,6 +7,10 @@ async function getAllArtists(signal) {
 async function getArtistById(artistId, signal) {
   return get('/classes/Artist/' + artistId, signal);
 }
+async function getArtistIdByUserId(userId, signal) {
+  const result = await get(`/classes/Artist?where={"artistId":"${userId}"}`, signal);
+  return result.results[0];
+}
 async function addLikeToArtist(artistId, currentUserId, signal) {
   const body = {
     likes: {
@@ -40,4 +44,5 @@ export default {
   addLikeToArtist,
   removeLikeFromArtist,
   getLikes,
+  getArtistIdByUserId,
 };

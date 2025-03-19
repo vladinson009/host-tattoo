@@ -31,7 +31,23 @@ async function contactUsForm(formData) {
   };
   return post('/classes/Contact', postData);
 }
+async function FetchMessages(artistId, signal) {
+  const { results } = await get(
+    `/classes/Contact?where=${encodeURIComponent(
+      JSON.stringify({
+        artistId: {
+          __type: 'Pointer',
+          className: 'Artist',
+          objectId: artistId,
+        },
+      })
+    )}`,
+    signal
+  );
 
+  return results;
+}
 export default {
   contactUsForm,
+  FetchMessages,
 };
