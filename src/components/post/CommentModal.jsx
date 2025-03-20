@@ -40,7 +40,7 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
                 </button>
 
                 {/* Modal Header */}
-                <h2 className="text-2xl font-bold mb-4 text-center">Comments</h2>
+                <h2 className="text-2xl  mb-4 text-center">Comments</h2>
 
                 {/* Comment List */}
                 <div className="max-h-100 overflow-y-auto h-100 mb-4">
@@ -62,8 +62,6 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
                         <p className="text-gray-400 text-center text-2xl">No comments yet.</p>
                     )}
                 </div>
-
-                {/* Add Comment Form */}
                 <div className="mt-4">
                     <input
                         type="text"
@@ -72,12 +70,7 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                     />
-                    {/* <button
-                        onClick={onAddComment}
-                        className="w-full bg-red-600 hover:bg-red-800 text-white py-2 mt-2 rounded transition"
-                    >
-                        Post new comment
-                    </button> */}
+
                     <SubmitFormButton clickHandler={onAddComment} textContent="Post new comment" />
                 </div>
             </div>

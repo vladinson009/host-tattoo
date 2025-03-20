@@ -23,7 +23,7 @@ export default function DetailsSection() {
     return (
         <section className="min-h-[calc(100vh-4rem-4rem)] text-white pt-25 pb-10">
             <div className="container mx-auto px-6">
-                <h2 className="text-4xl font-bold text-center mb-6">Tattoo Details</h2>
+                <h2 className="text-4xl text-center mb-6">Tattoo Details</h2>
 
                 <div className="flex flex-col sm:flex-row justify-between items-center bg-[rgba(31,41,55,0.8)]">
                     <div className="w-full sm:w-1/2 mb-8 sm:mb-0">
@@ -36,7 +36,7 @@ export default function DetailsSection() {
 
                     <div className="w-full sm:w-1/2 sm:pl-8">
                         <h3 className="text-2xl font-semibold mb-4">{tattoo?.title}</h3>
-                        <p className="text-lg mb-4">Artist: {tattoo?.artistId?.name}</p>
+                        <Link to={`/artists/${tattoo?.artistId.objectId}`}><p className="text-lg mb-4">Artist: <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl cursor-pointer hover:text-yellow-500 hover:scale-110 hover:shadow-lg transition-all duration-300">{tattoo?.artistId?.name}</span></p></Link>
                         <p className="text-lg mb-4">{tattoo?.description}</p>
                         <p className="text-lg mb-4">{formatDistanceToNow(new Date(tattoo?.createdAt || 2))} ago</p>
                     </div>

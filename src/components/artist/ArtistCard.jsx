@@ -15,7 +15,7 @@ export default function ArtistCard({ artist, userSession, setArtist }) {
                     alt={artist.name}
                     className="w-35 h-35 rounded-full object-cover border-4 border-red-800 mb-4"
                 />
-                <h3 className="text-white text-5xl sm:text-2xl md:text-4xl font-bold ">
+                <h3 className="text-white text-5xl sm:text-2xl md:text-4xl">
                     {artist.name}
                 </h3>
                 <p className="text-gray-400 text-3xl sm:text-2xl md:text-3xl text-center mt-2">{artist.description}</p>

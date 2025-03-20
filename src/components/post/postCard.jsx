@@ -24,7 +24,7 @@ export default function PostCard({ post, setPost, userSession }) {
                     <img src={post.image.url} alt={post.title} className="rounded-full" />
                 </div>
                 <div>
-                    <h3 className="text-white font-bold text-2xl sm:text-2xl md:text-4xl">{post.title}</h3>
+                    <h3 className="text-white text-2xl sm:text-2xl md:text-4xl">{post.title}</h3>
                     <p className="text-1xl sm:text-1xl md:text-1xl text-gray-400">
                         {formatDistanceToNow(new Date(post.createdAt))} ago
                     </p>
@@ -32,7 +32,6 @@ export default function PostCard({ post, setPost, userSession }) {
             </div>
 
             <div className="flex items-center justify-between mt-4"></div>
-            {/* //TODO Comments: */}
             <p className="text-white mt-2">Posted by: <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl">{post.owner}</span></p>
             <div className="mt-4 text-gray-300">
                 <p className="leading-8 sm:leading-9 md:leading-10 text-1xl sm:text-1xl md:text-2xl">{post.description}</p>
