@@ -1,13 +1,23 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
-import { onLike, onUnlike, onPostLikes } from './postUtils'
-import { useState } from "react";
-import CommentModal from "./CommentModal";
+
+import { onLike, onUnlike, onDelete, onEdit } from './postUtils'
+import CommentModal from "./modals/CommentModal";
+import DeleteModal from "./modals/DeleteModal";
+import EditModal from "./modals/EditModal";
+
 export default function PostCard({ post, setPost, userSession }) {
     const [commentsCount, setCommentsCount] = useState(0)
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const isOwner = post.ownerId && post.ownerId.objectId == userSession?._id
+
+
 
 
     return (
@@ -43,22 +53,48 @@ export default function PostCard({ post, setPost, userSession }) {
                             ? <FaHeart onClick={onUnlike.bind(post, setPost)} className="text-red-600" />
                             : <FaRegHeart onClick={onLike.bind(post, setPost)} />}
                     </button>
-                    <span onClick={onPostLikes.bind(post)} className="text-xl sm:text-2xl md:text-3xl text-gray-300 cursor-pointer hover:text-red-700 block"> {post?.likes?.length > 0 ? post?.likes?.length + " Likes" : "No likes yet"}</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl text-gray-300 block"> {post?.likes?.length > 0 ? post?.likes?.length + " Likes" : "No likes yet"}</span>
                 </div>
                 <div >
-
                     <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-blue-200">
-                        <FaComment onClick={() => setIsModalOpen(true)} />
+                        <FaComment onClick={() => setIsCommentModalOpen(true)} />
                     </button>
-                    <span onClick={onPostLikes.bind(post)} className="text-xl sm:text-2xl md:text-3xl text-gray-300 cursor-pointer hover:text-red-700 block">{commentsCount > 0 ? commentsCount + " Comments" : "No comments yet"}</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl text-gray-300 block">{commentsCount > 0 ? commentsCount + " Comments" : "No comments yet"}</span>
 
                 </div>
+                {isOwner
+                    && <>
+                        <div>
+                            <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
+                                <MdEdit onClick={() => setIsEditModalOpen(true)} />
+                            </button>
+                            <span className="text-xl sm:text-2xl md:text-3xl text-gray-300 block">Edit</span>
+                        </div>
+                        <div>
+                            <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
+                                <MdDeleteForever onClick={() => setIsDeleteModalOpen(true)} />
+                            </button>
+                            <span className="text-xl sm:text-2xl md:text-3xl text-gray-300 block">Delete</span>
+                        </div>
+                    </>}
             </div>}
             <CommentModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isOpen={isCommentModalOpen}
+                onClose={() => setIsCommentModalOpen(false)}
                 post={post}
                 setCommentsCount={setCommentsCount}
+            />
+            <DeleteModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onDelete={onDelete.bind(post, setPost, isOwner)}
+                title={post.title} />
+            <EditModal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                onSave={onEdit.bind(post, setPost, isOwner)}
+                initialTitle={post.title}
+                initialDescription={post.description}
             />
         </motion.div>
     )
