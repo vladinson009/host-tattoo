@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function useFetchData(callback, ...arg) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const controller = new AbortController();
@@ -14,7 +15,8 @@ export default function useFetchData(callback, ...arg) {
                 const result = await callback(...arg, controller.signal)
                 setData(result);
             } catch (error) {
-                console.log(error);
+                setError(error.message)
+                return error.message
 
             } finally {
                 setIsLoading(false);
@@ -26,5 +28,5 @@ export default function useFetchData(callback, ...arg) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    return [data, isLoading, setData]
+    return { data, isLoading, setData, error }
 }
