@@ -1,3 +1,4 @@
+import artistService from './artistService';
 import { get, post, del } from './fetcher';
 
 async function getGallery(limit, skip, signal) {
@@ -7,10 +8,48 @@ async function getGallery(limit, skip, signal) {
   );
   return gallery.results;
 }
-function createGalleryPost(data, signal) {
-  return post('/classes/Gallery', data, signal);
+async function createTattoo(formData, signal) {
+  const title = formData.get('title');
+  const description = formData.get('description');
+  const image = formData.get('image');
+
+  if (!title) {
+    throw new Error('Title is required');
+  }
+  if (!description) {
+    throw new Error('Description is required');
+  }
+  if (!image) {
+    throw new Error('Photo is required');
+  }
+  if (!image.name) {
+    throw new Error('Photo is required!');
+  }
+  const [file, me] = await Promise.all([
+    post(`/files/${image.name}`, image, signal),
+    get('/users/me'),
+  ]);
+
+  const artistId = await artistService.getArtistIdByUserId(me.objectId);
+
+  const postData = {
+    title,
+    description,
+    image: {
+      __type: 'File',
+      name: file.name,
+      url: file.url,
+    },
+    artistId: {
+      __type: 'Pointer',
+      className: 'Artist',
+      objectId: artistId,
+    },
+  };
+
+  return post('/classes/Gallery', postData, signal);
 }
-function deleteGalleryPost(tattooId) {
+function deleteTattoo(tattooId) {
   return del(`/classes/Gallery/${tattooId}`);
 }
 async function getTattoosByArtistId(artistId, signal) {
@@ -92,12 +131,12 @@ async function retrieveCurrentWishlistId(ownerId, tattooId, signal) {
 }
 export default {
   getGallery,
-  createGalleryPost,
+  createTattoo,
+  deleteTattoo,
   getTattoosByArtistId,
   getTattooById,
   retrieveWishlist,
   retrieveCurrentWishlistId,
   AddToWishlist,
   removeFromWishlist,
-  deleteGalleryPost,
 };
