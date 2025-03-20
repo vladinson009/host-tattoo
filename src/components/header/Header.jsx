@@ -55,18 +55,18 @@ export default function Header() {
         <header className="bg-[rgba(31,41,55,0.98)] text-red-600 shadow-lg fixed w-full z-50">
             <div className="container mx-auto flex justify-between items-center p-4">
                 {/* Logo */}
-                <h1 className="absolute top-2 left-4 text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest transition duration-300 text-white hover:text-red-400"><NavLink
+                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest transition duration-300 text-white hover:text-red-400"><NavLink
                     style={isActive}
                     onClick={setIsOpen.bind(null, false)} to="/" >{STUDIO_NAME}</NavLink></h1>
 
                 {/* Desktop Nav */}
-                <nav className="flex-grow justify-center hidden md:flex gap-6 items-center">
+                <nav className="hidden md:flex gap-6 items-center">
                     {filteredNavigation.map(renderNav)}
                 </nav>
                 {userSession &&
                     <div>
 
-                        <div onClick={toggleUserMenu} className="cursor-pointer flex items-center space-x-4 absolute top-2 right-4">
+                        <div onClick={toggleUserMenu} className="cursor-pointer flex items-center space-x-4">
                             {/* Profile Image */}
 
                             <em className="text-white text-md sm:text-sm md:text-md lg:text-2xl transition duration-300 hover:text-red-400">{userSession.username}</em>
