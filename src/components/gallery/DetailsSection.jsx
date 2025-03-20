@@ -29,7 +29,7 @@ export default function DetailsSection() {
                     <div className="w-full sm:w-1/2 mb-8 sm:mb-0">
                         <img
                             src={tattoo?.image?.url}
-                            alt="DummyName"
+                            alt={tattoo?.title}
                             className="w-full h-full object-cover rounded-lg shadow-lg"
                         />
                     </div>
@@ -38,7 +38,7 @@ export default function DetailsSection() {
                         <h3 className="text-2xl font-semibold mb-4">{tattoo?.title}</h3>
                         <Link to={`/artists/${tattoo?.artistId.objectId}`}><p className="text-lg mb-4">Artist: <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl cursor-pointer hover:text-yellow-500 hover:scale-110 hover:shadow-lg transition-all duration-300">{tattoo?.artistId?.name}</span></p></Link>
                         <p className="text-lg mb-4">{tattoo?.description}</p>
-                        <p className="text-lg mb-4">{formatDistanceToNow(new Date(tattoo?.createdAt || 2))} ago</p>
+                        <p className="text-lg mb-4 text-gray-400">{formatDistanceToNow(new Date(tattoo?.createdAt || 2))} ago</p>
                     </div>
                 </div>
 
