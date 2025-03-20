@@ -9,7 +9,7 @@ export default function useMyArtistId() {
             try {
                 const me = await userService.retrieveUser();
                 const myArtistId = await (artistService.getArtistIdByUserId(me.objectId));
-                setArtistId(myArtistId.objectId);
+                setArtistId(myArtistId);
             } catch (error) {
                 console.log(error.message);
             }
