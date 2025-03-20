@@ -20,15 +20,14 @@ export default function Home() {
                 {
                     userSession &&
                     <Link to={"/booking"}
-                        href="#booking"
-                        className="inline-block mt-6 px-6 py-3 bg-red-600 text-black text-xl font-bold uppercase rounded-lg shadow-lg hover:bg-red-800 transition"
+
+                        className="inline-block mt-6 px-6 py-3 bg-red-600 text-black text-xl uppercase rounded-lg shadow-lg hover:bg-red-800 transition"
                     >
-                        Book time
+                        Book time Now
                     </Link>
                 }
 
             </div >
-
         </section >
     );
 }
