@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import postService from "../services/postService";
+import context from "../context/context";
 
 export default function useCommentModal(setCommentsCount, post, isOpen) {
-
+    const { tempMessage } = useContext(context)
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const modalRef = useRef(null);
@@ -56,6 +57,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
             setComments(retrievedComments);
             setCommentsCount(retrievedComments.length)
             setNewComment('');
+            tempMessage("Comment added!")
 
         } catch (error) {
             console.log(error);
