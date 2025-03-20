@@ -11,7 +11,6 @@ const navigation = [
     { value: 'News feed', href: '/news-feed', auth: false },
     { value: 'Gallery', href: '/gallery', auth: false },
     { value: 'Artists', href: '/artists', auth: false },
-    { value: <span className="flex items-center">Wishlist<GiEvilLove className="text-red-600 inline" /></span>, href: '/wishlist', auth: 'user' },
     { value: 'Create Tattoo', href: '/create-tattoo', auth: 'Artist' },
     { value: 'Create Post', href: '/create-post', auth: 'user' },
     { value: 'Book Time', href: '/booking', auth: 'user' },
@@ -86,26 +85,34 @@ export default function Header() {
                             <div className="absolute top-16 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg">
                                 <div className="flex flex-col space-y-4">
                                     <NavLink
+                                        to="/wishlist"
+                                        className="hover:text-red-400 transition duration-300"
+                                        onClick={() => toggleUserMenu(false)}
+                                    >
+                                        <span className="flex items-center">My Wishlist<GiEvilLove className="text-red-600 inline" /></span>
+
+                                    </NavLink>
+                                    <NavLink
                                         to="/my-posts"
                                         className="hover:text-red-400 transition duration-300"
                                         onClick={() => toggleUserMenu(false)}
                                     >
                                         My Posts
                                     </NavLink>
-                                    <NavLink
+                                    {isArtist && <>  <NavLink
                                         to="/my-portfolio"
                                         className="hover:text-red-400 transition duration-300"
                                         onClick={() => toggleUserMenu(false)}
                                     >
                                         My Portfolio
                                     </NavLink>
-                                    <NavLink
-                                        to="/my-messages"
-                                        className="hover:text-red-400 transition duration-300"
-                                        onClick={() => toggleUserMenu(false)}
-                                    >
-                                        My Messages
-                                    </NavLink>
+                                        <NavLink
+                                            to="/my-messages"
+                                            className="hover:text-red-400 transition duration-300"
+                                            onClick={() => toggleUserMenu(false)}
+                                        >
+                                            My Messages
+                                        </NavLink> </>}
                                     <NavLink
                                         to="/logout"
                                         className="hover:text-red-400 transition duration-300"
