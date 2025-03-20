@@ -51,3 +51,5 @@
 ## Create Tattoo
 
 ## Toaster for error messages
+
+## Delete / Edit My Tattoo
