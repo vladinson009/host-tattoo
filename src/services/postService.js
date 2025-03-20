@@ -1,14 +1,11 @@
-import { get, post, put } from './fetcher';
+import { del, get, post, put } from './fetcher';
 import userService from './userService';
 
-async function getPosts(limit, skip, signal) {
-  const posts = await get(
-    `/classes/Post?limit=${limit}&skip=${skip}&order=-createdAt`,
-    signal
-  );
+async function getPosts(signal) {
+  const posts = await get(`/classes/Post?order=-createdAt`, signal);
   return posts.results;
 }
-async function getOwnPosts(limit, skip, signal) {
+async function getOwnPosts(signal) {
   const { objectId } = await userService.retrieveUser();
 
   const posts = await get(
@@ -20,7 +17,7 @@ async function getOwnPosts(limit, skip, signal) {
           objectId: objectId,
         },
       })
-    )}&limit=${limit}&skip=${skip}&order=-createdAt`,
+    )}&order=-createdAt`,
     signal
   );
   return posts.results;
@@ -61,6 +58,12 @@ async function createPost(formData, signal) {
     owner: me.username,
   };
   return post('/classes/Post', postData, signal);
+}
+async function deletePost(postId) {
+  return del(`/classes/Post/${postId}`);
+}
+async function editPost(postId, body) {
+  return put(`/classes/Post/${postId}`, body);
 }
 async function addLikeToPost(postId, currentUserId, signal) {
   const body = {
@@ -120,6 +123,8 @@ async function retrieveComments(postId, signal) {
 export default {
   getPosts,
   createPost,
+  editPost,
+  deletePost,
   addLikeToPost,
   removeLikeFromPost,
   createComment,
