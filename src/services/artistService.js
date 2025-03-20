@@ -1,4 +1,4 @@
-import { get, put } from './fetcher';
+import { del, get, put } from './fetcher';
 
 async function getAllArtists(signal) {
   const { results } = await get('/classes/Artist', signal);
@@ -38,6 +38,9 @@ async function getLikes(userIds, signal) {
   );
   return result.results;
 }
+function archiveMessageById(messageId, signal) {
+  return del(`/classes/Contact/${messageId}`, signal);
+}
 export default {
   getAllArtists,
   getArtistById,
@@ -45,4 +48,5 @@ export default {
   removeLikeFromArtist,
   getLikes,
   getArtistIdByUserId,
+  archiveMessageById,
 };
