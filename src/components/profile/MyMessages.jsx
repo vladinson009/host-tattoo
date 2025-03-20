@@ -22,12 +22,17 @@ export default function MyMessages() {
             setArtist(artist)
         })();
         return () => controller.abort();
-    }, [artistId])
+    }, [artistId]);
+
+
     if (!artist) { return <Spinner /> }
     return (
         <div className="max-w-6xl mx-auto px-4 py-22">
             <ArtistHeader artist={artist} />
-            <MessagesList messages={messages} />
+            <h2 className="text-white text-3xl mb-5">My messages</h2>
+            {messages.length > 1
+                ? <MessagesList messages={messages} />
+                : <p className="text-gray-400 text-lg mt-5">No Messages yet.</p>}
         </div>
     )
 }
