@@ -9,7 +9,7 @@ async function getArtistById(artistId, signal) {
 }
 async function getArtistIdByUserId(userId, signal) {
   const result = await get(`/classes/Artist?where={"artistId":"${userId}"}`, signal);
-  return result.results[0];
+  return result.results[0].objectId;
 }
 async function addLikeToArtist(artistId, currentUserId, signal) {
   const body = {
