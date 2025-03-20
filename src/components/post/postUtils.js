@@ -33,3 +33,28 @@ export async function onUnlike(setPost) {
 export async function onPostLikes() {
   //TODO: show likes;
 }
+export async function onDelete(setPost, isOwner) {
+  const postId = this.objectId;
+  if (!isOwner) {
+    throw new Error('You are not an owner of this post!');
+  }
+  await postService.deletePost(postId);
+
+  setPost((prevValue) => prevValue.filter((e) => e.objectId !== postId));
+}
+export async function onEdit(setPost, isOwner, title, description) {
+  const postId = this.objectId;
+  if (!isOwner) {
+    throw new Error('You are not an owner of this post!');
+  }
+  await postService.editPost(postId, { title, description });
+
+  setPost((prevValue) => {
+    const newValue = [...prevValue];
+    const idx = newValue.findIndex((el) => el.objectId == postId);
+    newValue[idx].title = title;
+    newValue[idx].description = title;
+
+    return newValue;
+  });
+}
