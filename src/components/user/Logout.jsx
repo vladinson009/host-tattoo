@@ -14,14 +14,16 @@ export default function Logout() {
         (async () => {
             try {
                 await userService.logoutUser()
+                navigate('/');
                 setUserSession(null);
                 clearUserData();
-                navigate('/')
+
             } catch (error) {
                 console.log(error);
             }
         })()
-    }, [setUserSession])
+
+    }, [setUserSession, navigate])
     return (
         <Spinner />
     )
