@@ -12,7 +12,7 @@ export default function useCreateForm(apiCall) {
         try {
             await apiCall(formData);
             navigate('/news-feed');
-            tempMessage("Created")
+            tempMessage("Done!");
             return userInput
         } catch (error) {
             return { error: error.message, userInput }
