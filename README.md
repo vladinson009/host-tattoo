@@ -1,3 +1,5 @@
+[https://host-tattoo.vercel.app](https://host-tattoo.vercel.app)
+
 # How it works
 
 ---
@@ -11,6 +13,10 @@
 - Check news feed without functionality
 
 - Check Gallery
+
+- Search in Gallery by tattoo name
+
+- Use Infinity pagination at the bottom of Gallery page
 
 - Check Tattoo details by clicking on the tattoo image(or Artist Details by click on artist name)
 
