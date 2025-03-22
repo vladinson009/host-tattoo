@@ -1,20 +1,31 @@
 import artistService from './artistService';
-import { get, post, del } from './fetcher';
+import { get, post, del, put } from './fetcher';
 
-async function getGallery(limit, skip, signal) {
+async function getGallery(signal) {
   const gallery = await get(
-    `/classes/Gallery?limit=${limit}&skip=${skip}&order=-createdAt&include=artistId`,
+    `/classes/Gallery?order=-createdAt&include=artistId`,
+    signal
+  );
+  return gallery.results;
+}
+async function getLastThree(signal) {
+  const gallery = await get(
+    `/classes/Gallery?limit=3&order=-createdAt&include=artistId`,
     signal
   );
   return gallery.results;
 }
 async function createTattoo(formData, signal) {
   const title = formData.get('title');
+  const price = Number(formData.get('price'));
   const description = formData.get('description');
   const image = formData.get('image');
 
   if (!title) {
     throw new Error('Title is required');
+  }
+  if (!price) {
+    throw new Error('Price is required');
   }
   if (!description) {
     throw new Error('Description is required');
@@ -34,6 +45,7 @@ async function createTattoo(formData, signal) {
 
   const postData = {
     title,
+    price,
     description,
     image: {
       __type: 'File',
@@ -51,6 +63,9 @@ async function createTattoo(formData, signal) {
 }
 function deleteTattoo(tattooId) {
   return del(`/classes/Gallery/${tattooId}`);
+}
+async function editTattoo(tattooId, body) {
+  return put(`/classes/Gallery/${tattooId}`, body);
 }
 async function getTattoosByArtistId(artistId, signal) {
   const { results } = await get(
@@ -83,10 +98,40 @@ async function retrieveWishlist(ownerId, signal) {
     )}&include=tattooId,artistId`,
     signal
   );
-
-  return results;
+  return results.map((r) => {
+    const tattoo = r.tattooId;
+    return {
+      ...tattoo,
+      isWishlist: results?.some((el) => el.tattooId.objectId == tattoo.objectId),
+      artistId: {
+        name: r.artistId.name,
+        objectId: r.artistId.objectId,
+      },
+    };
+  });
 }
-function AddToWishlist(ownerId, tattooId, artistId, signal) {
+async function retrieveWishlistId(ownerId, tattooId, signal) {
+  const { results } = await get(
+    `/classes/Wishlist?where=${encodeURIComponent(
+      JSON.stringify({
+        ownerId: {
+          __type: 'Pointer',
+          className: '_User',
+          objectId: ownerId,
+        },
+        tattooId: {
+          __type: 'Pointer',
+          className: 'Gallery',
+          objectId: tattooId,
+        },
+      })
+    )}`,
+    signal
+  );
+
+  return results[0]?.objectId;
+}
+function addToWishlist(ownerId, tattooId, artistId, signal) {
   const data = {
     ownerId: {
       __type: 'Pointer',
@@ -106,10 +151,7 @@ function AddToWishlist(ownerId, tattooId, artistId, signal) {
   };
   return post('/classes/Wishlist', data, signal);
 }
-function removeFromWishlist(wishlistId, signal) {
-  return del(`/classes/Wishlist/${wishlistId}`, signal);
-}
-async function retrieveCurrentWishlistId(ownerId, tattooId, signal) {
+async function removeFromWishlist(ownerId, tattooId, signal) {
   const { results } = await get(
     `/classes/Wishlist?where=${encodeURIComponent(
       JSON.stringify({
@@ -127,16 +169,18 @@ async function retrieveCurrentWishlistId(ownerId, tattooId, signal) {
     )}`,
     signal
   );
-  return results[0].objectId;
+  return del(`/classes/Wishlist/${results[0].objectId}`, signal);
 }
 export default {
   getGallery,
+  getLastThree,
   createTattoo,
   deleteTattoo,
   getTattoosByArtistId,
   getTattooById,
   retrieveWishlist,
-  retrieveCurrentWishlistId,
-  AddToWishlist,
   removeFromWishlist,
+  addToWishlist,
+  retrieveWishlistId,
+  editTattoo,
 };
