@@ -35,7 +35,7 @@ export default function Header() {
             onClick={setIsOpen.bind(null, false)}
             key={nav.value}
             to={nav.href}
-            className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 text-white"
+            className="whitespace-nowrap text-lg uppercase transition duration-300 hover:text-red-400 text-white hover:animate-pulse"
         >
             {nav.value}
         </NavLink >
@@ -54,7 +54,7 @@ export default function Header() {
         <header className="bg-[rgba(31,41,55,0.98)] text-red-600 shadow-lg fixed w-full z-50">
             <div className="container mx-auto flex justify-between items-center p-4">
                 {/* Logo */}
-                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest transition duration-300 text-white hover:text-red-400"><NavLink
+                <h1 className="text-1xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-widest transition duration-300 text-white hover:text-red-400 hover:animate-pulse"><NavLink
                     style={isActive}
                     onClick={setIsOpen.bind(null, false)} to="/" >{STUDIO_NAME}</NavLink></h1>
 
