@@ -41,7 +41,7 @@ async function FetchMessages(artistId, signal) {
           objectId: artistId,
         },
       })
-    )}`,
+    )}&order=-createdAt`,
     signal
   );
 
