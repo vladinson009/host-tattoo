@@ -12,14 +12,14 @@ import Toast from "../partials/Toast";
 
 export default function CreateTattoo() {
     const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo)
-    if (isPending) return <Spinner />
     return (
         <>
             {error && <Toast message={error} />}
             <Form name="Create New Tattoo" action={formAction}>
                 <InputFormField labelName="Title" type="text" name="title" value={userInput?.title} />
+                <InputFormField labelName="Price" type="text" name="price" value={userInput?.price} />
                 <TextareaFormField name="description" labelName="Description" value={userInput?.description} />
-                <UploadFileField isPending={isPending} labelName="Upload Photo" name="image" />
+                <UploadFileField isPending={isPending} labelName="Upload Photo" name="image" value={userInput?.image} />
                 <SubmitFormButton isPending={isPending} textContent="Create" />
             </Form>
         </>
