@@ -3,21 +3,21 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa6";
 import { formatDistanceToNow } from "date-fns";
 
-import { onLike, onUnlike, onDelete, onEdit } from './postUtils'
-import CommentModal from "./modals/CommentModal";
-import DeleteModal from "./modals/DeleteModal";
-import EditModal from "./modals/EditModal";
+// import { onUnlike, } from './postUtils'
+import CommentModal from "../modals/CommentModal";
+import DeleteModal from "../modals/DeleteModal";
+import EditModal from "../modals/EditModal";
+import usePostCard from "../../hooks/usePostCard";
 
 export default function PostCard({ post, setPost, userSession }) {
     const [commentsCount, setCommentsCount] = useState(0)
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const isOwner = post.ownerId && post.ownerId.objectId == userSession?._id
-
-
+    const { isOwner, isPending, onEdit, onDelete, onLike, onUnlike } = usePostCard(post, setPost, userSession)
 
 
     return (
@@ -48,10 +48,13 @@ export default function PostCard({ post, setPost, userSession }) {
             </div>
             {userSession && <div className="flex space-x-4 items-center justify-evenly mt-4">
                 <div>
-                    <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
-                        {post.isLiked
-                            ? <FaHeart onClick={onUnlike.bind(post, setPost)} className="text-red-600" />
-                            : <FaRegHeart onClick={onLike.bind(post, setPost)} />}
+                    <button disabled={isPending} className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
+                        {
+                            // isPending ? <FaSpinner className="text-4xl animate-spin" /> :
+                            post.isLiked
+                                ? <FaHeart onClick={onUnlike.bind(post)} className={`text-red-600 ${isPending && "animate-ping"}`} />
+                                : <FaRegHeart onClick={onLike.bind(post)} className={isPending && "animate-ping"} />
+                        }
                     </button>
                     <span className="text-xl sm:text-2xl md:text-3xl text-gray-300 block"> {post?.likes?.length > 0 ? post?.likes?.length + " Likes" : "No likes yet"}</span>
                 </div>
@@ -83,16 +86,17 @@ export default function PostCard({ post, setPost, userSession }) {
                 onClose={() => setIsCommentModalOpen(false)}
                 post={post}
                 setCommentsCount={setCommentsCount}
+
             />
             <DeleteModal
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
-                onDelete={onDelete.bind(post, setPost, isOwner)}
+                onDelete={onDelete.bind(post)}
                 title={post.title} />
             <EditModal
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
-                onSave={onEdit.bind(post, setPost, isOwner)}
+                onSave={onEdit.bind(post)}
                 initialTitle={post.title}
                 initialDescription={post.description}
             />
