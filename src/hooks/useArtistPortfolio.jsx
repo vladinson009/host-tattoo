@@ -20,9 +20,10 @@ export default function useArtistPortfolio(artistId) {
                 galleryService.retrieveWishlist(userSession?._id, controller.signal)
             ])
             const updatedGallery = fetchTattoo.map((tattoo) => {
+
                 return {
                     ...tattoo,
-                    isWishlist: wishlist?.some((el) => el.tattooId.objectId == tattoo.objectId),
+                    isWishlist: wishlist?.some((el) => el.objectId == tattoo.objectId),
                 };
             });
             setArtist(data);
