@@ -1,5 +1,6 @@
 export default function NoContent({ content }) {
 
+    // show no content message
     return (
         <div className="min-h-[calc(100vh-4rem-4rem)] flex flex-col items-center justify-center text-red-600 text-center p-6">
             <div className="max-w-2xl mx-auto py-8 space-y-6 pt-20">

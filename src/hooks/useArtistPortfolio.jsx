@@ -7,6 +7,8 @@ export default function useArtistPortfolio(artistId) {
     const { userSession } = useContext(context);
     const [artist, setArtist] = useState(null);
     const [tattoo, setTattoo] = useState([]);
+
+    // artist portfolio fetch
     useEffect(() => {
         if (artistId == null) {
             return
@@ -14,6 +16,7 @@ export default function useArtistPortfolio(artistId) {
         const controller = new AbortController();
         (async function fetchArtist() {
 
+            // undepended fetches resolve in parallel
             const [data, fetchTattoo, wishlist] = await Promise.all([
                 artistService.getArtistById(artistId, controller.signal),
                 galleryService.getTattoosByArtistId(artistId),

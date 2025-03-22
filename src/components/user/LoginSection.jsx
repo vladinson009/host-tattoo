@@ -12,8 +12,8 @@ import Toast from "../partials/Toast";
 export default function LoginSection() {
     const { formAction, isPending, error, userInput } = useAuthForm(userService.loginUser, userService.checkUserRoles)
 
+    // user login form
     if (isPending) return <Spinner />
-
     return (
         <>
             {error && <Toast message={error} />}

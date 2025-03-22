@@ -10,5 +10,7 @@ async function fetchPosts(setPost, _id, signal) {
 }
 
 export default function NewsFeed() {
+
+    // show all posts in News Feed section
     return (<PostComponent fetchPosts={fetchPosts} title="News Feed" />);
 }

@@ -4,7 +4,7 @@ import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import SubmitFormButton from "../partials/form/SubmitFormButton";
 import { FaSpinner } from "react-icons/fa6";
-import useDetailsButtons from "../../hooks/useDetailsButtons";
+import useTattooDetailsButtons from "../../hooks/useTattooDetailsButtons";
 
 export default function TattooButtons({ tattoo, setTattoo }) {
     const { onDelete,
@@ -17,9 +17,10 @@ export default function TattooButtons({ tattoo, setTattoo }) {
         isEditModalOpen,
         setIsDeleteModalOpen,
         setIsEditModalOpen
-    } = useDetailsButtons(tattoo, setTattoo)
+    } = useTattooDetailsButtons(tattoo, setTattoo)
     return (
-
+        // tattoo buttons for wishlist, edit and delete
+        // wishlist button is toggled if the tattoo is already in the wishlist
         <div className="text-center flex justify-center space-x-5">
             {userSession && tattoo?.artistId?.artistId !== userSession._id
                 ? tattoo.isWishlist

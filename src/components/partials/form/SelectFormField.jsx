@@ -1,4 +1,5 @@
 export default function SelectFormField({ name, artists, labelName }) {
+    // reusable select form field component
 
     return (
         <div className="mb-4">

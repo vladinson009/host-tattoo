@@ -2,6 +2,7 @@ import { Link } from "react-router"
 
 export default function FormFooter({ text, linkText, link }) {
 
+    // reusable form footer with link for redirection
     return (
         <div className="text-center">
             <p className="text-lg">

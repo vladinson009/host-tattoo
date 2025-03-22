@@ -10,6 +10,8 @@ export default function DetailsSection() {
     if (!tattoo) {
         return <Spinner />;
     }
+
+    // tattoo details section with image, title, description, price, artist name and buttons
     return (
         <section className="min-h-[calc(100vh-4rem-4rem)] text-white pt-25 pb-10">
             <div className="container mx-auto px-6">

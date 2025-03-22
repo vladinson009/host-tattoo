@@ -3,10 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
-import { FaSpinner } from "react-icons/fa6";
 import { formatDistanceToNow } from "date-fns";
 
-// import { onUnlike, } from './postUtils'
 import CommentModal from "../modals/CommentModal";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
@@ -28,7 +26,6 @@ export default function PostCard({ post, setPost, userSession }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-
             <div className="flex items-center space-x-4">
                 <div>
                     <img src={post.image.url} alt={post.title} className="rounded-full" />
@@ -40,7 +37,6 @@ export default function PostCard({ post, setPost, userSession }) {
                     </p>
                 </div>
             </div>
-
             <div className="flex items-center justify-between mt-4"></div>
             <p className="text-white mt-2">Posted by: <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl">{post.owner}</span></p>
             <div className="mt-4 text-gray-300">
@@ -50,7 +46,6 @@ export default function PostCard({ post, setPost, userSession }) {
                 <div>
                     <button disabled={isPending} className="text-4xl sm:text-5xl md:text-6xl text-gray-400 cursor-pointer hover:text-red-500">
                         {
-                            // isPending ? <FaSpinner className="text-4xl animate-spin" /> :
                             post.isLiked
                                 ? <FaHeart onClick={onUnlike.bind(post)} className={`text-red-600 ${isPending && "animate-ping"}`} />
                                 : <FaRegHeart onClick={onLike.bind(post)} className={isPending && "animate-ping"} />
@@ -81,6 +76,8 @@ export default function PostCard({ post, setPost, userSession }) {
                         </div>
                     </>}
             </div>}
+
+            {/* modals dialogues for post card */}
             <CommentModal
                 isOpen={isCommentModalOpen}
                 onClose={() => setIsCommentModalOpen(false)}

@@ -9,6 +9,8 @@ const xParseRevocableSession = 1;
 
 async function fetcher(url, method, data, signal) {
   const userSessioin = getUserSession();
+
+  //Setted app keys in headers, method and signal
   const options = {
     method,
     headers: {
@@ -18,6 +20,7 @@ async function fetcher(url, method, data, signal) {
     },
     signal,
   };
+  //In case of body data, check also if it is Instance of File or JSON
   if (data) {
     options.headers['Content-Type'] = 'application/json';
     if (data instanceof File) {
@@ -26,6 +29,7 @@ async function fetcher(url, method, data, signal) {
       options.body = JSON.stringify(data);
     }
   }
+  // If user is logged in, set session token from local storage in headers
   if (userSessioin) {
     options.headers['X-Parse-Session-Token'] = userSessioin._token;
   }
@@ -33,6 +37,7 @@ async function fetcher(url, method, data, signal) {
 
   if (response.ok == false) {
     const error = await response.json();
+    // If session token is invalid, clear local storage and redirect to home page
     if (error.code === 209) {
       clearUserData();
       alert(error.error);
@@ -41,6 +46,7 @@ async function fetcher(url, method, data, signal) {
     }
     throw new Error(error.error);
   }
+  // if username is taken => status code 202
   if (response.status === 202) {
     const error = await response.json();
     throw new Error(error.error);
@@ -48,6 +54,7 @@ async function fetcher(url, method, data, signal) {
   return response.json();
 }
 
+// Abstracted fetcher methods
 function get(url, signal) {
   return fetcher(url, 'GET', null, signal);
 }

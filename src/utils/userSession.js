@@ -1,3 +1,5 @@
+// Get user session data from local storage
+
 function getUserSession() {
   const userData = localStorage.getItem('userData');
   if (userData) {

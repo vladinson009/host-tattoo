@@ -17,6 +17,9 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
         isPending
 
     } = useCommentModal(setCommentsCount, post, isOpen)
+
+    // comments modal for users posts
+
     if (!isOpen) return null;
     return (
         <div onClick={onClose}

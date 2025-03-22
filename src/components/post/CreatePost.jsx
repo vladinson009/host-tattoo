@@ -13,6 +13,8 @@ import Toast from '../partials/Toast';
 export default function CreatePost() {
     const { formAction, isPending, error, userInput } = useCreateForm(postService.createPost)
     if (isPending) return <Spinner />
+
+    // create post form using custom hook with useActionState
     return (
         <>
             {error && <Toast message={error} />}

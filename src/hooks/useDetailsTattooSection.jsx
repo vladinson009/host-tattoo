@@ -4,10 +4,11 @@ import { useNavigate } from "react-router";
 import galleryService from "../services/galleryService";
 
 export default function useDetailsTattooSection(tattooId) {
-
     const navigate = useNavigate();
     const [tattoo, setTattoo] = useState();
     const { userSession } = useContext(context);
+
+    // fetch tattoo by id and check if it is in user's wishlist
     useEffect(() => {
         const controller = new AbortController();
         (async () => {

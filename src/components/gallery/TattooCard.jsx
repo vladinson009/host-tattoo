@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 
 export default function TattooCard({ tattoo }) {
+
+    // reusable tattoo card component
     return (
         <div className="relative group w-90 h-full bg-[rgba(31,41,55,0.8)] rounded-2xl overflow-hidden shadow-xl border border-red-800 flex flex-col ">
             <Link to={`/gallery/details/${tattoo.objectId}`} className="cursor-pointer w-full h-auto overflow-hidden rounded-lg">
@@ -12,9 +14,6 @@ export default function TattooCard({ tattoo }) {
             </Link>
             <div className="text-center px-2">
                 <h3 className="text-xl sm:text-1xl md:text-2xl lg:text-3xl text-white">{tattoo.title}</h3>
-                {/* <p className="text-xl sm:text-xl md:text-1xl lg:text-2xl text-gray-400 mt-2">
-                    {tattoo.description}
-                </p> */}
             </div>
             <p className="text-white font-medium m-4 bottom">
                 Posted by:

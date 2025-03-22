@@ -16,6 +16,8 @@ export default function ArtistCard({ artist, userSession, onLike, onUnlike }) {
         await onUnlike.bind(artist)();
         setIsPending(false);
     }
+
+    // artists card component with like, unlike, info buttons
     return (
         <div
 
@@ -30,7 +32,6 @@ export default function ArtistCard({ artist, userSession, onLike, onUnlike }) {
                 <h3 className="text-white text-2xl sm:text-3xl md:text-3xl">
                     {artist.name}
                 </h3>
-                {/* <p className="text-gray-400 text-xl sm:text-1xl md:text-xl text-center mt-2">{artist.description}</p> */}
             </div>
             <div className="flex space-x-4 items-center justify-evenly mt-4 mb-4">
                 {userSession && (

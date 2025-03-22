@@ -7,6 +7,8 @@ export default function ContextProvider({ children }) {
     const [userSession, setUserSession] = useState(getUserSession());
     const [globalMessage, setGlobalMessage] = useState(false);
 
+    // context provider for global data and user session
+
     function tempMessage(message) {
         setGlobalMessage(message);
         setTimeout(() => {

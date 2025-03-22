@@ -1,9 +1,9 @@
 import artistService from './artistService';
 import { get, post, del, put } from './fetcher';
 
-async function getGallery(signal) {
+async function getGallery(skip, limit, signal) {
   const gallery = await get(
-    `/classes/Gallery?order=-createdAt&include=artistId`,
+    `/classes/Gallery?skip=${skip}&limit=${limit}&order=-createdAt&include=artistId`,
     signal
   );
   return gallery.results;
@@ -172,15 +172,30 @@ async function removeFromWishlist(ownerId, tattooId, signal) {
   return del(`/classes/Wishlist/${results[0].objectId}`, signal);
 }
 export default {
+  //get tattoos from gallery (skip, limit)
   getGallery,
+
+  //get last three tattoos
   getLastThree,
+
+  //create, delete, edit tattoo
   createTattoo,
   deleteTattoo,
+  editTattoo,
+
+  //get tattoos by artistId
   getTattoosByArtistId,
+
+  //get tattoo by tattooId
   getTattooById,
+
+  //retrieve my wishlist
   retrieveWishlist,
+
+  //add, remove from wishlist
   removeFromWishlist,
   addToWishlist,
+
+  //retrieve wishlist element ID
   retrieveWishlistId,
-  editTattoo,
 };

@@ -7,7 +7,7 @@ export default function useAuthForm(apiCall, checkUserRole) {
     const navigate = useNavigate()
     const { setUserSession } = useContext(context)
     const [{ error, userInput }, formAction, isPending] = useActionState(onAction, { error: null, userInput: null });
-
+    // abstractive function for user authentication using useActionState hook
     async function onAction(previousState, formData) {
         const userInput = Object.fromEntries(formData);
         try {
@@ -19,7 +19,7 @@ export default function useAuthForm(apiCall, checkUserRole) {
                 _token: user.sessionToken,
                 photo: user.photo.url
             };
-
+            // if roles, check them and add to userData
             if (checkUserRole) {
                 const { results } = await checkUserRole(user.objectId);
                 if (results.length > 0) {

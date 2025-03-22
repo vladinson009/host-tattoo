@@ -14,6 +14,9 @@ export default function ArtistsSection() {
     const { isLoading, error } = useFetchData(fetchArtists)
 
     if (isLoading) { return <Spinner /> }
+
+    // artists section showing all artists card
+
     return (
         <>
             {error && <Toast message={error} />}

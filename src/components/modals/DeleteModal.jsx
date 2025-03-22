@@ -7,6 +7,8 @@ export default function DeleteModal({ isOpen, onClose, onDelete, title }) {
     const navigate = useNavigate();
     const [isPending, setIsPending] = useState(false);
 
+    // reusable modal for delete confirmation
+
     async function deleteHandler() {
         try {
             setIsPending(true);

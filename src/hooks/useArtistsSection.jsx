@@ -7,6 +7,7 @@ export default function useArtistSection() {
     const { userSession } = useContext(context);
     const [artists, setArtists] = useState([]);
 
+    // artist section hook to fetch all artists and check if user liked them
     async function fetchArtists(signal) {
         const fetchedArtists = await artistService.getAllArtists(signal);
         const updatedArtists = fetchedArtists.map((artist) => {

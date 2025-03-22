@@ -12,7 +12,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
     const [isPending, setIsPending] = useState(false);
 
-    // Handle mouse down event
+    // handle mouse down event
     function handleMouseDown(e) {
         setDragging(true);
         setStartPosition({
@@ -21,7 +21,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
         });
     };
 
-    // Handle mouse move event
+    // handle mouse move event
     function handleMouseMove(e) {
         if (!dragging) return;
         setPosition({
@@ -30,24 +30,11 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
         });
     };
 
-    // Handle mouse up event
+    // handle mouse up event
     function handleMouseUp() {
         setDragging(false);
     };
-
-
-    useEffect(() => {
-        const controller = new AbortController();
-        (async () => {
-            const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
-            setComments(retrievedComments)
-            setCommentsCount(retrievedComments.length)
-
-        })()
-
-        return () => controller.abort();
-    }, [post.objectId, setCommentsCount])
-
+    // on add comment functionality
     async function onAddComment() {
         if (newComment.trim() == "") {
             return
@@ -66,6 +53,20 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
             console.log(error);
         }
     }
+    // fetch comments by post id
+    useEffect(() => {
+        const controller = new AbortController();
+        (async () => {
+            const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
+            setComments(retrievedComments)
+            setCommentsCount(retrievedComments.length)
+
+        })()
+
+        return () => controller.abort();
+    }, [post.objectId, setCommentsCount])
+
+    // add overflow hidden class to body when modal is open
     useEffect(() => {
         if (isOpen) {
             document.body.classList.add("overflow-hidden");

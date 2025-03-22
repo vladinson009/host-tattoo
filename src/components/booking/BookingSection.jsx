@@ -1,5 +1,7 @@
-import contactService from "../../services/contactService";
+import { useEffect, useState } from "react";
 
+import contactService from "../../services/contactService";
+import artistService from "../../services/artistService";
 import useCreateForm from "../../hooks/useCreateForm";
 
 import Form from "../partials/form/Form";
@@ -8,8 +10,6 @@ import InputFormField from "../partials/form/InputFormField";
 import TextareaFormField from "../partials/form/TextareaFormField";
 import SubmitFormButton from "../partials/form/SubmitFormButton";
 import FormFooter from "../partials/form/FormFooter";
-import { useEffect, useState } from "react";
-import artistService from "../../services/artistService";
 import Spinner from "../partials/Spinner";
 import Toast from "../partials/Toast";
 
@@ -17,8 +17,10 @@ export default function BookingSection() {
     const [artists, setArtists] = useState([]);
     const { formAction, isPending, error, userInput } = useCreateForm(contactService.contactUsForm)
 
+    // booking form with select field for artists
     useEffect(() => {
         const controller = new AbortController();
+        // fetch all artists for select field
         (async () => {
             const data = await artistService.getAllArtists(controller.signal);
             setArtists(data)

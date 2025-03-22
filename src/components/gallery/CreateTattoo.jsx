@@ -12,6 +12,8 @@ import Toast from "../partials/Toast";
 
 export default function CreateTattoo() {
     const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo)
+    // only for artists
+    // create tattoo form with input fields and upload file field 
     return (
         <>
             {error && <Toast message={error} />}

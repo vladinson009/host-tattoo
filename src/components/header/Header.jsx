@@ -24,8 +24,11 @@ export default function Header() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const { userSession } = useContext(context);
     const isArtist = userSession?.role?.includes('Artist')
-    const toggleUserMenu = () => {
-        setIsUserMenuOpen(prev => !prev);
+
+    // header navigation component
+
+    function toggleUserMenu() {
+        return setIsUserMenuOpen(prev => !prev);
     };
     function isActive({ isActive }) {
         return { color: isActive && "rgb(252, 211, 77)" }

@@ -7,6 +7,7 @@ export default function useFetchData(callback, ...arg) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
+    // reusable fetch data hook, returning data, loading state and error
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
@@ -28,5 +29,11 @@ export default function useFetchData(callback, ...arg) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    return { data, isLoading, setData, error }
+    return {
+
+        data,
+        setData,
+        isLoading,
+        error
+    }
 }

@@ -1,4 +1,5 @@
 export default function InputFormField({ labelName, type, name, value }) {
+    // reusable input field component
 
     return (
         <div className="mb-4">

@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 
 import useFetchData from "../../hooks/useFetchData";
 import Spinner from "../partials/Spinner";
@@ -12,10 +12,11 @@ export default function PostComponent({ fetchPosts, title }) {
     const { userSession, globalMessage } = useContext(context);
     const [posts, setPosts] = useState([]);
     const { isLoading, error } = useFetchData(fetchPosts, setPosts, userSession?._id)
-    const observerRef = useRef(null);
 
     if (isLoading) { return <Spinner /> };
     if (posts.length < 1) { return (<NoContent content="No posts yet..." />) };
+
+    // post component to fetch and display posts(own posts, all posts)
     return (
         <>
             {globalMessage && <Toast message={globalMessage} type="message" />}
@@ -28,7 +29,6 @@ export default function PostComponent({ fetchPosts, title }) {
                     ))
                     }
                 </div>
-                <div ref={observerRef} className="h-10"></div>
             </div>
         </>
     );

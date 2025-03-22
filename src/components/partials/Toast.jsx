@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+
+// custom toast component
 export default function Toast({ message, type }) {
     const [isOpen, setIsOpen] = useState(false);
 

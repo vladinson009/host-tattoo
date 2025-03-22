@@ -10,5 +10,7 @@ async function fetchOwnPosts(setPost, _id, signal) {
     setPost(updatedPosts);
 }
 export default function MyPosts() {
+
+    // show only posts of the current user in My Posts section
     return <PostComponent fetchPosts={fetchOwnPosts} title="My posts" />
 }

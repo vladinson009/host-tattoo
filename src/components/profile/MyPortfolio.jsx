@@ -7,6 +7,8 @@ export default function MyPortfolio() {
     const { artistId } = useMyArtistId();
     const { artist, tattoo, setTattoo } = useArtistPortfolio(artistId)
     if (!artist) return <Spinner />;
+
+    // show my portfolio in My Portfolio section
     return (
         <ArtistComponent artist={artist} tattoo={tattoo} setTattoo={setTattoo} />
     )

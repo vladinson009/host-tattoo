@@ -7,6 +7,8 @@ export default function UploadFileField({ isPending, labelName, name }) {
     function handlePhotoChange(e) {
         setImage(e.target.files[0]);
     };
+
+    // reusable upload file field component
     return (
         <>
             <motion.label

@@ -48,6 +48,9 @@ async function FetchMessages(artistId, signal) {
   return results;
 }
 export default {
+  // send contact form to artist
   contactUsForm,
+
+  // fetch messages for specific artist
   FetchMessages,
 };

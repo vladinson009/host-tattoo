@@ -1,15 +1,26 @@
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import artistService from '../../../services/artistService';
-import { GiToaster } from 'react-icons/gi';
-import Toast from '../Toast';
-import Spinner from '../Spinner';
+import Toast from '../../partials/Toast';
 
+// message list component for Artist's messages
+export default function MessagesList({ messages }) {
+    return (
+        <div className="space-y-6 pt-5">
+            {messages.map((messageData) => (
+                <MessageCard key={messageData.objectId} messageData={messageData} />
+            ))}
+        </div>
+    );
+};
+
+// message card component for Artist's messages
 function MessageCard({ messageData }) {
     const { message, topic, customerId, artistId, createdAt } = messageData;
     const { objectId } = customerId;
     const [isArchived, setIsArchived] = useState(false);
     const [error, setError] = useState('')
+
     async function onArchive() {
         try {
             await artistService.archiveMessageById(messageData.objectId)
@@ -42,14 +53,3 @@ function MessageCard({ messageData }) {
         </div>
     );
 };
-export default function MessagesList({ messages }) {
-    return (
-        <div className="space-y-6 pt-5">
-            {messages.map((messageData) => (
-                <MessageCard key={messageData.objectId} messageData={messageData} />
-            ))}
-        </div>
-    );
-};
-
-

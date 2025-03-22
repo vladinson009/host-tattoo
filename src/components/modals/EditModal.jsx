@@ -21,6 +21,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
         }
     };
 
+    // reusable modal for editing details
     if (!isOpen) { return null }
     return (
         <div

@@ -36,23 +36,9 @@ async function logoutUser(signal) {
 function retrieveUser(signal) {
   return get('/users/me', signal);
 }
+
 // ! checkUserRole RETURNS OBJECT, with key 'results' - array with Objects
 //  results[0].name - is the role name
-
-async function toggleFavorite(tattooId, signal) {
-  const me = await retrieveUser();
-  const operation = me.favorite.some((el) => el == tattooId)
-    ? 'Remove'
-    : 'AddUnique';
-
-  const body = {
-    favorite: {
-      __op: operation,
-      objects: [tattooId],
-    },
-  };
-  return put(`/classes/_User/${me.objectId}`, body, signal);
-}
 function checkUserRoles(userId, signal) {
   return get(
     `/classes/_Role?where=${encodeURIComponent(
@@ -101,10 +87,10 @@ export default {
   registerUser,
   loginUser,
   logoutUser,
+
   //get current user
   retrieveUser,
-  //favorite
-  toggleFavorite,
+
   //check user for roles
   checkUserRoles,
   checkSpecificUserRole,

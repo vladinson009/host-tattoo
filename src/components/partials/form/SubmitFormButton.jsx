@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { FaSpinner } from "react-icons/fa6"
 
 export default function SubmitFormButton({ isPending, textContent, clickHandler }) {
+    // reusable button component
 
     return (
         <div className="my-6">

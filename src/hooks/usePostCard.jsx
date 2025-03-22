@@ -30,7 +30,6 @@ export default function usePostCard(post, setPost, userSession) {
         await postService.deletePost(postId);
         setPost((prevValue) => prevValue.filter((e) => e.objectId !== postId));
     }
-
     async function onLike() {
         setIsPending(true);
         try {
@@ -63,7 +62,6 @@ export default function usePostCard(post, setPost, userSession) {
         }
     }
 
-
     //util function to refresh post Likes
     function refreshPosts(prevValue, likes, postId) {
         const newArtists = prevValue.map((artist) => {
@@ -74,6 +72,16 @@ export default function usePostCard(post, setPost, userSession) {
         });
         return newArtists;
     }
-    return { isOwner, onEdit, onDelete, onLike, onUnlike, isPending }
+    return {
+        // user interactions with Posts
+        onEdit,
+        onDelete,
+        onLike,
+        onUnlike,
+
+        // post state
+        isOwner,
+        isPending
+    }
 
 } 

@@ -7,6 +7,9 @@ export default function useCreateForm(apiCall) {
     const navigate = useNavigate();
     const [{ userInput = {}, error }, formAction, isPending] = useActionState(onAction, { userInput: null, error: null })
 
+    // abstractive function for form submission 
+    // returning formAction, pending state, error and userInput
+
     async function onAction(prevValue, formData) {
         const userInput = Object.fromEntries(formData)
         try {

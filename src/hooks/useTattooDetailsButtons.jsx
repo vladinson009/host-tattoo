@@ -4,7 +4,7 @@ import galleryService from "../services/galleryService";
 import userService from "../services/userService";
 
 
-export default function useDetailsButtons(tattoo, setTattoo) {
+export default function useTattooDetailsButtons(tattoo, setTattoo) {
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -53,16 +53,21 @@ export default function useDetailsButtons(tattoo, setTattoo) {
         }
     }
     return {
+        // user interration within tattoo details
         onDelete,
         onEdit,
         onWishlist,
         onUnwishlist,
-        userSession,
-        isPending,
+
+        // modal states
         isDeleteModalOpen,
         isEditModalOpen,
         setIsDeleteModalOpen,
-        setIsEditModalOpen
+        setIsEditModalOpen,
+
+        // pending state, user session state
+        isPending,
+        userSession,
 
     }
 }

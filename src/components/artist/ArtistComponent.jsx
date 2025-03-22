@@ -4,6 +4,8 @@ import ArtistHeader from "./ArtistHeader";
 
 export default function ArtistComponent({ artist, tattoo, setTattoo }) {
 
+
+    // reusable artist details page with artist info
     return (
         <div className="max-w-6xl mx-auto px-4 py-22">
             {/* Artist Info */}

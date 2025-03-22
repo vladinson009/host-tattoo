@@ -120,13 +120,22 @@ async function retrieveComments(postId, signal) {
 }
 
 export default {
+  //get all posts
   getPosts,
+
+  //create, edit, delete post
   createPost,
   editPost,
   deletePost,
+
+  //add and remove like from post
   addLikeToPost,
   removeLikeFromPost,
+
+  //create and retrieve comments
   createComment,
   retrieveComments,
+
+  //fetch own posts
   getOwnPosts,
 };

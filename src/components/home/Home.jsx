@@ -6,6 +6,7 @@ import RecentThree from "./RecentThree";
 export default function Home() {
     const { userSession } = useContext(context);
 
+    // home page with welcome message and call to action
     return (
         <>
             <section

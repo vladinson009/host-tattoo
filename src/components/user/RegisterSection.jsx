@@ -12,6 +12,8 @@ import Toast from "../partials/Toast";
 export default function RegisterSection() {
     const { formAction, isPending, error, userInput } = useAuthForm(userService.registerUser)
     if (isPending) return <Spinner />
+
+    // user registration form
     return (
         <>
             {error && <Toast message={error} />}

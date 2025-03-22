@@ -1,5 +1,7 @@
 export default function ArtistHeader({ artist }) {
 
+
+    // reusable artist header component
     return (
         <div className="bg-[rgba(31,41,55,0.98)] p-6 rounded-xl shadow-lg border border-red-800 flex flex-col md:flex-row items-center">
             <img

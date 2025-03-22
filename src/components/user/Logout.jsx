@@ -10,6 +10,8 @@ import Spinner from "../partials/Spinner"
 export default function Logout() {
     const { setUserSession } = useContext(context)
     const navigate = useNavigate();
+
+    // logout user and clear user session
     useEffect(() => {
         (async () => {
             try {

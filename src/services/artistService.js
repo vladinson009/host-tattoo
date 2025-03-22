@@ -42,11 +42,20 @@ function archiveMessageById(messageId, signal) {
   return del(`/classes/Contact/${messageId}`, signal);
 }
 export default {
+  // retrieve artists
   getAllArtists,
   getArtistById,
+
+  // likes to artists
   addLikeToArtist,
   removeLikeFromArtist,
+
+  // retrieve likes for artist
   getLikes,
+
+  // retrieve artistId by userId
   getArtistIdByUserId,
+
+  // archive/delete message
   archiveMessageById,
 };
