@@ -115,7 +115,6 @@ async function retrieveComments(postId, signal) {
     )}`,
     signal
   );
-  console.log(results);
 
   return results;
 }
