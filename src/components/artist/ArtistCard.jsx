@@ -27,10 +27,10 @@ export default function ArtistCard({ artist, userSession, onLike, onUnlike }) {
                     alt={artist.name}
                     className="w-35 h-35 rounded-full object-cover border-4 border-red-800 mb-4"
                 />
-                <h3 className="text-white text-5xl sm:text-2xl md:text-4xl">
+                <h3 className="text-white text-2xl sm:text-3xl md:text-3xl">
                     {artist.name}
                 </h3>
-                <p className="text-gray-400 text-3xl sm:text-2xl md:text-3xl text-center mt-2">{artist.description}</p>
+                {/* <p className="text-gray-400 text-xl sm:text-1xl md:text-xl text-center mt-2">{artist.description}</p> */}
             </div>
             <div className="flex space-x-4 items-center justify-evenly mt-4 mb-4">
                 {userSession && (
