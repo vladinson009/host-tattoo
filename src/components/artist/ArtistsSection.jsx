@@ -1,16 +1,18 @@
 
-import { fetchArtists } from "./artistUtils";
+// import { fetchArtists } from "./artistUtils";
 import ArtistCard from "./ArtistCard";
 import useFetchData from "../../hooks/useFetchData";
 import Spinner from "../partials/Spinner";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import context from "../../context/context";
 import Toast from "../partials/Toast";
+import useArtistSection from "../../hooks/useArtistsSection";
 
 export default function ArtistsSection() {
     const { userSession } = useContext(context)
-    const [artists, setArtists] = useState([])
-    const { isLoading, error } = useFetchData(fetchArtists, setArtists, userSession?._id)
+    const { fetchArtists, onLike, onUnlike, artists } = useArtistSection()
+    const { isLoading, error } = useFetchData(fetchArtists)
+
     if (isLoading) { return <Spinner /> }
     return (
         <>
@@ -23,7 +25,9 @@ export default function ArtistsSection() {
                         key={artist.objectId}
                         artist={artist}
                         userSession={userSession}
-                        setArtist={setArtists} />)
+                        onLike={onLike}
+                        onUnlike={onUnlike}
+                    />)
                     )}
                 </div>
             </section>
