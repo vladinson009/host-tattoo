@@ -1,13 +1,25 @@
 import { Link } from "react-router";
 import { FaHeart, FaRegHeart, FaInfoCircle } from "react-icons/fa";
+import { useState } from "react";
 
-import { onLike, onUnlike, onUserLikes } from "./artistUtils";
 
-export default function ArtistCard({ artist, userSession, setArtist }) {
+export default function ArtistCard({ artist, userSession, onLike, onUnlike }) {
+    const [isPending, setIsPending] = useState(false);
+
+    async function onLikeWrapper() {
+        setIsPending(true);
+        await onLike.bind(artist)();
+        setIsPending(false);
+    }
+    async function onUnlikeWrapper() {
+        setIsPending(true);
+        await onUnlike.bind(artist)();
+        setIsPending(false);
+    }
     return (
         <div
-            key={artist.objectId}
-            className="relative group w-72 h-full bg-[rgba(31,41,55,0.8)] rounded-2xl overflow-hidden shadow-xl border border-red-800 flex flex-col "
+
+            className="relative group w-72 h-full bg-[rgba(31,41,55,0.8)] rounded-2xl overflow-hidden shadow-xl border border-red-800 flex flex-col"
         >
             <div className="p-4 flex flex-col items-center flex-grow">
                 <img
@@ -22,14 +34,14 @@ export default function ArtistCard({ artist, userSession, setArtist }) {
             </div>
             <div className="flex space-x-4 items-center justify-evenly mt-4 mb-4">
                 {userSession && (
-                    <button className="text-4xl sm:text-5xl md:text-6xl text-gray-400 hover:text-red-500 cursor-pointer">
+                    <button disabled={isPending} className="text-4xl sm:text-5xl md:text-6xl text-gray-400 hover:text-red-500 cursor-pointer">
                         {artist.isLiked
-                            ? <FaHeart onClick={onUnlike.bind(artist, setArtist)} className="text-red-500" />
-                            : <FaRegHeart onClick={onLike.bind(artist, setArtist)} />}
+                            ? <FaHeart onClick={onUnlikeWrapper} className={`text-red-500 ${isPending && "animate-ping"}`} />
+                            : <FaRegHeart onClick={onLikeWrapper} className={isPending && "animate-ping"} />}
                     </button>
                 )}
-                {artist?.likes?.length > 0 && <span onClick={onUserLikes.bind(artist)} className="text-xl sm:text-2xl md:text-3xl text-gray-300 cursor-pointer hover:text-red-700">{artist?.likes?.length} Likes</span>}
-                <Link to={`/artists/${artist.objectId}`} className="text-4xl sm:text-5xl md:text-6xl text-gray-400 hover:text-gray-200 cursor-pointer">
+                {artist?.likes?.length > 0 && <span className="text-xl sm:text-2xl md:text-3xl text-gray-300">{artist?.likes?.length} Likes</span>}
+                <Link disabled={isPending} to={`/artists/${artist.objectId}`} className="text-4xl sm:text-5xl md:text-6xl text-gray-400 hover:text-gray-200 cursor-pointer">
                     <FaInfoCircle />
                 </Link>
             </div>
