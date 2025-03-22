@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion"
+import { FaSpinner } from "react-icons/fa6"
 
 export default function SubmitFormButton({ isPending, textContent, clickHandler }) {
 
@@ -18,7 +19,7 @@ export default function SubmitFormButton({ isPending, textContent, clickHandler 
                 animate={isPending ? { scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] } : {}}
                 transition={{ duration: 0.2 }}
                 className="text-1xl sm:text-2xl bg-red-600 text-white hover:bg-red-800 hover:text-black py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out cursor-pointer text-white hover:bg-red-800 py-3 px-6 rounded-lg">
-                {textContent}
+                {isPending ? <FaSpinner className="text-4xl animate-spin" /> : textContent}
             </motion.button>
 
         </div>
