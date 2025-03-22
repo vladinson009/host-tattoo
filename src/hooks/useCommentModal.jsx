@@ -10,6 +10,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [dragging, setDragging] = useState(false);
     const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+    const [isPending, setIsPending] = useState(false);
 
     // Handle mouse down event
     function handleMouseDown(e) {
@@ -52,11 +53,13 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
             return
         }
         try {
+            setIsPending(true);
             await postService.createComment(post.objectId, newComment);
             const retrievedComments = await postService.retrieveComments(post.objectId)
             setComments(retrievedComments);
             setCommentsCount(retrievedComments.length)
             setNewComment('');
+            setIsPending(false);
             tempMessage("Comment added!")
 
         } catch (error) {
@@ -80,7 +83,8 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
         comments,
         newComment,
         setNewComment,
-        onAddComment
+        onAddComment,
+        isPending
 
     }
 }
