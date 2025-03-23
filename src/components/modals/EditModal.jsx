@@ -1,21 +1,24 @@
 import { useState } from 'react';
-import SubmitFormButton from '../partials/form/SubmitFormButton';
 import { X } from 'lucide-react';
 
+import Toast from '../partials/Toast';
+import SubmitFormButton from '../partials/form/SubmitFormButton';
 
 export default function EditModal({ isOpen, onClose, onSave, initialTitle, initialDescription, initialPrice }) {
+
     const [title, setTitle] = useState(initialTitle || '');
     const [price, setPrice] = useState(initialPrice || '');
     const [description, setDescription] = useState(initialDescription || '');
     const [isPending, setIsPending] = useState(false);
+    const [error, setError] = useState("");
+
     async function handleSave() {
         setIsPending(true)
         try {
             await onSave(title, description, price);
             onClose();
         } catch (error) {
-            //TODO Error handling
-            console.log(error.message);
+            setError(error.message);
         } finally {
             setIsPending(false)
         }
@@ -28,6 +31,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
             onClick={onClose}
             className="fixed inset-0 flex items-center justify-center z-50"
         >
+            {error && <Toast message={error} type="error" />}
             <div
                 onClick={(e) => e.stopPropagation()} // Prevent background click from closing modal
                 className="bg-gray-900 border border-gray-400 text-white p-6 rounded-lg shadow-lg w-[90%] sm:w-[500px] relative"
@@ -42,7 +46,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
                 <h2 className="text-2xl mb-4 text-center">Edit Details</h2>
 
                 <div className="mb-4">
-                    <label htmlFor="title" className="block text-lg mb-2">Title</label>
+                    <label htmlFor="title" className="block text-lg mb-2">* Title</label>
                     <input
                         id="title"
                         type="text"
@@ -53,7 +57,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
                     />
                 </div>
                 {price && <div className="mb-4">
-                    <label htmlFor="Price" className="block text-lg mb-2">Price</label>
+                    <label htmlFor="Price" className="block text-lg mb-2">* Price *</label>
                     <input
                         id="price"
                         type="text"
@@ -64,7 +68,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
                     />
                 </div>}
                 <div className="mb-4">
-                    <label htmlFor="description" className="block text-lg mb-2">Description</label>
+                    <label htmlFor="description" className="block text-lg mb-2">* Description</label>
                     <textarea
                         id="description"
                         value={description}

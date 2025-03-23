@@ -1,3 +1,4 @@
+import { desc } from 'framer-motion/client';
 import { del, get, post, put } from './fetcher';
 import userService from './userService';
 
@@ -63,6 +64,14 @@ async function deletePost(postId) {
   return del(`/classes/Post/${postId}`);
 }
 async function editPost(postId, body) {
+  const { title, description } = body;
+  if (title.length < 1) {
+    throw new Error('Title is required!');
+  }
+  if (description.length < 1) {
+    throw new Error('Description is required!');
+  }
+
   return put(`/classes/Post/${postId}`, body);
 }
 async function addLikeToPost(postId, currentUserId, signal) {

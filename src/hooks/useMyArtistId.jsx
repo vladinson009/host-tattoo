@@ -4,7 +4,7 @@ import artistService from "../services/artistService";
 
 export default function useMyArtistId() {
     const [artistId, setArtistId] = useState(null);
-
+    const [error, setError] = useState("");
     // find artistId in collectioin by userId
     useEffect(() => {
         (async () => {
@@ -13,10 +13,9 @@ export default function useMyArtistId() {
                 const myArtistId = await (artistService.getArtistIdByUserId(me.objectId));
                 setArtistId(myArtistId);
             } catch (error) {
-                //TODO error handling
-                console.log(error.message);
+                setError(error.message);
             }
         })()
     }, [artistId])
-    return { artistId }
+    return { artistId, error }
 }

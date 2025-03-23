@@ -5,7 +5,7 @@ import userService from "../services/userService";
 
 
 export default function useTattooDetailsButtons(tattoo, setTattoo) {
-
+    const [error, setError] = useState("");
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
@@ -30,8 +30,7 @@ export default function useTattooDetailsButtons(tattoo, setTattoo) {
             const { objectId: wishlistId } = await galleryService.addToWishlist(currentUserId, tattooId, artistId);
             setTattoo(prev => ({ ...prev, isWishlist: wishlistId }))
         } catch (error) {
-            //TODO: error handling
-            console.log(error.message);
+            setError(error.message);
         } finally {
             setIsPending(false)
         }
@@ -68,6 +67,7 @@ export default function useTattooDetailsButtons(tattoo, setTattoo) {
         // pending state, user session state
         isPending,
         userSession,
+        error
 
     }
 }

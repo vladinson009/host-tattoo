@@ -10,9 +10,9 @@ export default function Toast({ message, type }) {
         setIsOpen(true);
         const timer = setTimeout(() => {
             setIsOpen(false);
-        }, 5000);
+        }, 8000);
         return () => clearTimeout(timer);
-    }, [])
+    }, [message])
 
     function typeColor(type) {
         if (type == 'message') {

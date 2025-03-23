@@ -9,13 +9,14 @@ import CommentModal from "../modals/CommentModal";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import usePostCard from "../../hooks/usePostCard";
+import Toast from "../partials/Toast";
 
 export default function PostCard({ post, setPost, userSession }) {
     const [commentsCount, setCommentsCount] = useState(0)
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const { isOwner, isPending, onEdit, onDelete, onLike, onUnlike } = usePostCard(post, setPost, userSession)
+    const { isOwner, isPending, onEdit, onDelete, onLike, onUnlike, error } = usePostCard(post, setPost, userSession)
 
 
     return (
@@ -26,6 +27,7 @@ export default function PostCard({ post, setPost, userSession }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
+            {error && <Toast message={error} type="error" />}
             <div className="flex items-center space-x-4">
                 <div>
                     <img src={post.image.url} alt={post.title} className="rounded-full" />

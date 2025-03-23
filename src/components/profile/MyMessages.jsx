@@ -5,9 +5,10 @@ import useMyArtistId from "../../hooks/useMyArtistId";
 import Spinner from "../partials/Spinner";
 import contactService from "../../services/contactService";
 import MessagesList from "./message/messageCard";
+import Toast from "../partials/Toast";
 
 export default function MyMessages() {
-    const { artistId } = useMyArtistId();
+    const { artistId, error } = useMyArtistId();
     const [artist, setArtist] = useState();
     const [messages, setMessages] = useState();
 
@@ -32,6 +33,7 @@ export default function MyMessages() {
     // artist's only section for messages in My Messages section
     return (
         <div className="max-w-6xl mx-auto px-4 py-22">
+            {error && <Toast message={error} type={error} />}
             <ArtistHeader artist={artist} />
             <h2 className="text-white text-3xl mb-5">My messages</h2>
             {messages.length > 0

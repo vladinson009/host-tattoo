@@ -4,6 +4,7 @@ import userService from "../services/userService";
 
 export default function usePostCard(post, setPost, userSession) {
     const [isPending, setIsPending] = useState(false);
+    const [error, setError] = useState("");
     const isOwner = post.ownerId && post.ownerId.objectId == userSession?._id
 
     async function onEdit(title, description) {
@@ -38,8 +39,7 @@ export default function usePostCard(post, setPost, userSession) {
             const { likes } = await postService.addLikeToPost(postId, currentUserId);
             setPost((prevValue) => refreshPosts(prevValue, likes, postId))
         } catch (error) {
-            //TODO error handling
-            console.log(error.message);
+            setError(error.message);
 
         } finally {
             setIsPending(false)
@@ -54,8 +54,7 @@ export default function usePostCard(post, setPost, userSession) {
             setPost((prevValue) => refreshPosts(prevValue, likes, postId));
 
         } catch (error) {
-            //TODO error handling
-            console.log(error.message);
+            setError(error.message);
 
         } finally {
             setIsPending(false)
@@ -64,13 +63,13 @@ export default function usePostCard(post, setPost, userSession) {
 
     //util function to refresh post Likes
     function refreshPosts(prevValue, likes, postId) {
-        const newArtists = prevValue.map((artist) => {
+        const newPost = prevValue.map((post) => {
             if (post.objectId === postId) {
-                return { ...artist, likes, isLiked: !post.isLiked };
+                return { ...post, likes, isLiked: !post.isLiked };
             }
             return post;
         });
-        return newArtists;
+        return newPost;
     }
     return {
         // user interactions with Posts
@@ -81,7 +80,8 @@ export default function usePostCard(post, setPost, userSession) {
 
         // post state
         isOwner,
-        isPending
+        isPending,
+        error
     }
 
 } 

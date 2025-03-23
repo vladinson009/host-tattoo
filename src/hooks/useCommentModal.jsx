@@ -11,6 +11,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     const [dragging, setDragging] = useState(false);
     const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
     const [isPending, setIsPending] = useState(false);
+    const [error, setError] = useState("");
 
     // handle mouse down event
     function handleMouseDown(e) {
@@ -37,6 +38,7 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     // on add comment functionality
     async function onAddComment() {
         if (newComment.trim() == "") {
+            setError("Comment cannot be empty!");
             return
         }
         try {
@@ -57,9 +59,14 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
-            const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
-            setComments(retrievedComments)
-            setCommentsCount(retrievedComments.length)
+            try {
+                const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
+                setComments(retrievedComments)
+                setCommentsCount(retrievedComments.length)
+
+            } catch (error) {
+                setError(error.message);
+            }
 
         })()
 
@@ -85,7 +92,8 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
         newComment,
         setNewComment,
         onAddComment,
-        isPending
+        isPending,
+        error,
 
     }
 }

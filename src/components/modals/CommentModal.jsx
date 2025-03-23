@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import useCommentModal from "../../hooks/useCommentModal";
 import SubmitFormButton from "../partials/form/SubmitFormButton";
+import Toast from "../partials/Toast";
 
 export default function CommentModal({ isOpen, onClose, post, setCommentsCount }) {
     const { handleMouseMove,
@@ -14,7 +15,8 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
         newComment,
         setNewComment,
         onAddComment,
-        isPending
+        isPending,
+        error
 
     } = useCommentModal(setCommentsCount, post, isOpen)
 
@@ -27,6 +29,7 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
             onMouseUp={handleMouseUp}
             className="fixed inset-0 flex items-center justify-center z-50"
         >
+            {error && <Toast message={error} type="error" />}
             <div
                 ref={modalRef}
                 onClick={(e) => e.stopPropagation()} // Prevent background click from closing modal
@@ -64,7 +67,7 @@ export default function CommentModal({ isOpen, onClose, post, setCommentsCount }
                 <div className="mt-4">
                     <input
                         type="text"
-                        placeholder="Add a comment..."
+                        placeholder="* Add a comment..."
                         className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none text-2xl"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}

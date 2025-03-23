@@ -6,7 +6,7 @@ import userService from "../services/userService";
 export default function useArtistSection() {
     const { userSession } = useContext(context);
     const [artists, setArtists] = useState([]);
-
+    const [error, setError] = useState("");
     // artist section hook to fetch all artists and check if user liked them
     async function fetchArtists(signal) {
         const fetchedArtists = await artistService.getAllArtists(signal);
@@ -24,8 +24,7 @@ export default function useArtistSection() {
             const { likes } = await artistService.addLikeToArtist(artistId, currentUserId);
             setArtists((prevValue) => refreshArtists(prevValue, likes, artistId));
         } catch (error) {
-            //TODO error handling
-            console.log(error.message);
+            setError(error.message);
 
         }
     }
@@ -39,8 +38,8 @@ export default function useArtistSection() {
             );
             setArtists((prevValue) => refreshArtists(prevValue, likes, artistId));
         } catch (error) {
-            //TODO error handling
-            console.log(error.message);
+            setError(error.message);
+
 
         }
     }

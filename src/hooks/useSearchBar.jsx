@@ -5,8 +5,8 @@ import galleryService from "../services/galleryService";
 export default function useSearchBar(data, setData, pagination, setPagination) {
     const navigate = useNavigate();
     const [filteredData, setFilteredData] = useState(data);
-
-    const [query, setQuery] = useState('');
+    const [error, setError] = useState("");
+    const [query, setQuery] = useState("");
     const [isMore, setIsMore] = useState(true);
     const [isPending, setIsPending] = useState(false);
 
@@ -26,8 +26,7 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
             setData((prev) => [...prev, ...newFetch]);
 
         } catch (error) {
-            //TODO error handling
-            console.log(error.message);
+            setError(error.message);
 
         } finally {
             setIsPending(false);
@@ -70,6 +69,7 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
         loadMore,
         isPending,
         isMore,
-        onScrollUp
+        onScrollUp,
+        error
     };
 }
