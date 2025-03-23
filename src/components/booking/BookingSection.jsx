@@ -12,6 +12,7 @@ import SubmitFormButton from "../partials/form/SubmitFormButton";
 import FormFooter from "../partials/form/FormFooter";
 import Spinner from "../partials/Spinner";
 import Toast from "../partials/Toast";
+import FormFieldRequirement from "../partials/form/FormFieldRequirement";
 
 export default function BookingSection() {
     const [artists, setArtists] = useState([]);
@@ -33,9 +34,15 @@ export default function BookingSection() {
         <>
             {error && <Toast message={error} />}
             <Form name="Make Booking" action={formAction} >
+                <FormFieldRequirement value="Artist is requried!" />
                 <SelectFormField labelName="Choose artist" name="artistId" artists={artists} />
+
+                <FormFieldRequirement value="Topic must be at least 1 character long!!" />
                 <InputFormField labelName='Topic' type='text' name='topic' value={userInput?.topic} />
+
+                <FormFieldRequirement value="The message must be at least 1 character long!!" />
                 <TextareaFormField labelName='Short message...' name='message' value={userInput?.message} />
+
                 <SubmitFormButton isPending={isPending} textContent='Send email' />
                 <FormFooter text="Wondering which artist to choose?" link='/artists' linkText='Check our artists' />
             </Form>
