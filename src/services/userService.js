@@ -12,7 +12,7 @@ function registerUser(userInput, signal) {
     throw new Error('Password must be at least 6 characters long!');
   }
   if (password !== rePass) {
-    throw new Error('Passwords do not match!');
+    throw new Error('Passwords does not match!');
   }
   const userData = {
     username: username.trim(),
