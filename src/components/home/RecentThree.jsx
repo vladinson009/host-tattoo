@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
 import galleryService from "../../services/galleryService";
 import TattooCard from "../gallery/TattooCard";
 import Spinner from "../partials/Spinner";
+import useFetchData from "../../hooks/useFetchData";
+import { Navigate } from "react-router";
 
 export default function RecentThree() {
-    const [recentThree, setRecentThree] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const { data: recentThree, isLoading, error } = useFetchData(galleryService.getLastThree);
 
-    // fetch last three tattoos for home page
-    useEffect(() => {
-        const controller = new AbortController();
-        setIsLoading(true);
-        galleryService.getLastThree(controller.signal).then((r) => {
-            setRecentThree(r);
-        }).finally(() => setIsLoading(false));
-    }, [])
     if (isLoading) { return <Spinner /> }
+    if (error) { return Navigate('/error') }
     return (
         <div className="container mx-auto px-6 mb-10 ">
             <h2 className="text-3xl md:text-4xl mb-6 text-white drop-shadow-lg text-center">Our recent work</h2>
