@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import galleryService from "../services/galleryService";
 
 export default function useSearchBar(data, setData, pagination, setPagination) {
     const navigate = useNavigate();
+    const { search } = useLocation();
     const [filteredData, setFilteredData] = useState(data);
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
@@ -48,8 +49,10 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
     };
     // check if there is a search query in url and filter data accordingly
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
+
+        const params = new URLSearchParams(search);
         const searchQuery = params.get("search") || "";
+        setQuery(searchQuery)
         if (searchQuery) {
             const filtered = data.filter((tattoo) =>
                 tattoo.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -58,7 +61,7 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
         } else {
             setFilteredData(data);
         }
-    }, [data]);
+    }, [data, search]);
 
 
     return {
