@@ -12,8 +12,8 @@ import SubmitFormButton from "../partials/form/SubmitFormButton";
 
 export default function GallerySection() {
     const [pagination, setPagination] = useState({ skip: 0, limit: 8 });
-    const { data, setData, isLoading, error } = useFetchData(galleryService.getGallery, pagination.skip, pagination.limit);
-    const { query, setQuery, onSearch, filteredData, loadMore, isPending, isMore, onScrollUp, error: searchErr } = useSearchBar(data, setData, pagination, setPagination);
+    const { data, isLoading, error } = useFetchData(galleryService.getGallery, pagination.skip, pagination.limit);
+    const { query, setQuery, onSearch, filteredData, loadMore, isPending, isMore, onScrollUp, error: searchErr } = useSearchBar(data, pagination, setPagination);
 
     // gallery section with all tattoo with possibility for filtering, load more and scroll to top
     if (isLoading) return <Spinner />
@@ -25,8 +25,8 @@ export default function GallerySection() {
                 <div className="container mx-auto px-6 ">
                     <h2 className="text-4xl font-black mb-12 drop-shadow-lg text-center pt-16">Our Tattoo Gallery</h2>
                     <SearchBar onSearch={onSearch} query={query} setQuery={setQuery} />
-                    <p>Results {filteredData.length} of {data.length}</p>
-                    {filteredData.length > 0 ? <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]  place-items-center gap-20 md:gap-25 lg:gap-30 px-6">
+                    <p>Results {filteredData?.length} of {data.length}</p>
+                    {filteredData?.length > 0 ? <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]  place-items-center gap-20 md:gap-25 lg:gap-30 px-6">
                         {filteredData.map((tattoo) => (
                             <TattooCard key={tattoo.objectId} tattoo={tattoo} />
                         ))}
