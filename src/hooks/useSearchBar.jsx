@@ -26,7 +26,7 @@ export default function useSearchBar(data, pagination, setPagination) {
             if (newFetch.length < 8) {
                 setIsMore(false);
             }
-            queryClient.setQueryData(['getGallery'], (prev) => [...prev, ...newFetch]);
+            queryClient.setQueryData(['getGallery'], (prev) => (prev ? [...prev, ...newFetch] : [...newFetch]));
 
         } catch (error) {
             setError(error.message);
