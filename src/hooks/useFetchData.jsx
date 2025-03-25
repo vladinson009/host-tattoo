@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
-
-
+import { useQuery } from "@tanstack/react-query";
 
 export default function useFetchData(callback, ...arg) {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-
-    // reusable fetch data hook, returning data, loading state and error
-    useEffect(() => {
-        const controller = new AbortController();
-        (async () => {
-            try {
-                setIsLoading(true);
-                const result = await callback(...arg, controller.signal)
-                setData(result);
-            } catch (error) {
-                setError(error.message)
-                return error.message
-
-            } finally {
-                setIsLoading(false);
-            }
-
-            return () => controller.abort();
-        })()
-
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    return {
-
-        data,
-        setData,
-        isLoading,
-        error
+    async function queryFn() {
+        try {
+            const controller = new AbortController();
+            return await callback(...arg, controller.signal)
+        } catch (err) {
+            throw new Error('Error fetching data', err)
+        }
     }
+    const { data, error, isLoading } = useQuery({
+        queryKey: [callback.name],
+        queryFn,
+    })
+    return { data, isLoading, error, }
+
 }
