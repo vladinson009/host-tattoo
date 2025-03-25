@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import artistService from "../services/artistService";
 import galleryService from "../services/galleryService";
 import context from "../context/context";
-
 export default function useArtistPortfolio(artistId) {
     const { userSession } = useContext(context);
     const [artist, setArtist] = useState(null);
@@ -35,5 +34,5 @@ export default function useArtistPortfolio(artistId) {
         return () => controller.abort();
     }, [artistId, userSession?._id]);
 
-    return { artist, tattoo, setTattoo }
+    return { artist, tattoo, }
 }
