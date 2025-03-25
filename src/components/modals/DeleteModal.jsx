@@ -1,12 +1,11 @@
 import { X } from "lucide-react";
 import SubmitFormButton from "../partials/form/SubmitFormButton";
-import { useNavigate } from "react-router";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
-export default function DeleteModal({ isOpen, onClose, onDelete, title }) {
-    const navigate = useNavigate();
+export default function DeleteModal({ isTattoo, isOpen, onClose, onDelete, title }) {
     const [isPending, setIsPending] = useState(false);
-
+    const navigate = useNavigate();
     // reusable modal for delete confirmation
 
     async function deleteHandler() {
@@ -14,7 +13,9 @@ export default function DeleteModal({ isOpen, onClose, onDelete, title }) {
             setIsPending(true);
             await onDelete()
             onClose()
-            navigate(-1);
+            if (isTattoo) {
+                navigate(-1)
+            }
 
         } catch (error) {
             //TODO err handling
