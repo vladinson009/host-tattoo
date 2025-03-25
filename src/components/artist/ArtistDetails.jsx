@@ -8,11 +8,11 @@ import ArtistComponent from "./ArtistComponent";
 
 export default function ArtistDetails() {
     const { artistId } = useParams();
-    const { artist, tattoo, setTattoo } = useArtistPortfolio(artistId);
+    const { artist, tattoo, } = useArtistPortfolio(artistId);
     if (!artist) return <Spinner />;
 
     // artist details page with artist info and tattoo gallery
     return (
-        <ArtistComponent artist={artist} tattoo={tattoo} setTattoo={setTattoo} />
+        <ArtistComponent artist={artist} tattoo={tattoo} />
     );
 }
