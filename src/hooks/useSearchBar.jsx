@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import galleryService from "../services/galleryService";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function useSearchBar(data, setData, pagination, setPagination) {
+export default function useSearchBar(data, pagination, setPagination) {
+    const queryClient = useQueryClient()
     const navigate = useNavigate();
     const { search } = useLocation();
     const [filteredData, setFilteredData] = useState(data);
@@ -24,7 +26,7 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
             if (newFetch.length < 8) {
                 setIsMore(false);
             }
-            setData((prev) => [...prev, ...newFetch]);
+            queryClient.setQueryData(['getGallery'], (prev) => [...prev, ...newFetch]);
 
         } catch (error) {
             setError(error.message);
@@ -54,7 +56,7 @@ export default function useSearchBar(data, setData, pagination, setPagination) {
         const searchQuery = params.get("search") || "";
         setQuery(searchQuery)
         if (searchQuery) {
-            const filtered = data.filter((tattoo) =>
+            const filtered = data?.filter((tattoo) =>
                 tattoo.title.toLowerCase().includes(searchQuery.toLowerCase())
             );
             setFilteredData(filtered);
