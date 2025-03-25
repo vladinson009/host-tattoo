@@ -2,7 +2,7 @@ import TattooCard from "../gallery/TattooCard";
 import ArtistHeader from "./ArtistHeader";
 
 
-export default function ArtistComponent({ artist, tattoo, setTattoo }) {
+export default function ArtistComponent({ artist, tattoo }) {
 
 
     // reusable artist details page with artist info
@@ -16,7 +16,7 @@ export default function ArtistComponent({ artist, tattoo, setTattoo }) {
                 <h2 className="text-white text-3xl mb-5">Tattoo Portfolio</h2>
                 {tattoo.length > 0 ? (
                     <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]  place-items-center gap-20 md:gap-25 lg:gap-30 px-6">
-                        {tattoo.map(t => <TattooCard key={t.objectId} tattoo={t} setTattoos={setTattoo} />)}
+                        {tattoo.map(t => <TattooCard key={t.objectId} tattoo={t} />)}
                     </div>
                 ) : (
                     <p className="text-gray-400 text-lg mt-5">No tattoos uploaded yet.</p>
