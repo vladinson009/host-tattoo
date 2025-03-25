@@ -1,22 +1,13 @@
-
-// import { fetchArtists } from "./artistUtils";
 import ArtistCard from "./ArtistCard";
 import useFetchData from "../../hooks/useFetchData";
 import Spinner from "../partials/Spinner";
-import { useContext } from "react";
-import context from "../../context/context";
 import Toast from "../partials/Toast";
-import useArtistSection from "../../hooks/useArtistsSection";
+import artistService from "../../services/artistService";
 
+// artists section showing all artists card
 export default function ArtistsSection() {
-    const { userSession } = useContext(context)
-    const { fetchArtists, onLike, onUnlike, artists } = useArtistSection()
-    const { isLoading, error } = useFetchData(fetchArtists)
-
+    const { data: artists, isLoading, error } = useFetchData(artistService.getAllArtists)
     if (isLoading) { return <Spinner /> }
-
-    // artists section showing all artists card
-
     return (
         <>
             {error && <Toast message={error} />}
@@ -27,9 +18,6 @@ export default function ArtistsSection() {
                     (<ArtistCard
                         key={artist.objectId}
                         artist={artist}
-                        userSession={userSession}
-                        onLike={onLike}
-                        onUnlike={onUnlike}
                     />)
                     )}
                 </div>
