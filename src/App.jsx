@@ -25,7 +25,8 @@ import MyPortfolio from "./components/profile/MyPortfolio";
 import MyMessages from "./components/profile/MyMessages";
 import CreateTattoo from "./components/gallery/CreateTattoo";
 import BookingSection from "./components/booking/BookingSection";
-import NotFound from "./components/not-found/NotFound";
+import NotFound from "./components/error/NotFound";
+import Error from "./components/error/Error";
 
 function App() {
   const location = useLocation();
@@ -74,6 +75,7 @@ function App() {
                   <Route index element={<GallerySection />} />
                   <Route path="details/:tattooId" element={<DetailsSection />} />
                 </Route>
+                <Route path="/error" element={<Error />} />
 
                 <Route path="*" element={<NotFound />} />
               </Routes>
