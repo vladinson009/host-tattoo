@@ -193,7 +193,7 @@ Other functionality
 
 React Hooks
 
-- useRef,useActionState, useLocation, useState, useParams, useContext, useEffect, useNavigate
+- useRef,useActionState, useLocation, useState, useParams, useContext, useEffect, useNavigate, useQuery
 
 Custom Hooks
 
@@ -237,4 +237,6 @@ Bonuses not described in the assignment but has practical use:
 - Search bar in Gallery for better UX
 - Infinity pagination to load data at small parts
 - Drag and Drop modal for comments in News Feed
-- Responsive design
+- Responsive design for mobiles and desktop
+- staleTime and cacheTime to reduce requests
+- retry request 3 times in case of server error
