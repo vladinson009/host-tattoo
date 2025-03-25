@@ -25,7 +25,7 @@ export default function CreatePost() {
                 <InputFormField labelName="Title" type="text" name="title" value={userInput?.title} />
 
                 <FormFieldRequirement value="Description must be at least 1 character long!" />
-                <TextareaFormField labelName="Description" value={userInput?.description} />
+                <TextareaFormField labelName="Description" name="description" value={userInput?.description} />
 
                 <FormFieldRequirement value="Photo is required!" />
                 <UploadFileField isPending={isPending} labelName="Upload Photo" name="image" />
