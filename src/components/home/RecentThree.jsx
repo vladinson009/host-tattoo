@@ -8,7 +8,7 @@ export default function RecentThree() {
     const { data: recentThree, isLoading, error } = useFetchData(galleryService.getLastThree);
 
     if (isLoading) { return <Spinner /> }
-    if (error) { return Navigate('/error') }
+    if (error) { return <Navigate to="/error" state={error} /> }
     return (
         <div className="container mx-auto px-6 mb-10 ">
             <h2 className="text-3xl md:text-4xl mb-6 text-white drop-shadow-lg text-center">Our recent work</h2>
