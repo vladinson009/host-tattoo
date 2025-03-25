@@ -42,6 +42,7 @@ export default function TattooButtons({ tattoo, setTattoo }) {
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onDelete={onDelete}
+                isTattoo={true}
                 title={tattoo.title}
             />
             <EditModal
