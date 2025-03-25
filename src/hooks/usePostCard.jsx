@@ -1,10 +1,13 @@
 import { useState } from "react";
 import postService from "../services/postService";
 import userService from "../services/userService";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function usePostCard(post, setPost, userSession) {
+    const queryClient = useQueryClient();
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState("");
+    if (!post) return
     const isOwner = post.ownerId && post.ownerId.objectId == userSession?._id
 
     async function onEdit(title, description) {
@@ -15,11 +18,7 @@ export default function usePostCard(post, setPost, userSession) {
         await postService.editPost(postId, { title, description });
 
         setPost((prevValue) => {
-            const newValue = [...prevValue];
-            const idx = newValue.findIndex((el) => el.objectId == postId);
-            newValue[idx].title = title;
-            newValue[idx].description = description;
-
+            const newValue = { ...prevValue, title, description };
             return newValue;
         });
     }
@@ -29,7 +28,7 @@ export default function usePostCard(post, setPost, userSession) {
             throw new Error('You are not an owner of this post!');
         }
         await postService.deletePost(postId);
-        setPost((prevValue) => prevValue.filter((e) => e.objectId !== postId));
+        queryClient.invalidateQueries(['fetchPosts']);
     }
     async function onLike() {
         setIsPending(true);
@@ -37,7 +36,7 @@ export default function usePostCard(post, setPost, userSession) {
             const postId = this.objectId;
             const { objectId: currentUserId } = await userService.retrieveUser();
             const { likes } = await postService.addLikeToPost(postId, currentUserId);
-            setPost((prevValue) => refreshPosts(prevValue, likes, postId))
+            setPost((prevValue) => ({ ...prevValue, likes, postId, isLiked: !this.isLiked }))
         } catch (error) {
             setError(error.message);
 
@@ -51,7 +50,7 @@ export default function usePostCard(post, setPost, userSession) {
             const postId = this.objectId;
             const { objectId: currentUserId } = await userService.retrieveUser();
             const { likes } = await postService.removeLikeFromPost(postId, currentUserId);
-            setPost((prevValue) => refreshPosts(prevValue, likes, postId));
+            setPost((prevValue) => ({ ...prevValue, likes, isLiked: !prevValue.isLiked }));
 
         } catch (error) {
             setError(error.message);
@@ -59,17 +58,6 @@ export default function usePostCard(post, setPost, userSession) {
         } finally {
             setIsPending(false)
         }
-    }
-
-    //util function to refresh post Likes
-    function refreshPosts(prevValue, likes, postId) {
-        const newPost = prevValue.map((post) => {
-            if (post.objectId === postId) {
-                return { ...post, likes, isLiked: !post.isLiked };
-            }
-            return post;
-        });
-        return newPost;
     }
     return {
         // user interactions with Posts
