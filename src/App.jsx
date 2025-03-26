@@ -40,7 +40,7 @@ function App() {
         <CSSTransition
           key={location.pathname}
           timeout={300}
-          classNames="bounce"
+          classNames="fade"
           unmountOnExit
           nodeRef={nodeRef}
         >

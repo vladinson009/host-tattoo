@@ -1,47 +1,23 @@
 @import 'tailwindcss';
 
-/* Adjusted Slider Transition Classes for Up Direction */
-.slide-enter {
-  opacity: 0;
-  transform: scale(0.9);
-}
-
-.slide-enter-active {
+.fade-enter {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
 }
 
-.slide-exit {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.slide-exit-active {
+.fade-enter-active {
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
 }
 
-/* Simplified Slide-in Transition for Up Direction */
-.bounce-enter {
+.fade-exit {
   opacity: 0;
-  transform: rotate(-90deg);
+  transform: scale(1);
 }
 
-.bounce-enter-active {
+.fade-exit-active {
   opacity: 1;
-  transform: rotate(0);
-  transition: opacity 300ms, transform 300ms ease-in-out;
-}
-
-.bounce-exit {
-  opacity: 1;
-  transform: rotate(0);
-}
-
-.bounce-exit-active {
-  opacity: 0;
-  transform: rotate(90deg);
-  transition: opacity 300ms, transform 300ms ease-in-out;
+  transform: scale(1);
+  transition: opacity 500ms ease-in, transform 500ms ease-in;
 }
