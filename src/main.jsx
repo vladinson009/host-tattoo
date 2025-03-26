@@ -9,8 +9,6 @@ import './App.css'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
-      cacheTime: Infinity,
       retry: 3,
     }
   }
