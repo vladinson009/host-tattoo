@@ -193,7 +193,7 @@ Other functionality
 
 React Hooks
 
-- useRef,useActionState, useLocation, useState, useParams, useContext, useEffect, useNavigate, useQuery
+- useRef,useActionState, useLocation, useState, useParams, useContext, useEffect, useNavigate, useQuery, useMutation
 
 Custom Hooks
 
