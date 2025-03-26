@@ -12,7 +12,7 @@ import Toast from "../partials/Toast";
 
 
 export default function CreateTattoo() {
-    const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo)
+    const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo, true)
     // only for artists
     // create tattoo form with input fields and upload file field 
     return (
