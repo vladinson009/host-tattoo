@@ -6,7 +6,7 @@ export default function ContextProvider({ children }) {
     const { Provider } = context;
     const [userSession, setUserSession] = useState(getUserSession());
     const [globalMessage, setGlobalMessage] = useState(false);
-
+    const [count, setCount] = useState(0);
     // context provider for global data and user session
 
     function tempMessage(message) {
@@ -17,7 +17,7 @@ export default function ContextProvider({ children }) {
         }, 6000);
     }
     return (
-        <Provider value={{ userSession, setUserSession, globalMessage, tempMessage }}>
+        <Provider value={{ userSession, setUserSession, globalMessage, tempMessage, count, setCount }}>
             {children}
         </Provider>
     )
