@@ -51,47 +51,47 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
         setIsPending(false);
         tempMessage("Comment added!")
 
-    }
-}
-// fetch comments by post id
-useEffect(() => {
-    const controller = new AbortController();
-    (async () => {
-        try {
-            const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
-            setComments(retrievedComments)
-            setCommentsCount(retrievedComments.length)
 
-        } catch (error) {
-            setError(error.message);
+    }
+    // fetch comments by post id
+    useEffect(() => {
+        const controller = new AbortController();
+        (async () => {
+            try {
+                const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
+                setComments(retrievedComments)
+                setCommentsCount(retrievedComments.length)
+
+            } catch (error) {
+                setError(error.message);
+            }
+
+        })()
+
+        return () => controller.abort();
+    }, [post.objectId, setCommentsCount])
+
+    // add overflow hidden class to body when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
         }
+    }, [isOpen]);
 
-    })()
+    return {
+        handleMouseMove,
+        handleMouseUp,
+        handleMouseDown,
+        modalRef,
+        position,
+        comments,
+        newComment,
+        setNewComment,
+        onAddComment,
+        isPending,
+        error,
 
-    return () => controller.abort();
-}, [post.objectId, setCommentsCount])
-
-// add overflow hidden class to body when modal is open
-useEffect(() => {
-    if (isOpen) {
-        document.body.classList.add("overflow-hidden");
-    } else {
-        document.body.classList.remove("overflow-hidden");
     }
-}, [isOpen]);
-
-return {
-    handleMouseMove,
-    handleMouseUp,
-    handleMouseDown,
-    modalRef,
-    position,
-    comments,
-    newComment,
-    setNewComment,
-    onAddComment,
-    isPending,
-    error,
-
-}
 }
