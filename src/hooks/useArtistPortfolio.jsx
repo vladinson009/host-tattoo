@@ -15,7 +15,7 @@ export default function useArtistPortfolio(artistId) {
         const controller = new AbortController();
         (async function fetchArtist() {
 
-            // undepended fetches resolve in parallel
+            // Demonstrating undepended fetches resolve in parallel
             const [data, fetchTattoo, wishlist] = await Promise.all([
                 artistService.getArtistById(artistId, controller.signal),
                 galleryService.getTattoosByArtistId(artistId),
