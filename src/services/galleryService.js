@@ -171,6 +171,10 @@ async function removeFromWishlist(ownerId, tattooId, signal) {
   );
   return del(`/classes/Wishlist/${results[0].objectId}`, signal);
 }
+async function getCountGallery() {
+  const result = await get(`/classes/Gallery?count=1&limit=0`);
+  return result.count;
+}
 export default {
   //get tattoos from gallery (skip, limit)
   getGallery,
@@ -198,4 +202,5 @@ export default {
 
   //retrieve wishlist element ID
   retrieveWishlistId,
+  getCountGallery,
 };
