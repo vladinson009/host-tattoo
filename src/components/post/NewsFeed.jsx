@@ -19,9 +19,7 @@ export default function NewsFeed() {
             return updatedArtists;
         },
         onSuccess: (data) => {
-            queryClient.setQueryData(['fetchPosts'], data);
-        }, onError: (error) => {
-            console.log(error);
+            queryClient.invalidateQueries(['fetchPosts'], data);
         }
     })
     return (<PostComponent data={data} error={error} isLoading={isLoading} title="News Feed" />);
