@@ -56,7 +56,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
                         placeholder="Enter title"
                     />
                 </div>
-                {price && <div className="mb-4">
+                {initialPrice && <div className="mb-4">
                     <label htmlFor="Price" className="block text-lg mb-2">* Price *</label>
                     <input
                         id="price"
@@ -64,7 +64,7 @@ export default function EditModal({ isOpen, onClose, onSave, initialTitle, initi
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none text-lg"
-                        placeholder="Enter title"
+                        placeholder="Enter price"
                     />
                 </div>}
                 <div className="mb-4">
