@@ -35,7 +35,7 @@ export default function BookingSection() {
             {error && <Toast message={error} />}
             <Form name="Make Booking" action={formAction} >
                 <FormFieldRequirement value="Artist is requried!" />
-                <SelectFormField labelName="Choose artist" name="artistId" artists={artists} />
+                <SelectFormField labelName="Choose an artist" name="artistId" artists={artists} />
 
                 <FormFieldRequirement value="Topic must be at least 1 character long!!" />
                 <InputFormField labelName='Topic' type='text' name='topic' value={userInput?.topic} />
