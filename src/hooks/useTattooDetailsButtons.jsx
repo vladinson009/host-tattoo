@@ -2,20 +2,27 @@ import { useContext, useState } from "react";
 import context from "../context/context";
 import galleryService from "../services/galleryService";
 import userService from "../services/userService";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 export default function useTattooDetailsButtons(tattoo, setTattoo) {
+    const queryClient = useQueryClient();
     const [error, setError] = useState("");
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const { userSession } = useContext(context);
 
-    function onDelete() {
+    async function onDelete() {
+        queryClient.invalidateQueries(['getGallery'])
         const tattooId = tattoo.objectId;
-        return galleryService.deleteTattoo(tattooId);
+        await galleryService.deleteTattoo(tattooId);
+        return
+
+
     }
     async function onEdit(title, description, price) {
+        queryClient.invalidateQueries(['getGallery'])
         const tattooId = tattoo.objectId;
         await galleryService.editTattoo(tattooId, { title, description, price: Number(price) });
         setTattoo(prev => ({ ...prev, title, description, price }))
