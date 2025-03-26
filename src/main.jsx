@@ -9,11 +9,9 @@ import './App.css'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 6000,
-      refetchInterval: 60000,
-      cacheTime: 6000,
+      staleTime: 60000,
+      cacheTime: Infinity,
       retry: 3,
-      gcTime: 10000,
     }
   }
 })

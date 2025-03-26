@@ -1,41 +1,47 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import galleryService from "../services/galleryService";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 export default function useSearchBar(data, pagination, setPagination) {
     const queryClient = useQueryClient()
+
     const navigate = useNavigate();
     const { search } = useLocation();
     const [filteredData, setFilteredData] = useState(data);
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
     const [isMore, setIsMore] = useState(true);
-    const [isPending, setIsPending] = useState(false);
+    // const [isPending, setIsPending] = useState(false);
 
     // scroll to the top on click
     function onScrollUp() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     // load more data(pagination)
-    async function loadMore() {
-        try {
-            setIsPending(true);
+    const { mutate, isPending } = useMutation({
+        mutationFn: async () => {
             setPagination((prev) => ({ skip: prev.skip + 8, limit: 8 }));
-            const newFetch = await galleryService.getGallery(pagination.skip + 8, pagination.limit);
+            const newFetch = await galleryService.getGallery(
+                pagination.skip + 8,
+                pagination.limit
+            );
+            return newFetch;
+        }, onSuccess: (newFetch) => {
+
+            queryClient.setQueryData(["getGallery"], (prevData = []) => [
+                ...prevData,
+                ...newFetch,
+            ]);
+
             if (newFetch.length < 8) {
                 setIsMore(false);
             }
-            queryClient.setQueryData(['getGallery'], (prev) => (prev ? [...prev, ...newFetch] : [...newFetch]));
-
-        } catch (error) {
+        }, onError: (error) => {
             setError(error.message);
+        },
+    })
 
-        } finally {
-            setIsPending(false);
-        }
-    }
-    // search function filtering already fetched data & updating url
     function onSearch(query) {
         const params = new URLSearchParams();
         if (query) {
@@ -71,7 +77,7 @@ export default function useSearchBar(data, pagination, setPagination) {
         setQuery,
         onSearch,
         filteredData,
-        loadMore,
+        loadMore: mutate,
         isPending,
         isMore,
         onScrollUp,

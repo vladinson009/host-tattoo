@@ -5,7 +5,7 @@ import useFetchData from "../../hooks/useFetchData";
 import { Navigate } from "react-router";
 
 export default function RecentThree() {
-    const { data: recentThree, isLoading, error } = useFetchData(galleryService.getLastThree);
+    const { data: recentThree, isLoading, error } = useFetchData(galleryService.getLastThree, 'getLastThree');
 
     if (isLoading) { return <Spinner /> }
     if (error) { return <Navigate to="/error" state={error} /> }

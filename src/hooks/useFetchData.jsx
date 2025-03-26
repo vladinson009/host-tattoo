@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export default function useFetchData(callback, ...arg) {
+export default function useFetchData(callback, key, ...arg) {
     async function queryFn() {
         try {
             const controller = new AbortController();
@@ -9,8 +9,10 @@ export default function useFetchData(callback, ...arg) {
             throw new Error('Error fetching data', err)
         }
     }
+    console.log([key]);
+
     const { data, error, isLoading } = useQuery({
-        queryKey: [callback.name],
+        queryKey: [key],
         queryFn,
     })
     return { data, isLoading, error, }

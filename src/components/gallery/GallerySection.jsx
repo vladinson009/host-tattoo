@@ -12,7 +12,7 @@ import SubmitFormButton from "../partials/form/SubmitFormButton";
 
 export default function GallerySection() {
     const [pagination, setPagination] = useState({ skip: 0, limit: 8 });
-    const { data, isLoading, error } = useFetchData(galleryService.getGallery, pagination.skip, pagination.limit);
+    const { data, isLoading, error } = useFetchData(galleryService.getGallery, 'getGallery', pagination.skip, pagination.limit);
     const { query, setQuery, onSearch, filteredData, loadMore, isPending, isMore, onScrollUp, error: searchErr } = useSearchBar(data, pagination, setPagination);
 
     // gallery section with all tattoo with possibility for filtering, load more and scroll to top

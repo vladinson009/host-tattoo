@@ -9,7 +9,7 @@ import TattooCard from "../gallery/TattooCard";
 
 export default function WishlistSection() {
     const { userSession } = useContext(context);
-    const { data, isLoading, error } = useFetchData(galleryService.retrieveWishlist, userSession._id)
+    const { data, isLoading, error } = useFetchData(galleryService.retrieveWishlist, 'retrieveWishlist', userSession._id)
 
     // wishlist section to fetch private area data for user
     if (isLoading) return <Spinner />

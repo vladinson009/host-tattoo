@@ -6,7 +6,7 @@ import artistService from "../../services/artistService";
 
 // artists section showing all artists card
 export default function ArtistsSection() {
-    const { data: artists, isLoading, error } = useFetchData(artistService.getAllArtists)
+    const { data: artists, isLoading, error } = useFetchData(artistService.getAllArtists, 'getAllArtists')
     if (isLoading) { return <Spinner /> }
     return (
         <>
