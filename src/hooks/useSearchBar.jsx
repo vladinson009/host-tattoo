@@ -5,14 +5,12 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 export default function useSearchBar(data, pagination, setPagination) {
     const queryClient = useQueryClient()
-
+    // const { setCount } = useContext(context);
     const navigate = useNavigate();
     const { search } = useLocation();
     const [filteredData, setFilteredData] = useState(data);
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
-    const [isMore, setIsMore] = useState(true);
-    // const [isPending, setIsPending] = useState(false);
 
     // scroll to the top on click
     function onScrollUp() {
@@ -34,9 +32,6 @@ export default function useSearchBar(data, pagination, setPagination) {
                 ...newFetch,
             ]);
 
-            if (newFetch.length < 8) {
-                setIsMore(false);
-            }
         }, onError: (error) => {
             setError(error.message);
         },
@@ -71,7 +66,6 @@ export default function useSearchBar(data, pagination, setPagination) {
         }
     }, [data, search]);
 
-
     return {
         query,
         setQuery,
@@ -79,7 +73,6 @@ export default function useSearchBar(data, pagination, setPagination) {
         filteredData,
         loadMore: mutate,
         isPending,
-        isMore,
         onScrollUp,
         error
     };

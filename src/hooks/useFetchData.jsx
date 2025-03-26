@@ -9,12 +9,9 @@ export default function useFetchData(callback, key, ...arg) {
             throw new Error('Error fetching data', err)
         }
     }
-    console.log([key]);
-
     const { data, error, isLoading } = useQuery({
         queryKey: [key],
         queryFn,
     })
     return { data, isLoading, error, }
-
 }

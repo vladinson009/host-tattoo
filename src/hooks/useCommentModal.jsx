@@ -41,59 +41,57 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
             setError("Comment cannot be empty!");
             return
         }
+
+        setIsPending(true);
+        await postService.createComment(post.objectId, newComment);
+        const retrievedComments = await postService.retrieveComments(post.objectId)
+        setComments(retrievedComments);
+        setCommentsCount(retrievedComments.length)
+        setNewComment('');
+        setIsPending(false);
+        tempMessage("Comment added!")
+
+    }
+}
+// fetch comments by post id
+useEffect(() => {
+    const controller = new AbortController();
+    (async () => {
         try {
-            setIsPending(true);
-            await postService.createComment(post.objectId, newComment);
-            const retrievedComments = await postService.retrieveComments(post.objectId)
-            setComments(retrievedComments);
+            const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
+            setComments(retrievedComments)
             setCommentsCount(retrievedComments.length)
-            setNewComment('');
-            setIsPending(false);
-            tempMessage("Comment added!")
 
         } catch (error) {
-            console.log(error);
+            setError(error.message);
         }
+
+    })()
+
+    return () => controller.abort();
+}, [post.objectId, setCommentsCount])
+
+// add overflow hidden class to body when modal is open
+useEffect(() => {
+    if (isOpen) {
+        document.body.classList.add("overflow-hidden");
+    } else {
+        document.body.classList.remove("overflow-hidden");
     }
-    // fetch comments by post id
-    useEffect(() => {
-        const controller = new AbortController();
-        (async () => {
-            try {
-                const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
-                setComments(retrievedComments)
-                setCommentsCount(retrievedComments.length)
+}, [isOpen]);
 
-            } catch (error) {
-                setError(error.message);
-            }
+return {
+    handleMouseMove,
+    handleMouseUp,
+    handleMouseDown,
+    modalRef,
+    position,
+    comments,
+    newComment,
+    setNewComment,
+    onAddComment,
+    isPending,
+    error,
 
-        })()
-
-        return () => controller.abort();
-    }, [post.objectId, setCommentsCount])
-
-    // add overflow hidden class to body when modal is open
-    useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add("overflow-hidden");
-        } else {
-            document.body.classList.remove("overflow-hidden");
-        }
-    }, [isOpen]);
-
-    return {
-        handleMouseMove,
-        handleMouseUp,
-        handleMouseDown,
-        modalRef,
-        position,
-        comments,
-        newComment,
-        setNewComment,
-        onAddComment,
-        isPending,
-        error,
-
-    }
+}
 }
