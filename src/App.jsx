@@ -1,4 +1,4 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, lazy } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Route, Routes, useLocation } from "react-router";
 import { Analytics } from "@vercel/analytics/react"
@@ -19,14 +19,15 @@ import ArtistDetails from "./components/artist/ArtistDetails";
 import Spinner from "./components/partials/Spinner";
 import PublicGuard from "./components/guards/PublicGuard";
 import PrivateGuard from "./components/guards/PrivateGuard";
-import MyPosts from "./components/profile/MyPosts";
-import WishlistSection from "./components/wishlist/WishlistSection";
-import MyPortfolio from "./components/profile/MyPortfolio";
-import MyMessages from "./components/profile/MyMessages";
 import CreateTattoo from "./components/gallery/CreateTattoo";
 import BookingSection from "./components/booking/BookingSection";
 import NotFound from "./components/error/NotFound";
 import Error from "./components/error/Error";
+
+const MyPosts = lazy(() => import("./components/profile/MyPosts"));
+const MyMessages = lazy(() => import("./components/profile/MyMessages"));
+const MyPortfolio = lazy(() => import("./components/profile/MyPortfolio"));
+const WishlistSection = lazy(() => import("./components/wishlist/WishlistSection"));
 
 function App() {
   const location = useLocation();
