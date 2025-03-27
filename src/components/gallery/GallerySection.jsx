@@ -24,7 +24,14 @@ export default function GallerySection() {
             return data
         }, staleTime: Infinity
     })
-    const { query, setQuery, onSearch, filteredData, loadMore, isPending, onScrollUp, error: searchErr } = useSearchBar(data, pagination, setPagination);
+    const { query,
+        setQuery,
+        onSearch,
+        filteredData,
+        loadMore, isPending,
+        onScrollUp, error: searchErr,
+        isMore
+    } = useSearchBar(data, pagination, setPagination);
 
     // gallery section with all tattoo with possibility for filtering, load more and scroll to top
     if (isLoading) return <Spinner />
@@ -45,7 +52,7 @@ export default function GallerySection() {
                         : <NoContent content="Nothing in Gallery yet..." />}
                 </div>
                 <div className="flex justify-center mt-8">
-                    {count > filteredData?.length
+                    {isMore
                         ? <SubmitFormButton textContent="Load more" isPending={isPending} clickHandler={loadMore} />
                         : <SubmitFormButton textContent="Scroll to top" isPending={isPending} clickHandler={onScrollUp} />
                     }
