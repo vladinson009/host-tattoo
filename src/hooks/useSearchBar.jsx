@@ -5,7 +5,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 export default function useSearchBar(data, pagination, setPagination) {
     const queryClient = useQueryClient()
-    // const { setCount } = useContext(context);
+    const [isMore, setIsMore] = useState(true);
     const navigate = useNavigate();
     const { search } = useLocation();
     const [filteredData, setFilteredData] = useState(data);
@@ -26,7 +26,9 @@ export default function useSearchBar(data, pagination, setPagination) {
             );
             return newFetch;
         }, onSuccess: (newFetch) => {
-
+            if (newFetch.length < 8) {
+                setIsMore(false);
+            }
             queryClient.setQueryData(["getGallery"], (prevData = []) => [
                 ...prevData,
                 ...newFetch,
@@ -74,6 +76,7 @@ export default function useSearchBar(data, pagination, setPagination) {
         loadMore: mutate,
         isPending,
         onScrollUp,
-        error
+        error,
+        isMore
     };
 }
