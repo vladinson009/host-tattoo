@@ -1,4 +1,4 @@
-export default function InputFormField({ labelName, type, name, value }) {
+export default function InputFormField({ labelName, type, name, value, placeholder }) {
     // reusable input field component
 
     return (
@@ -11,6 +11,7 @@ export default function InputFormField({ labelName, type, name, value }) {
                 required
                 defaultValue={value}
                 className="text-1xl md:text-2xl mt-1 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500"
+                placeholder={placeholder}
             />
         </div>
     )

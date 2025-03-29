@@ -18,8 +18,19 @@ export default function LoginSection() {
         <>
             {error && <Toast message={error} />}
             <Form name="Login" error={error} action={formAction} >
-                <InputFormField labelName='Username' type='text' name='username' value={userInput?.username} />
-                <InputFormField labelName='Password' type='password' name='password' />
+                <InputFormField
+                    labelName='Username'
+                    type='text'
+                    name='username'
+                    value={userInput?.username}
+                    placeholder="peter..."
+                />
+                <InputFormField
+                    labelName='Password'
+                    type='password'
+                    name='password'
+                    placeholder="******"
+                />
                 <SubmitFormButton isPending={isPending} textContent='Login' />
                 <FormFooter text="Don't have an account?" link='/register' linkText='Register here' />
             </Form>

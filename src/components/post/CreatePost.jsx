@@ -22,10 +22,21 @@ export default function CreatePost() {
             <Form name="Create a New Post" action={formAction}>
 
                 <FormFieldRequirement value="Title must be at least 1 character long!" />
-                <InputFormField labelName="Title" type="text" name="title" value={userInput?.title} />
+                <InputFormField
+                    labelName="Title"
+                    type="text"
+                    name="title"
+                    value={userInput?.title}
+                    placeholder="My first tattoo at Høst tattoo studio..."
+                />
 
                 <FormFieldRequirement value="Description must be at least 1 character long!" />
-                <TextareaFormField labelName="Description" name="description" value={userInput?.description} />
+                <TextareaFormField
+                    labelName="Description"
+                    name="description"
+                    value={userInput?.description}
+                    placeholder="Your descripton here..."
+                />
 
                 <FormFieldRequirement value="Photo is required!" />
                 <UploadFileField isPending={isPending} labelName="Upload Photo" name="image" />

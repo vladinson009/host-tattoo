@@ -21,16 +21,38 @@ export default function RegisterSection() {
             <Form name='Register' error={error} action={formAction}>
 
                 <FormFieldRequirement value='Username must be at least 3 characters long!' />
-                <InputFormField labelName='Username' type='text' name='username' value={userInput?.username} />
+                <InputFormField
+                    labelName='Username'
+                    type='text'
+                    name='username'
+                    value={userInput?.username}
+                    placeholder="peter..."
+                />
 
                 <FormFieldRequirement value='Email must be at least 6 characters long!' />
-                <InputFormField labelName='Email' type='email' name='email' value={userInput?.email} />
+                <InputFormField
+                    labelName='Email'
+                    type='email'
+                    name='email'
+                    value={userInput?.email}
+                    placeholder="peter@abv.bg..."
+                />
 
                 <FormFieldRequirement value='Password must be at least 6 characters long!' />
-                <InputFormField labelName='Password' type='password' name='password' />
+                <InputFormField
+                    labelName='Password'
+                    type='password'
+                    name='password'
+                    placeholder="******"
+                />
 
                 <FormFieldRequirement value='Repeat password must match password!' />
-                <InputFormField labelName='Repeat Password' type='password' name='rePass' />
+                <InputFormField
+                    labelName='Repeat Password'
+                    type='password'
+                    name='rePass'
+                    placeholder="******"
+                />
 
                 <SubmitFormButton isPending={isPending} textContent={'Register'} />
                 <FormFooter text="Already have an account?" link="/login" linkText="Sign in" />

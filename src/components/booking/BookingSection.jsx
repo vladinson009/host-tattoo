@@ -38,10 +38,21 @@ export default function BookingSection() {
                 <SelectFormField labelName="Choose an artist" name="artistId" artists={artists} />
 
                 <FormFieldRequirement value="Topic must be at least 1 character long!!" />
-                <InputFormField labelName='Topic' type='text' name='topic' value={userInput?.topic} />
+                <InputFormField
+                    labelName='Topic'
+                    type='text'
+                    name='topic'
+                    value={userInput?.topic}
+                    placeholder="I have question about booking..."
+                />
 
                 <FormFieldRequirement value="The message must be at least 1 character long!!" />
-                <TextareaFormField labelName='Short message...' name='message' value={userInput?.message} />
+                <TextareaFormField
+                    labelName='Message...'
+                    name='message'
+                    value={userInput?.message}
+                    placeholder="Are you working in the weekend?..."
+                />
 
                 <SubmitFormButton isPending={isPending} textContent='Send email' />
                 <FormFooter text="Wondering which artist to choose?" link='/artists' linkText='Check our artists' />

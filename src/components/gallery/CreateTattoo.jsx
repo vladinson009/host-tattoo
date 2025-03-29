@@ -12,7 +12,7 @@ import Toast from "../partials/Toast";
 
 
 export default function CreateTattoo() {
-    const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo, true)
+    const { formAction, isPending, error, userInput } = useCreateForm(galleryService.createTattoo,)
     // only for artists
     // create tattoo form with input fields and upload file field 
     return (
@@ -21,13 +21,30 @@ export default function CreateTattoo() {
             <Form name="Create New Tattoo" action={formAction}>
 
                 <FormFieldRequirement value="Title must be at least 1 character long!" />
-                <InputFormField labelName="Title" type="text" name="title" value={userInput?.title} />
+                <InputFormField
+                    labelName="Title"
+                    type="text"
+                    name="title"
+                    value={userInput?.title}
+                    placeholder="Face of fear.."
+                />
 
                 <FormFieldRequirement value="Price must be a positive number!" />
-                <InputFormField labelName="Price" type="text" name="price" value={userInput?.price} />
+                <InputFormField
+                    labelName="Price"
+                    type="text"
+                    name="price"
+                    value={userInput?.price}
+                    placeholder="219..."
+                />
 
                 <FormFieldRequirement value="Description must be at least 1 character long!" />
-                <TextareaFormField name="description" labelName="Description" value={userInput?.description} />
+                <TextareaFormField
+                    name="description"
+                    labelName="Description"
+                    value={userInput?.description}
+                    placeholder="Your descrption here..."
+                />
 
                 <FormFieldRequirement value="Photo is required!" />
                 <UploadFileField isPending={isPending} labelName="Upload Photo" name="image" value={userInput?.image} />
