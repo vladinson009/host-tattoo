@@ -19,8 +19,8 @@ export default function useCreateForm(apiCall, createTattoo) {
             if (createTattoo) {
                 queryClient.invalidateQueries(['getGallery'])
                 setCount(prev => prev + 1)
-                tempMessage("Tattoo project created succesfully!");
                 navigate('/gallery')
+                tempMessage("Tattoo project created succesfully!");
 
                 return userInput
             }
