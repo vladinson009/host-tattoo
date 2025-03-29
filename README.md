@@ -2,6 +2,10 @@
 
 # How it works
 
+- install dependencies `npm i`
+- run in dev mode `npm run dev`
+- run tests `npm run test`
+
 ---
 
 # Guest users:
@@ -18,7 +22,7 @@
 
 - Use Infinity pagination at the bottom of Gallery page
 
-- Check Tattoo details by clicking on the tattoo image(or Artist Details by click on artist name)
+- Check Tattoo details by clicking on the tattoo image(from homepage, artist's portfolio or Gallery)
 
 - Check Artists
 
@@ -41,10 +45,11 @@ Feel free to register new one :)
 ### in additional to guest can:
 
 - Book now button in homepage
-- Private part (Wishlist in user dropdown menu)
-- Add/remove tattoo to/from wishlist collection(tattoo is accesable from Gallery, or Artist Details and appear in Wishlist after adding to collection)
+- Private part (`My Wishlist` in user dropdown menu)
+- Private part (`My Posts` in user dropdown menu)
+- Add/remove tattoo to/from wishlist collection(tattoo is accesable from Gallery, or Artist Details and appear in `My Wishlist` after adding to collection)
 
-- Check only my posts (in user dropdown menu)
+- Check only my posts (in user dropdown menu `My Posts`)
 
 CRUD for Authenticated user:
 
@@ -70,10 +75,10 @@ Other functionality
 
 ### in additional to Authenticated can:
 
-- Create tattoo (in Navigation)
-- Permission to delete/edit own tattoo but cant add ownt tattoo to wishlist(in Tattoo Details)
-- Access own tattoo collection (in user dropdown menu)
-- Access BOOK TIME messages from Authenticated Users sent to them ("My messages" in user dropdown menu)
+- `Create tattoo` (in Navigation)
+- Permission to delete/edit own tattoo but cant add ownt tattoo to wishlist(in `Tattoo Details`)
+- Access own tattoo collection (in user dropdown menu => `My Portfolio`)
+- Access BOOK TIME messages from Authenticated Users sent to them (`My messages` in user dropdown menu)
 
 ---
 
@@ -92,9 +97,10 @@ Other functionality
 
 ## Private Part
 
-- My Tattoos wishlist
+- My Wishlist
 - My Posts
-- My messages (if role is an "Artist")
+- My Messages (if role is an "Artist")
+- My Portfolio (if role is an "Artist")
 
 ## General requirements
 
@@ -135,14 +141,13 @@ Other functionality
 
         Logged in users
 
-- can like news feed post
-- can dislike news feed post
+- can like/dislike news feed post
 - can comment news feed post
-- can like artist
-- can add to wishlist
-- can reate post/tattoo
+- can like/dislike artist
+- can add/remove tattoo to/from wishlist
+- can create post/tattoo
 
-      Logged in users(Author)
+      Logged in users(if Author)
 
 - can edit and delete post (and tattoo if is an artist)
 
@@ -179,6 +184,7 @@ Other functionality
 
 ### Error handling
 
+- demonstrating manual abort controller in case to prevent multiply requests(in useQuery abort controller happening under the hood)
 - showing error message on toast if error
 - data validation before send data to the server
 
@@ -208,7 +214,7 @@ Stateless and stateful components
 
 Bound Forms
 
-- demonstrating bound forms
+- demonstrating bound forms(controllerd forms)
 - demonstrating form action state as well
 
 Synthetic events
@@ -230,12 +236,13 @@ Component lifecycle (mount, update, unmount)
 ## Bonuses
 
 - Using back4app file storage to store photos
+- Unit tests and component tests using vitest
 - Deployed app at <a href="https://host-tattoo.vercel.app" target="_blank" rel="noopener noreferrer">https://host-tattoo.vercel.app</a>
 
 Bonuses not described in the assignment but has practical use:
 
 - Search bar in Gallery for better UX
-- Infinity pagination to load data at small parts
+- Infinity pagination to load data at small parts in Gallery
 - Drag and Drop modal for comments in News Feed
 - Responsive design for mobiles and desktop
 - staleTime and cacheTime to reduce requests
