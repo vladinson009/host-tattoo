@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import TattooCard from "./TattooCard";
 import Spinner from "../partials/Spinner";
@@ -8,19 +8,25 @@ import galleryService from "../../services/galleryService";
 import useSearchBar from "../../hooks/useSearchBar";
 import SearchBar from "./SearchBar";
 import SubmitFormButton from "../partials/form/SubmitFormButton";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import context from "../../context/context";
 
 export default function GallerySection() {
     const { count, setCount } = useContext(context);
+    const [isMore, setIsMore] = useState(false);
+    const queryClient = useQueryClient();
     const [pagination, setPagination] = useState({ skip: 0, limit: 8 });
     const { data, isLoading, error } = useQuery({
-        queryKey: ['getGallery'], queryFn: async () => {
+        queryKey: ['getGallery'],
+        queryFn: async () => {
             const [count, data] = await Promise.all([
                 galleryService.getCountGallery(),
                 galleryService.getGallery(pagination.skip, pagination.limit)
             ])
             setCount(count);
+            if (count > data.length) {
+                setIsMore(true)
+            }
             return data
         }, staleTime: Infinity
     })
@@ -30,9 +36,13 @@ export default function GallerySection() {
         filteredData,
         loadMore, isPending,
         onScrollUp, error: searchErr,
-        isMore
-    } = useSearchBar(data, pagination, setPagination);
 
+    } = useSearchBar(data, pagination, setPagination, setIsMore);
+
+    useEffect(() => {
+        if (!isMore) { return }
+        queryClient.invalidateQueries(['getGallery']); // Reset cache before fetching
+    }, [queryClient, isMore]);
     // gallery section with all tattoo with possibility for filtering, load more and scroll to top
     if (isLoading) return <Spinner />
     return (
