@@ -21,7 +21,7 @@ describe('Login functionality', () => {
             </ContextProvider>
         )
     })
-    it('Shows error when logging in with wrong password', async () => {
+    it.only('Shows error when logging in with wrong password', async () => {
         const titleElement = await screen.findByText('Login', { selector: 'h2' })
         const usernameInput = await screen.findByRole('textbox', { name: 'Username' })
         const passwordInput = await screen.findByLabelText('Password')
@@ -34,6 +34,10 @@ describe('Login functionality', () => {
 
         await userEvent.type(usernameInput, 'peter')
         await userEvent.type(passwordInput, 'wrongPassword');
+
+        expect(usernameInput).toHaveDisplayValue('peter')
+        expect(passwordInput).toHaveDisplayValue('wrongPassword')
+
         await userEvent.click(loginBtn);
 
         const errorMessage = await screen.findByText("Invalid username/password", { exact: false });
