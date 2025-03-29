@@ -12,8 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import context from "../../context/context";
 
 export default function GallerySection() {
-    const { count, setCount } = useContext(context);
-    const [isMore, setIsMore] = useState(false);
+    const { count, setCount, isMore, setIsMore } = useContext(context);
     const queryClient = useQueryClient();
     const [pagination, setPagination] = useState({ skip: 0, limit: 8 });
     const { data, isLoading, error } = useQuery({
