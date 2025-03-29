@@ -43,7 +43,7 @@ export default function BookingSection() {
                     type='text'
                     name='topic'
                     value={userInput?.topic}
-                    placeholder="I have question about booking..."
+                    placeholder="I have a question about..."
                 />
 
                 <FormFieldRequirement value="The message must be at least 1 character long!!" />

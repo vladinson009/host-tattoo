@@ -27,7 +27,7 @@ export default function CreatePost() {
                     type="text"
                     name="title"
                     value={userInput?.title}
-                    placeholder="My first tattoo at Høst tattoo studio..."
+                    placeholder="My amazing tattoo..."
                 />
 
                 <FormFieldRequirement value="Description must be at least 1 character long!" />
@@ -35,7 +35,7 @@ export default function CreatePost() {
                     labelName="Description"
                     name="description"
                     value={userInput?.description}
-                    placeholder="Your descripton here..."
+                    placeholder="Add descripton here..."
                 />
 
                 <FormFieldRequirement value="Photo is required!" />
