@@ -16,7 +16,7 @@ export default function TattooCard({ tattoo }) {
                 <h3 className="text-xl sm:text-1xl md:text-2xl lg:text-3xl text-white">{tattoo.title}</h3>
             </div>
             <p className="text-white font-medium m-4 bottom">
-                Posted by:
+                Artist:
                 <Link to={`/artists/${tattoo.artistId.objectId}`}>
                     <span className="text-red-600 text-1xl sm:text-2xl md:text-3xl cursor-pointer hover:text-yellow-500 hover:scale-110 hover:shadow-lg transition-all duration-300"> {tattoo.artistId.name}</span>
                 </Link>
