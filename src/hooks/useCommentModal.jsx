@@ -3,6 +3,7 @@ import postService from "../services/postService";
 import context from "../context/context";
 
 export default function useCommentModal(setCommentsCount, post, isOpen) {
+    const { userSession } = useContext(context);
     const { tempMessage } = useContext(context)
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
@@ -56,18 +57,19 @@ export default function useCommentModal(setCommentsCount, post, isOpen) {
     // fetch comments by post id
     useEffect(() => {
         const controller = new AbortController();
-        (async () => {
-            try {
-                const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
-                setComments(retrievedComments)
-                setCommentsCount(retrievedComments.length)
+        if (userSession) {
+            (async () => {
+                try {
+                    const retrievedComments = await postService.retrieveComments(post.objectId, controller.signal);
+                    setComments(retrievedComments)
+                    setCommentsCount(retrievedComments.length)
 
-            } catch (error) {
-                setError(error.message);
-            }
+                } catch (error) {
+                    setError(error.message);
+                }
 
-        })()
-
+            })()
+        }
         return () => controller.abort();
     }, [post.objectId, setCommentsCount])
 
