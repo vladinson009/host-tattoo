@@ -54,7 +54,7 @@ export default function BookingSection() {
                     placeholder="Are you working in the weekend?..."
                 />
 
-                <SubmitFormButton isPending={isPending} textContent='Send email' />
+                <SubmitFormButton isPending={isPending} textContent='Send' />
                 <FormFooter text="Wondering which artist to choose?" link='/artists' linkText='Check our artists' />
             </Form>
         </>
