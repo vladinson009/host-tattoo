@@ -19,15 +19,17 @@ import ArtistDetails from "./components/artist/ArtistDetails";
 import Spinner from "./components/partials/Spinner";
 import PublicGuard from "./components/guards/PublicGuard";
 import PrivateGuard from "./components/guards/PrivateGuard";
-import CreateTattoo from "./components/gallery/CreateTattoo";
 import BookingSection from "./components/booking/BookingSection";
 import NotFound from "./components/error/NotFound";
 import Error from "./components/error/Error";
+import ArtistGuard from "./components/guards/ArtistGuard";
 
 const MyPosts = lazy(() => import("./components/profile/MyPosts"));
-const MyMessages = lazy(() => import("./components/profile/MyMessages"));
-const MyPortfolio = lazy(() => import("./components/profile/MyPortfolio"));
 const WishlistSection = lazy(() => import("./components/wishlist/WishlistSection"));
+const MyPortfolio = lazy(() => import("./components/profile/MyPortfolio"));
+const MyMessages = lazy(() => import("./components/profile/MyMessages"));
+const CreateTattoo = lazy(() => import("./components/gallery/CreateTattoo"));
+
 
 function App() {
   const location = useLocation();
@@ -59,9 +61,13 @@ function App() {
                   <Route path="/wishlist" element={<WishlistSection />} />
                   <Route path="/booking" element={<BookingSection />} />
                   <Route path="/my-posts" element={<MyPosts />} />
-                  <Route path="/my-portfolio" element={<MyPortfolio />} />
-                  <Route path="/my-messages" element={<MyMessages />} />
-                  <Route path="/create-tattoo" element={<CreateTattoo />} />
+
+                  <Route element={<ArtistGuard />}>
+                    <Route path="/my-portfolio" element={<MyPortfolio />} />
+                    <Route path="/my-messages" element={<MyMessages />} />
+                    <Route path="/create-tattoo" element={<CreateTattoo />} />
+                  </Route>
+
                 </Route>
 
                 <Route path="/" element={<Home />} />
