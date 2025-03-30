@@ -21,7 +21,7 @@ describe('Login functionality', () => {
             </ContextProvider>
         )
     })
-    it.only('Shows error when logging in with wrong password', async () => {
+    it('Shows error when logging in with wrong password', async () => {
         const titleElement = await screen.findByText('Login', { selector: 'h2' })
         const usernameInput = await screen.findByRole('textbox', { name: 'Username' })
         const passwordInput = await screen.findByLabelText('Password')
