@@ -7,6 +7,9 @@ const xParseApplication = 'L2SkOsmzDY96yik2SKZgPI95tqnwbgBqsUdUDDeR';
 const xParseRestApiKey = 'zRh0jUoQmCUwIE6Ag0apVW6NWwHDcaHvyYSsIVNn';
 const xParseRevocableSession = 1;
 
+let navigateFunction = null;
+export const setNavigate = (navigate) => (navigateFunction = navigate);
+
 async function fetcher(url, method, data, signal) {
   const userSessioin = getUserSession();
 
@@ -41,8 +44,10 @@ async function fetcher(url, method, data, signal) {
     if (error.code === 209) {
       clearUserData();
       alert(error.error);
-      window.location = '/';
-      return;
+      if (navigateFunction) {
+        navigateFunction('/');
+        return;
+      }
     }
     throw new Error(error.error);
   }
