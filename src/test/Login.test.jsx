@@ -12,13 +12,13 @@ describe('Login functionality', () => {
     beforeEach(() => {
         const queryClient = new QueryClient();
         render(
-            <ContextProvider>
-                <QueryClientProvider client={queryClient}>
-                    <MemoryRouter>
+            <MemoryRouter>
+                <ContextProvider>
+                    <QueryClientProvider client={queryClient}>
                         <LoginSection />
-                    </MemoryRouter>
-                </QueryClientProvider>
-            </ContextProvider>
+                    </QueryClientProvider>
+                </ContextProvider>
+            </MemoryRouter>
         )
     })
     it('Shows error when logging in with wrong password', async () => {
