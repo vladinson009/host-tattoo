@@ -37,7 +37,7 @@ function MessageCard({ messageData }) {
             </div>
             <div className="flex items-center space-x-4">
                 <div>
-                    <h2 className="text-xl font-semibold text-red-600">User ID: {objectId}</h2>
+                    <h2 className="text-xl text-red-600">User ID: {objectId}</h2>
                     <p className="text-sm text-gray-400">Topic: {topic}</p>
                 </div>
             </div>
@@ -46,7 +46,7 @@ function MessageCard({ messageData }) {
             </div>
             <div className="mt-4 text-sm text-gray-500">
                 <p>
-                    <span className="font-semibold text-gray-300">Artist ID:</span> {artistId.objectId}
+                    <span className="text-gray-300">Artist ID:</span> {artistId.objectId}
                 </p>
                 <p className="text-gray-400">Message Sent on: {new Date(createdAt).toLocaleString()}</p>
             </div>
